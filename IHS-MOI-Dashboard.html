@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IHS — Market Opportunity Intelligence</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ── VARIABLES ── */
+:root {
+  --bg:        #0a0d14;
+  --surface:   #111520;
+  --surface2:  #161b28;
+  --card-bg:   #151a27;
+  --border:    #1f2940;
+  --text:      #e8edf5;
+  --text2:     #6b7fa0;
+  --text3:     #3a4d68;
+  --accent:    #14b8a6;
+  --blue:      #3b82f6;
+  --shadow:    0 2px 20px rgba(0,0,0,.55);
+  --shadow-sm: 0 1px 6px rgba(0,0,0,.35);
+  --green:     #22c55e; --green-bg: rgba(34,197,94,.09);
+  --yellow:    #f59e0b; --yellow-bg:rgba(245,158,11,.09);
+  --red:       #ef4444; --red-bg:   rgba(239,68,68,.09);
+  --bar-track: #1a2236;
+  --detail-bg: #0c1018;
+  --row-hover: rgba(20,184,166,.05);
+  --tab-act:   rgba(20,184,166,.11);
+  --chip-bg:   #161b28;
+  --chip-act:  rgba(20,184,166,.16);
+  --panel-bg:  #0e121c;
+}
+html.light {
+  --bg:        #f0f4f8;
+  --surface:   #ffffff;
+  --surface2:  #f8fafc;
+  --card-bg:   #ffffff;
+  --border:    #e2e8f0;
+  --text:      #0f172a;
+  --text2:     #475569;
+  --text3:     #94a3b8;
+  --shadow:    0 2px 14px rgba(0,0,0,.07);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.08);
+  --green-bg:  #f0fdf4; --yellow-bg:#fffbeb; --red-bg:#fef2f2;
+  --bar-track: #e2e8f0;
+  --detail-bg: #f1f5f9;
+  --row-hover: rgba(20,184,166,.05);
+  --tab-act:   rgba(20,184,166,.07);
+  --chip-bg:   #f1f5f9;
+  --chip-act:  rgba(20,184,166,.10);
+  --panel-bg:  #eef2f7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .2s,color .2s;overflow-x:hidden}
+
+/* ── HEADER ── */
+.hdr{background:#08090f;border-bottom:1px solid #141a28;padding:13px 28px}
+.hdr-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:baseline;gap:7px;flex-shrink:0}
+.brand-co{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#2d3f5c;padding-right:10px;border-right:1px solid #1a2438}
+.brand-title{font-size:15.5px;font-weight:700;color:#e8edf5;letter-spacing:-.2px}
+.brand-title em{color:#14b8a6;font-style:normal}
+.hdr-right{margin-left:auto}
+#mode-btn{background:#141a28;border:1px solid #1f2940;color:#6b7fa0;padding:5px 14px;border-radius:6px;cursor:pointer;font-size:11.5px;font-family:inherit;transition:border-color .15s,color .15s;letter-spacing:.3px}
+#mode-btn:hover{border-color:#14b8a6;color:#14b8a6}
+
+/* ── TABS ── */
+.tabs{background:#08090f;border-bottom:1px solid #141a28;padding:0 28px}
+.tabs-inner{max-width:1440px;margin:0 auto;display:flex;gap:2px}
+.tab-btn{padding:9px 18px;font-size:12px;font-weight:600;color:var(--text2);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;font-family:inherit;white-space:nowrap}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:#14b8a6;border-bottom-color:#14b8a6;background:var(--tab-act)}
+
+/* ── MARKET SELECTOR PANEL ── */
+.mkt-panel{background:var(--panel-bg);border-bottom:1px solid var(--border);padding:14px 28px;transition:background .2s}
+.mkt-panel-inner{max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:11px}
+.mkt-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mkt-divider{width:1px;height:20px;background:var(--border);flex-shrink:0;margin:0 4px}
+.pill-btn{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--chip-bg);color:var(--text2);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
+.pill-btn.active{border-color:#14b8a6;color:#14b8a6;background:var(--chip-act)}
+.pill-btn:hover:not(.active){border-color:var(--text3);color:var(--text)}
+
+/* market dropdown row */
+.mkt-dd-wrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.dd-with-dot{display:flex;align-items:center;gap:8px;position:relative}
+.dd-status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;transition:background .2s}
+.mkt-dropdown{
+  background:var(--chip-bg);border:1px solid var(--border);color:var(--text);
+  padding:7px 36px 7px 13px;border-radius:8px;font-size:12.5px;font-family:inherit;
+  cursor:pointer;outline:none;transition:border-color .15s;min-width:300px;
+  -webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7fa0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;
+}
+.mkt-dropdown:focus{border-color:#14b8a6}
+.mkt-dropdown option{background:#161b28;color:#e8edf5}
+html.light .mkt-dropdown option{background:#ffffff;color:#0f172a}
+.add-mkt-btn{font-size:11px;color:#14b8a6;text-decoration:none;padding:5px 12px;border:1px solid rgba(20,184,166,.35);border-radius:6px;background:transparent;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;display:inline-block}
+.add-mkt-btn:hover{border-color:#14b8a6;background:rgba(20,184,166,.06);color:#14b8a6}
+.mkt-sel-row{display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--border);flex-wrap:wrap}
+.msd-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3)}
+.msd-name{font-size:13px;font-weight:700;color:var(--text)}
+.msd-meta{font-size:11px;color:var(--text3)}
+.msd-sep{color:var(--text3);font-size:11px}
+
+/* status badges */
+.sbadge{padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;flex-shrink:0}
+.sbadge.active{background:rgba(34,197,94,.12);color:#22c55e;border:1px solid rgba(34,197,94,.25)}
+.sbadge.target{background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.25)}
+.sbadge.natl{background:rgba(20,184,166,.12);color:#14b8a6;border:1px solid rgba(20,184,166,.25)}
+
+/* ── TARGET MARKET BANNER ── */
+.target-banner{background:rgba(20,184,166,.07);border-bottom:1px solid rgba(20,184,166,.2);padding:10px 28px;transition:background .2s}
+.target-banner-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:10px;font-size:12px;color:#14b8a6}
+.target-banner-icon{font-size:14px;flex-shrink:0}
+
+/* ── MAIN ── */
+.main{max-width:1440px;margin:0 auto;padding:22px 24px 60px}
+.panel{display:none}.panel.active{display:block}
+
+/* ── SUMMARY CARDS ── */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+@media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:18px 20px 16px;box-shadow:var(--shadow-sm);border-top:2px solid transparent;transition:transform .14s,background .2s,box-shadow .2s}
+.card:hover{transform:translateY(-1px)}
+html.light .card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
+html.light .card:hover{box-shadow:0 6px 20px rgba(0,0,0,.10),0 0 0 1px #d1dae6}
+.card:nth-child(1){border-top-color:#6366f1}
+.card:nth-child(2){border-top-color:#3b82f6}
+.card:nth-child(3){border-top-color:#0ea5e9}
+.card:nth-child(4){border-top-color:#14b8a6}
+.c-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px}
+.c-val{font-size:22px;font-weight:800;letter-spacing:-.5px;font-variant-numeric:tabular-nums;color:var(--text)}
+.card:nth-child(4) .c-val{color:#14b8a6}
+.c-sub{font-size:10px;color:var(--text3);margin-top:3px}
+
+/* ── SECTION HEADS ── */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;flex-wrap:wrap;gap:6px}
+.sh-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3)}
+.sh-hint{font-size:10.5px;color:var(--text3)}
+.legend{display:flex;gap:12px;flex-wrap:wrap}
+.lg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2)}
+.lgd{width:7px;height:7px;border-radius:50%}
+
+/* ── TABLE — 8 cols, no scroll ── */
+.tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow-sm);transition:background .2s}
+.tbl-toolbar{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+col.c-svc{width:22%}col.c-sam{width:11%}col.c-som{width:11%}
+col.c-tkt{width:10%}col.c-gm{width:9%}col.c-pct{width:13%}col.c-cap{width:11%}col.c-rev{width:13%}
+thead tr{background:var(--surface2);border-bottom:1px solid var(--border)}
+th{padding:9px 10px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);cursor:pointer;white-space:nowrap;user-select:none;overflow:hidden;transition:color .12s,background .12s}
+th:hover{color:var(--text);background:var(--border)}
+th.srt{color:#14b8a6}
+th.num{text-align:right}
+.si{margin-left:3px;font-size:8px;opacity:.3}
+th.srt .si{opacity:1}
+td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:middle;overflow:hidden}
+.dr{cursor:pointer}
+.dr:hover td{background:var(--row-hover) !important}
+.dr:nth-child(4n+1) td{background:rgba(255,255,255,.012)}
+.dr.rg td{background:var(--green-bg)}
+.dr.ry td{background:var(--yellow-bg)}
+.dr.rr td{background:var(--red-bg)}
+.svc-cell{display:flex;align-items:center;gap:7px;min-width:0}
+.xi{font-size:9px;color:var(--text3);transition:transform .18s;flex-shrink:0}
+.xi.open{transform:rotate(90deg);color:#14b8a6}
+.svc-nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sdot{display:inline-block;width:7px;height:7px;border-radius:50%;flex-shrink:0;transition:background .2s}
+.nc{text-align:right;font-variant-numeric:tabular-nums}
+.gm-w{display:flex;align-items:center;gap:6px;justify-content:flex-end}
+.gm-trk{width:32px;height:4px;background:var(--bar-track);border-radius:2px;overflow:hidden;flex-shrink:0}
+.gm-fil{height:100%;background:linear-gradient(90deg,#34d399,#059669);border-radius:2px}
+.pct-w{display:flex;align-items:center;gap:5px;justify-content:flex-end}
+.pct-n{font-weight:600;font-variant-numeric:tabular-nums;min-width:30px;text-align:right}
+/* SOM captured — left border + plain colored text, no badge background */
+td.cap-td{border-left:3px solid transparent;transition:border-color .2s}
+.cap-txt{font-weight:700;font-variant-numeric:tabular-nums;font-size:12px}
+.rv-c{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.rv-c.z{color:var(--text3);font-weight:400;font-style:italic}
+
+/* ── DETAIL ROW ── */
+.detail-row td{padding:0;border-bottom:2px solid #14b8a6}
+.det-inner{padding:20px 28px 22px;background:var(--detail-bg);transition:background .2s}
+.det-top{margin-bottom:14px}
+.sl-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:8px}
+.sl-val-row{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.sl-big{font-size:30px;font-weight:900;color:#14b8a6;font-variant-numeric:tabular-nums;line-height:1}
+.sl-sub{font-size:11px;color:var(--text3)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:var(--border);border-radius:3px;outline:none;cursor:pointer;transition:background .2s;margin:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#14b8a6;box-shadow:0 0 0 4px rgba(20,184,166,.18),0 2px 8px rgba(0,0,0,.3);cursor:pointer;transition:transform .1s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#14b8a6;box-shadow:0 0 0 4px rgba(20,184,166,.18);cursor:pointer;border:none}
+.sl-ticks{display:flex;justify-content:space-between;margin-top:6px;font-size:8.5px;color:var(--text3);padding:0 2px}
+.sl-ticks .tgt{color:#f59e0b;font-weight:700}
+.det-stats{display:flex;gap:16px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border)}
+.ds{min-width:68px}
+.ds-lbl{font-size:8px;text-transform:uppercase;letter-spacing:.7px;font-weight:700;color:var(--text3);margin-bottom:3px}
+.ds-val{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--text)}
+.ds-val.g{color:#14b8a6}
+.dtb-label{font-size:8.5px;color:var(--text3);margin-bottom:4px;margin-top:10px}
+.dtb-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.dtb-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#14b8a6,#0d9488);transition:width .3s}
+
+/* ── OVERVIEW CHART ── */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px 20px;margin-bottom:20px;box-shadow:var(--shadow-sm);transition:background .2s}
+.ch-wrap{position:relative;height:300px}
+
+/* ── SERVICE LINE DETAIL PANEL ── */
+.sld-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.slc{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:15px 17px;box-shadow:var(--shadow-sm);border-left:3px solid var(--border);transition:border-left-color .2s,background .2s}
+html.light .slc{box-shadow:0 2px 8px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
+.slc.sg{border-left-color:#22c55e}.slc.sy{border-left-color:#f59e0b}.slc.sr{border-left-color:#ef4444}
+.slc-name{font-size:12.5px;font-weight:700;margin-bottom:10px;color:var(--text)}
+.slc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
+.slc-kpi-lbl{font-size:8px;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);font-weight:700;margin-bottom:2px}
+.slc-kpi-val{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
+.slc-footer{padding-top:9px;border-top:1px solid var(--border)}
+.slc-pct-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.slc-cap-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.slc-cap-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.slc-rev-row{display:flex;align-items:center;justify-content:space-between}
+.slc-bar-bg{flex:1;height:4px;background:var(--bar-track);border-radius:2px;overflow:hidden;min-width:60px}
+.slc-bar-fg{height:100%;border-radius:2px;background:#14b8a6;transition:width .3s}
+
+/* ── NATIONAL VIEW ── */
+.natl-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+@media(max-width:860px){.natl-cards{grid-template-columns:repeat(2,1fr)}}
+.natl-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:18px 20px;box-shadow:var(--shadow-sm);border-top:2px solid transparent;transition:background .2s}
+html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
+.natl-card:nth-child(1){border-top-color:#6366f1}
+.natl-card:nth-child(2){border-top-color:#3b82f6}
+.natl-card:nth-child(3){border-top-color:#0ea5e9}
+.natl-card:nth-child(4){border-top-color:#14b8a6}
+.nc-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px}
+.nc-val{font-size:24px;font-weight:800;letter-spacing:-.5px;font-variant-numeric:tabular-nums;color:var(--text)}
+.natl-card:nth-child(4) .nc-val{color:#14b8a6}
+.nc-sub{font-size:10px;color:var(--text3);margin-top:3px}
+.natl-mkt-table{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--shadow-sm);transition:background .2s}
+.nmt-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;padding:9px 16px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:10px;font-weight:600;color:var(--text3)}
+.nmt-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;padding:12px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background .1s}
+.nmt-row:last-child{border-bottom:none}
+.nmt-row:hover{background:var(--row-hover)}
+.nmt-row.total{background:var(--surface2);font-weight:700;border-top:2px solid var(--border)}
+.nmt-name{font-weight:600;font-size:12.5px}
+.nmt-val{font-size:12px;font-variant-numeric:tabular-nums;color:var(--text2);text-align:right}
+.nmt-val.teal{color:#14b8a6;font-weight:700}
+.nmt-right{text-align:right}
+
+/* ── COMPARISON TABLE ── */
+.cmp-note{font-size:11px;color:var(--text3);margin-bottom:12px;line-height:1.6;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid rgba(20,184,166,.3)}
+.cmp-tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:22px;box-shadow:var(--shadow-sm)}
+.cmp-tbl-scroll{overflow-x:auto}
+.cmp-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.cmp-tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border)}
+.cmp-tbl th{padding:9px 11px;font-size:10px;font-weight:600;color:var(--text3);white-space:nowrap;text-align:right}
+.cmp-tbl th:first-child{text-align:left}
+.cmp-tbl th.atl-hd{color:rgba(96,165,250,.85)}
+.cmp-tbl th.bos-hd{color:rgba(20,184,166,.85)}
+.cmp-tbl td{padding:9px 11px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;text-align:right;font-size:12px}
+.cmp-tbl td:first-child{text-align:left;font-weight:600}
+.cmp-tbl tr:last-child td{border-bottom:none}
+.cmp-tbl tr:hover td{background:var(--row-hover)}
+.cmp-rev-zero{color:var(--text3);font-style:italic}
+.cmp-rev-set{color:#14b8a6;font-weight:700}
+.gap-pos{color:#60a5fa;font-weight:600}
+.gap-neg{color:#14b8a6;font-weight:600}
+.cmp-legend-row{display:flex;gap:16px;justify-content:flex-start;margin-bottom:12px;align-items:center;flex-wrap:wrap}
+.cmp-lg{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--text2)}
+.cmp-lg-sw{width:14px;height:6px;border-radius:2px}
+.bubble-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px 20px;box-shadow:var(--shadow-sm);transition:background .2s}
+.bw-canvas{position:relative;height:340px}
+
+/* ── FOOTER ── */
+.footer{margin-top:28px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text3);line-height:1.75;box-shadow:var(--shadow-sm);transition:background .2s}
+.footer strong{color:var(--text2)}
+.footer-brand{margin-top:6px;font-size:10px;color:var(--text3);text-align:right;padding-top:6px;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="brand">
+      <span class="brand-co">IHS</span>
+      <span class="brand-title">Market Opportunity <em>Intelligence</em></span>
+    </div>
+    <div class="hdr-right">
+      <button id="mode-btn" onclick="toggleMode()">Light Mode</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs" id="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">Market Overview</button>
+    <button class="tab-btn" data-tab="detail"  onclick="switchTab('detail')">Service Line Detail</button>
+    <button class="tab-btn" data-tab="compare" onclick="switchTab('compare')">Market Comparison</button>
+  </div>
+</div>
+
+<!-- ── MARKET SELECTOR PANEL ── -->
+<div class="mkt-panel">
+  <div class="mkt-panel-inner">
+    <div class="mkt-row">
+      <button class="pill-btn" id="natl-btn" onclick="setView('national')">National View</button>
+      <div class="mkt-divider"></div>
+      <button class="pill-btn" id="btn-usa" onclick="setCountry('usa')">&#127482;&#127480; United States</button>
+      <button class="pill-btn" id="btn-can" onclick="setCountry('canada')">&#127464;&#127462; Canada</button>
+    </div>
+    <div class="mkt-row mkt-dd-wrap" id="mkt-dd-row"></div>
+    <div class="mkt-sel-row" id="mkt-selected-display"></div>
+  </div>
+</div>
+
+<!-- ── TARGET MARKET BANNER ── -->
+<div class="target-banner" id="target-banner" style="display:none">
+  <div class="target-banner-inner">
+    <span class="target-banner-icon">&#9432;</span>
+    <span><strong>Target market</strong> &mdash; IHS has no current operations in Atlanta. Use the penetration sliders to model market entry scenarios.</span>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- ══ NATIONAL VIEW ══ -->
+  <div class="panel" id="panel-national">
+    <div class="natl-cards">
+      <div class="natl-card"><div class="nc-lbl">Total TAM &mdash; All Markets</div><div class="nc-val" id="n-tam">—</div><div class="nc-sub">United States &middot; Active + Target</div></div>
+      <div class="natl-card"><div class="nc-lbl">Total SAM</div><div class="nc-val" id="n-sam">—</div><div class="nc-sub">Serviceable across all markets</div></div>
+      <div class="natl-card"><div class="nc-lbl">Total SOM (5%)</div><div class="nc-val" id="n-som">—</div><div class="nc-sub">Revenue potential at baseline</div></div>
+      <div class="natl-card"><div class="nc-lbl" id="n-our-lbl">IHS Total Revenue (Live)</div><div class="nc-val" id="n-our">—</div><div class="nc-sub" id="n-our-sub">Active markets only &middot; Set target sliders to model entry</div></div>
+    </div>
+    <div class="sh"><span class="sh-title">Market Summary</span><span class="sh-hint">All current and target markets</span></div>
+    <div class="natl-mkt-table">
+      <div class="nmt-head"><div>Market</div><div class="nmt-right">TAM</div><div class="nmt-right">SAM</div><div class="nmt-right">SOM (5%)</div><div class="nmt-right">Our Revenue</div><div class="nmt-right">Avg. Pct</div></div>
+      <div id="nmt-body"></div>
+    </div>
+  </div>
+
+  <!-- ══ MARKET OVERVIEW ══ -->
+  <div class="panel active" id="panel-overview">
+    <div class="cards">
+      <div class="card"><div class="c-lbl">Total TAM</div><div class="c-val" id="c-tam">—</div><div class="c-sub">All 9 service lines</div></div>
+      <div class="card"><div class="c-lbl">Total SAM</div><div class="c-val" id="c-sam">—</div><div class="c-sub">Serviceable in metro</div></div>
+      <div class="card"><div class="c-lbl">SOM at 5%</div><div class="c-val" id="c-som">—</div><div class="c-sub">Revenue at baseline</div></div>
+      <div class="card"><div class="c-lbl">Our Revenue (Live)</div><div class="c-val" id="c-our">$0</div><div class="c-sub" id="c-our-sub">From penetration sliders</div></div>
+    </div>
+    <div class="sh">
+      <span class="sh-title">Service Lines &mdash; click any row to adjust penetration</span>
+      <div class="legend">
+        <div class="lg"><div class="lgd" style="background:#22c55e"></div>&#8805;5%</div>
+        <div class="lg"><div class="lgd" style="background:#f59e0b"></div>2&ndash;4.9%</div>
+        <div class="lg"><div class="lgd" style="background:#ef4444"></div>&lt;2%</div>
+        <div class="lg"><div class="lgd" style="background:#3a4d68"></div>Not set</div>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <div class="tbl-toolbar">
+        <span class="sh-title">Click column headers to sort</span>
+        <span class="sh-hint" id="tbl-hint"></span>
+      </div>
+      <table id="tbl">
+        <colgroup>
+          <col class="c-svc"><col class="c-sam"><col class="c-som"><col class="c-tkt">
+          <col class="c-gm"><col class="c-pct"><col class="c-cap"><col class="c-rev">
+        </colgroup>
+        <thead><tr>
+          <th data-col="service" data-t="s">Service Line <span class="si">&#8645;</span></th>
+          <th data-col="sam"         data-t="n" class="num">SAM <span class="si">&#8645;</span></th>
+          <th data-col="som"         data-t="n" class="num">SOM (5%) <span class="si">&#8645;</span></th>
+          <th data-col="avgTicket"   data-t="n" class="num">Avg Ticket <span class="si">&#8645;</span></th>
+          <th data-col="grossMargin" data-t="n" class="num">Margin <span class="si">&#8645;</span></th>
+          <th data-col="pct"         data-t="n" class="num">Penetration <span class="si">&#8645;</span></th>
+          <th data-col="somCap"      data-t="n" class="num">SOM Captured <span class="si">&#8645;</span></th>
+          <th data-col="ourRev"      data-t="n" class="num">Est. Revenue <span class="si">&#8645;</span></th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="sh"><span class="sh-title">SAM by Service Line</span><span class="sh-hint">Teal = our revenue &nbsp;&middot;&nbsp; Gray = remaining SAM</span></div>
+    <div class="chart-wrap">
+      <div class="ch-wrap"><canvas id="overview-chart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ══ SERVICE LINE DETAIL ══ -->
+  <div class="panel" id="panel-detail">
+    <div class="cards" style="margin-bottom:18px">
+      <div class="card"><div class="c-lbl">Total TAM</div><div class="c-val" id="d-tam">—</div><div class="c-sub">All 9 lines</div></div>
+      <div class="card"><div class="c-lbl">Total SAM</div><div class="c-val" id="d-sam">—</div><div class="c-sub">Serviceable</div></div>
+      <div class="card"><div class="c-lbl">SOM at 5%</div><div class="c-val" id="d-som">—</div><div class="c-sub">Baseline</div></div>
+      <div class="card"><div class="c-lbl">Our Revenue</div><div class="c-val" id="d-our">$0</div><div class="c-sub">Live total</div></div>
+    </div>
+    <div class="sh"><span class="sh-title">Service Line Cards &mdash; color-coded by penetration status</span></div>
+    <div class="sld-grid" id="sld-grid"></div>
+  </div>
+
+  <!-- ══ MARKET COMPARISON ══ -->
+  <div class="panel" id="panel-compare">
+    <div class="cmp-legend-row">
+      <div class="cmp-lg"><div class="cmp-lg-sw" style="background:rgba(96,165,250,.6)"></div>Atlanta (Target)</div>
+      <div class="cmp-lg"><div class="cmp-lg-sw" style="background:rgba(20,184,166,.6)"></div>Boston (Active &middot; GF Sprague)</div>
+    </div>
+    <div class="cmp-note" id="cmp-note">Atlanta revenue reflects modeled entry scenarios. Boston revenue reflects GF Sprague Exteriors active operations.</div>
+    <div class="cmp-tbl-wrap">
+      <div class="cmp-tbl-scroll">
+        <table class="cmp-tbl">
+          <thead><tr>
+            <th>Service Line</th>
+            <th class="atl-hd">ATL SAM</th>
+            <th class="atl-hd">ATL Penetration</th>
+            <th class="atl-hd">ATL Est. Revenue</th>
+            <th class="bos-hd">BOS SAM</th>
+            <th class="bos-hd">BOS Penetration</th>
+            <th class="bos-hd">BOS Est. Revenue</th>
+            <th>Opportunity Gap</th>
+          </tr></thead>
+          <tbody id="cmp-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="sh"><span class="sh-title">SAM vs. Penetration Positioning</span><span class="sh-hint">Bubble size = Est. Revenue &nbsp;&middot;&nbsp; X = SAM &nbsp;&middot;&nbsp; Y = Penetration %</span></div>
+    <div class="bubble-wrap">
+      <div class="bw-canvas"><canvas id="bubble-chart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <strong>Methodology:</strong>
+    TAM scaled from national benchmarks (IBISWorld, NAHB, Statista) by metro housing share
+    (Atlanta ~1.75% of 137M U.S. units; Boston ~1.39%). SAM = ~70% of TAM (owner-occupied SFH within service radius).
+    SOM = SAM &times; 5%. <strong>Est. Revenue</strong> = SAM &times; Penetration %.
+    <strong>SOM Captured</strong> = (Penetration &divide; 5%) as a percentage &mdash; green border &ge;40%, yellow 20&ndash;39%, red &lt;20%.
+    National View IHS Revenue counts Active markets only by default; modeled revenue from Target market sliders is added separately.
+    Boston defaults reflect GF Sprague's ~$10M revenue profile (roofing-first). Atlanta defaults to 0% (no current operations).
+    <div class="footer-brand">Built for IHS &nbsp;&middot;&nbsp; Market Opportunity Intelligence Platform</div>
+  </div>
+</div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+// Atlanta: ALL pct = 0.0 — target market, no current IHS presence
+const MARKETS = {
+  atlanta: {
+    name:'Greater Atlanta Metro', shortName:'Atlanta', country:'usa',
+    status:'target', company:null, pop:'6.3M pop \u00b7 2.4M housing units',
+    rows:[
+      {id:0,service:'Windows',                               tam:299e6,sam:209e6,avgTicket:9500, grossMargin:38,pct:0.0},
+      {id:1,service:'Exterior Doors',                        tam:92e6, sam:64e6, avgTicket:2500, grossMargin:37,pct:0.0},
+      {id:2,service:'Roofing \u2013 Residential Replacement',tam:485e6,sam:340e6,avgTicket:14500,grossMargin:42,pct:0.0},
+      {id:3,service:'Roofing \u2013 Insurance Replacement',  tam:320e6,sam:224e6,avgTicket:18000,grossMargin:40,pct:0.0},
+      {id:4,service:'Siding',                                tam:218e6,sam:153e6,avgTicket:15000,grossMargin:38,pct:0.0},
+      {id:5,service:'Solar Shingles',                        tam:28e6, sam:20e6, avgTicket:55000,grossMargin:25,pct:0.0},
+      {id:6,service:'Solar Panels',                          tam:445e6,sam:312e6,avgTicket:30000,grossMargin:20,pct:0.0},
+      {id:7,service:'Gutters',                               tam:62e6, sam:43e6, avgTicket:2200, grossMargin:48,pct:0.0},
+      {id:8,service:'Attic Insulation',                      tam:78e6, sam:55e6, avgTicket:3500, grossMargin:45,pct:0.0},
+    ]
+  },
+  boston: {
+    name:'Greater Boston / Needham', shortName:'Boston', country:'usa',
+    status:'active', company:'GF Sprague Exteriors', pop:'4.9M pop \u00b7 1.9M housing units',
+    rows:[
+      {id:0,service:'Windows',                               tam:236e6,sam:165e6,avgTicket:9500, grossMargin:38,pct:0.2},
+      {id:1,service:'Exterior Doors',                        tam:83e6, sam:58e6, avgTicket:2500, grossMargin:37,pct:0.1},
+      {id:2,service:'Roofing \u2013 Residential Replacement',tam:347e6,sam:243e6,avgTicket:14500,grossMargin:42,pct:2.8},
+      {id:3,service:'Roofing \u2013 Insurance Replacement',  tam:222e6,sam:155e6,avgTicket:17000,grossMargin:40,pct:1.8},
+      {id:4,service:'Siding',                                tam:195e6,sam:136e6,avgTicket:15000,grossMargin:38,pct:0.2},
+      {id:5,service:'Solar Shingles',                        tam:22e6, sam:15e6, avgTicket:55000,grossMargin:25,pct:0.0},
+      {id:6,service:'Solar Panels',                          tam:278e6,sam:194e6,avgTicket:28000,grossMargin:20,pct:0.0},
+      {id:7,service:'Gutters',                               tam:55e6, sam:38e6, avgTicket:2200, grossMargin:48,pct:0.3},
+      {id:8,service:'Attic Insulation',                      tam:70e6, sam:49e6, avgTicket:3500, grossMargin:45,pct:0.1},
+    ]
+  }
+};
+Object.values(MARKETS).forEach(m=>m.rows.forEach(r=>{
+  r.som=r.sam*.05; r.impliedRev=r.som; r.ourRev=r.sam*(r.pct/100); r.somCap=(r.pct/5)*100;
+}));
+const MARKET_ORDER=['atlanta','boston'];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let view='market', curCountry='usa', curMkt='atlanta', curTab='overview';
+let sortCol=null, sortDir=-1, openId=null, isDark=true;
+const charts={};
+
+// ── FORMAT ────────────────────────────────────────────────────────────────────
+function fmtM(v){
+  if(!v&&v!==0)return'\u2014';
+  if(v>=1e9)return'$'+(v/1e9).toFixed(2)+'B';
+  if(v>=1e6)return'$'+(v/1e6).toFixed(1)+'M';
+  return'$'+Math.round(v).toLocaleString();
+}
+const fmtD  =v=>'$'+Math.round(v).toLocaleString();
+const fmtPct=v=>(+v).toFixed(1)+'%';
+
+// ── COLOR HELPERS ─────────────────────────────────────────────────────────────
+function dotClr(p){return p>=5?'#22c55e':p>=2?'#f59e0b':p>0?'#ef4444':'#3a4d68';}
+function rowCls(p){return p>=5?'rg':p>=2?'ry':p>0?'rr':'';}
+function slcCls(p){return p>=5?'sg':p>=2?'sy':p>0?'sr':'';}
+// SOM Captured: left-border & text color
+// thresholds: 0% = gray, <20% = red, 20-39% = yellow, >=40% = green
+function capColor(p){
+  if(p===0)return '#3a4d68';
+  const c=(p/5)*100;
+  if(c>=40)return '#22c55e';
+  if(c>=20)return '#f59e0b';
+  return '#ef4444';
+}
+function fmtCap(p){return p===0?'\u2014':((p/5)*100).toFixed(0)+'%';}
+function mktRows(){return MARKETS[curMkt].rows;}
+function mktTotals(mk,key){return MARKETS[mk].rows.reduce((s,r)=>s+r[key],0);}
+function allTotals(key){return MARKET_ORDER.reduce((s,mk)=>s+mktTotals(mk,key),0);}
+function gc(){return getComputedStyle(document.documentElement).getPropertyValue('--border').trim();}
+function tc(){return getComputedStyle(document.documentElement).getPropertyValue('--text2').trim();}
+
+// ── MARKET SELECTOR PANEL ─────────────────────────────────────────────────────
+function renderMarketPanel(){
+  document.getElementById('natl-btn').classList.toggle('active',view==='national');
+  document.getElementById('btn-usa').classList.toggle('active',curCountry==='usa'&&view!=='national');
+  document.getElementById('btn-can').classList.toggle('active',curCountry==='canada'&&view!=='national');
+
+  // target banner
+  const banner=document.getElementById('target-banner');
+  const showBanner=view!=='national'&&MARKETS[curMkt]&&MARKETS[curMkt].status==='target';
+  banner.style.display=showBanner?'':'none';
+
+  const ddRow=document.getElementById('mkt-dd-row');
+  const selRow=document.getElementById('mkt-selected-display');
+
+  if(view==='national'){ddRow.innerHTML='';selRow.innerHTML='';return;}
+
+  if(curCountry==='canada'){
+    ddRow.innerHTML=`<select class="mkt-dropdown" disabled><option>— Coming Soon —</option></select>
+      <a class="add-mkt-btn" href="#">+ Add Market</a>`;
+    selRow.innerHTML='';
+    return;
+  }
+
+  const usMkts=MARKET_ORDER.filter(k=>MARKETS[k].country==='usa');
+  // status dot color for current selection
+  const curStatus=MARKETS[curMkt]?.status;
+  const dotColor=curStatus==='active'?'#22c55e':'#60a5fa';
+
+  const opts=usMkts.map(k=>{
+    const m=MARKETS[k];
+    const dot=m.status==='active'?'\u25cf ':'\u25cb '; // ● or ○
+    const lbl=m.status==='active'
+      ?`${dot}${m.name} \u2014 ACTIVE \u00b7 ${m.company}`
+      :`${dot}${m.name} \u2014 TARGET`;
+    return`<option value="${k}"${k===curMkt?' selected':''}>${lbl}</option>`;
+  }).join('');
+
+  ddRow.innerHTML=`
+    <div class="dd-with-dot">
+      <div class="dd-status-dot" style="background:${dotColor}"></div>
+      <select class="mkt-dropdown" onchange="selectMarket(this.value)">${opts}</select>
+    </div>
+    <a class="add-mkt-btn" href="#">+ Add Market</a>`;
+
+  const m=MARKETS[curMkt];
+  selRow.innerHTML=`
+    <span class="msd-lbl">Selected</span>
+    <span class="msd-sep">&middot;</span>
+    <span class="msd-name">${m.name}</span>
+    <span class="sbadge ${m.status}">${m.status==='active'?'Active':'Target'}</span>
+    <span class="msd-sep">&middot;</span>
+    <span class="msd-meta">${m.pop}${m.company?' &nbsp;&middot;&nbsp; '+m.company:''}</span>`;
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function setView(v){
+  view=v;
+  renderMarketPanel();
+  const tb=document.getElementById('tabs-bar');
+  tb.style.opacity=v==='national'?.4:1;
+  tb.style.pointerEvents=v==='national'?'none':'auto';
+  showPanel(v==='national'?'national':curTab);
+  v==='national'?renderNational():renderForTab(curTab);
+}
+function setCountry(c){
+  if(view==='national')view='market';
+  curCountry=c;
+  if(c==='canada'){renderMarketPanel();return;}
+  const first=MARKET_ORDER.find(k=>MARKETS[k].country===c);
+  if(first)selectMarket(first); else renderMarketPanel();
+}
+function selectMarket(mk){
+  view='market'; curMkt=mk; openId=null; sortCol=null;
+  const tb=document.getElementById('tabs-bar');
+  tb.style.opacity=1; tb.style.pointerEvents='auto';
+  renderMarketPanel();
+  showPanel(curTab); renderForTab(curTab);
+}
+function switchTab(tab){
+  curTab=tab;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  if(view!=='national'){showPanel(tab);renderForTab(tab);}
+}
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+id));
+}
+function renderForTab(tab){
+  updateCards();
+  if(tab==='overview'){renderTable();renderOverviewChart();}
+  if(tab==='detail')  renderDetail();
+  if(tab==='compare') renderCompare();
+}
+
+// ── CARDS ─────────────────────────────────────────────────────────────────────
+function updateCards(){
+  const r=mktRows();
+  const tam=r.reduce((s,x)=>s+x.tam,0), sam=r.reduce((s,x)=>s+x.sam,0);
+  const som=r.reduce((s,x)=>s+x.som,0), our=r.reduce((s,x)=>s+x.ourRev,0);
+  ['c-','d-'].forEach(p=>{
+    [['tam',tam],['sam',sam],['som',som],['our',our]].forEach(([k,v])=>{
+      const el=document.getElementById(p+k); if(el) el.textContent=fmtM(v);
+    });
+  });
+  // update card sub-text for target markets
+  const ourSub=document.getElementById('c-our-sub');
+  if(ourSub){
+    if(MARKETS[curMkt].status==='target'&&our===0){
+      ourSub.textContent='Move sliders to model entry scenarios';
+    } else {
+      ourSub.textContent='From penetration sliders';
+    }
+  }
+  updateNational();
+}
+
+// ── TABLE ─────────────────────────────────────────────────────────────────────
+function sortedRows(){
+  if(!sortCol)return[...mktRows()];
+  return[...mktRows()].sort((a,b)=>{
+    const av=a[sortCol]??0, bv=b[sortCol]??0;
+    if(typeof av==='string')return av.localeCompare(bv)*sortDir;
+    return(av-bv)*sortDir;
+  });
+}
+
+function renderTable(){
+  const hint=document.getElementById('tbl-hint');
+  if(hint) hint.textContent = MARKETS[curMkt].status==='active'
+    ? 'Defaults from GF Sprague ~$10M split (roofing-first)'
+    : 'All penetration at 0% \u2014 drag sliders to model market entry';
+
+  const tbody=document.getElementById('tbody');
+  tbody.innerHTML='';
+  sortedRows().forEach(r=>{
+    const isOpen=openId===r.id, rc=rowCls(r.pct);
+    const cc=capColor(r.pct);
+    const tr=document.createElement('tr');
+    tr.className='dr'+(rc?' '+rc:''); tr.dataset.id=r.id;
+    tr.innerHTML=`
+      <td><div class="svc-cell"><span class="xi${isOpen?' open':''}">&#9658;</span><span class="svc-nm" title="${r.service}">${r.service}</span></div></td>
+      <td class="nc">${fmtM(r.sam)}</td>
+      <td class="nc">${fmtM(r.som)}</td>
+      <td class="nc">${fmtD(r.avgTicket)}</td>
+      <td><div class="gm-w"><span style="min-width:26px;text-align:right">${r.grossMargin}%</span><div class="gm-trk"><div class="gm-fil" style="width:${r.grossMargin}%"></div></div></div></td>
+      <td><div class="pct-w"><div class="sdot" id="dot-${r.id}" style="background:${dotClr(r.pct)}"></div><span class="pct-n" id="pv-${r.id}">${fmtPct(r.pct)}</span></div></td>
+      <td class="nc cap-td" id="cap-td-${r.id}" style="border-left:3px solid ${cc}"><span class="cap-txt" id="cap-${r.id}" style="color:${cc}">${fmtCap(r.pct)}</span></td>
+      <td class="rv-c${r.ourRev===0?' z':''}" id="rv-${r.id}">${r.ourRev>0?fmtM(r.ourRev):'\u2014'}</td>`;
+    tr.addEventListener('click',()=>toggleRow(r.id));
+    tbody.appendChild(tr);
+
+    const pctOfTgt=Math.min(r.pct/5*100,100);
+    const dr=document.createElement('tr');
+    dr.className='detail-row'; dr.id='dr-'+r.id; dr.style.display=isOpen?'':'none';
+    dr.innerHTML=`<td colspan="8"><div class="det-inner">
+      <div class="det-top">
+        <div class="sl-lbl">Penetration Slider &nbsp;&middot;&nbsp; TAM: ${fmtM(r.tam)} &nbsp;&middot;&nbsp; Avg Ticket: ${fmtD(r.avgTicket)}</div>
+        <div class="sl-val-row">
+          <span class="sl-big" id="sb-${r.id}">${fmtPct(r.pct)}</span>
+          <span class="sl-sub">of SAM &nbsp;&middot;&nbsp; Est. Revenue: <strong style="color:#14b8a6" id="dv-${r.id}">${r.ourRev>0?fmtM(r.ourRev):'\u2014'}</strong></span>
+        </div>
+        <input type="range" id="sl-${r.id}" min="0" max="20" step="0.1" value="${r.pct}" oninput="onSlider(${r.id},this.value)">
+        <div class="sl-ticks"><span>0%</span><span class="tgt">5% Target</span><span>10%</span><span>15%</span><span>20%</span></div>
+        <div class="dtb-label">Progress to 5% SOM target</div>
+        <div class="dtb-track"><div class="dtb-fill" id="dtb-${r.id}" style="width:${pctOfTgt}%"></div></div>
+      </div>
+      <div class="det-stats">
+        <div class="ds"><div class="ds-lbl">SAM</div><div class="ds-val">${fmtM(r.sam)}</div></div>
+        <div class="ds"><div class="ds-lbl">SOM Target</div><div class="ds-val">${fmtM(r.som)}</div></div>
+        <div class="ds"><div class="ds-lbl">Est. Revenue</div><div class="ds-val g" id="dv2-${r.id}">${r.ourRev>0?fmtM(r.ourRev):'\u2014'}</div></div>
+        <div class="ds"><div class="ds-lbl">Gross Margin</div><div class="ds-val">${r.grossMargin}%</div></div>
+        <div class="ds"><div class="ds-lbl">Est. Jobs/Yr</div><div class="ds-val" id="jc-${r.id}">${r.ourRev>0?Math.round(r.ourRev/r.avgTicket).toLocaleString():'\u2014'}</div></div>
+        <div class="ds"><div class="ds-lbl">SOM Captured</div><div class="ds-val" id="dscap-${r.id}" style="color:${cc}">${fmtCap(r.pct)}</div></div>
+      </div>
+    </div></td>`;
+    tbody.appendChild(dr);
+  });
+  updateSortHeaders();
+}
+
+function toggleRow(id){openId=openId===id?null:id;renderTable();}
+
+function updateSortHeaders(){
+  document.querySelectorAll('#tbl thead th').forEach(th=>{
+    th.classList.remove('srt');
+    const si=th.querySelector('.si');if(si)si.textContent='\u21c5';
+    if(th.dataset.col===sortCol){th.classList.add('srt');if(si)si.textContent=sortDir===1?'\u2191':'\u2193';}
+  });
+}
+document.getElementById('tbl').addEventListener('click',e=>{
+  const th=e.target.closest('th');if(!th||!th.dataset.col)return;
+  const col=th.dataset.col;
+  sortCol===col?sortDir*=-1:(sortCol=col,sortDir=col==='service'?1:-1);
+  renderTable();
+});
+
+// ── SLIDER ────────────────────────────────────────────────────────────────────
+function onSlider(id,val){
+  const pct=parseFloat(val);
+  const r=mktRows().find(x=>x.id===id);
+  r.pct=pct; r.ourRev=r.sam*(pct/100); r.somCap=(pct/5)*100;
+  const cc=capColor(pct);
+  const upd=(elId,fn)=>{const el=document.getElementById(elId);if(el)fn(el);};
+  upd('sb-'+id,    el=>el.textContent=fmtPct(pct));
+  upd('dv-'+id,    el=>el.textContent=r.ourRev>0?fmtM(r.ourRev):'\u2014');
+  upd('dv2-'+id,   el=>el.textContent=r.ourRev>0?fmtM(r.ourRev):'\u2014');
+  upd('jc-'+id,    el=>el.textContent=r.ourRev>0?Math.round(r.ourRev/r.avgTicket).toLocaleString():'\u2014');
+  upd('dtb-'+id,   el=>el.style.width=Math.min(pct/5*100,100)+'%');
+  upd('dot-'+id,   el=>el.style.background=dotClr(pct));
+  upd('pv-'+id,    el=>el.textContent=fmtPct(pct));
+  upd('rv-'+id,    el=>{el.textContent=r.ourRev>0?fmtM(r.ourRev):'\u2014';el.className='rv-c'+(r.ourRev===0?' z':'');});
+  upd('cap-'+id,   el=>{el.textContent=fmtCap(pct);el.style.color=cc;});
+  upd('cap-td-'+id,el=>el.style.borderLeftColor=cc);
+  upd('dscap-'+id, el=>{el.textContent=fmtCap(pct);el.style.color=cc;});
+  const dr=document.querySelector(`.dr[data-id="${id}"]`);
+  if(dr){const rc=rowCls(pct);dr.className='dr'+(rc?' '+rc:'');}
+  updateCards();
+  updateOverviewBar(id);
+  updateDetailCard(id);
+  if(curTab==='compare') updateCmpTable();
+}
+
+// ── OVERVIEW CHART ────────────────────────────────────────────────────────────
+function renderOverviewChart(){
+  if(charts.ov){charts.ov.destroy();delete charts.ov;}
+  const data=[...mktRows()].sort((a,b)=>b.sam-a.sam);
+  charts.ov=new Chart(document.getElementById('overview-chart'),{
+    type:'bar',
+    data:{
+      labels:data.map(r=>r.service),
+      datasets:[
+        {label:'Est. Revenue',data:data.map(r=>+(r.ourRev/1e6).toFixed(2)),backgroundColor:'#14b8a6',borderRadius:3,stack:'s'},
+        {label:'Remaining SAM',data:data.map(r=>+((r.sam-r.ourRev)/1e6).toFixed(2)),backgroundColor:isDark?'#1a2236':'#e2e8f0',borderRadius:3,stack:'s'}
+      ]
+    },
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{labels:{color:tc(),font:{size:10.5},boxWidth:10,padding:14}},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: $${ctx.parsed.x.toFixed(1)}M`}}
+      },
+      scales:{
+        x:{stacked:true,grid:{color:gc()},ticks:{color:tc(),font:{size:10},callback:v=>'$'+v+'M'},border:{color:gc()}},
+        y:{stacked:true,grid:{display:false},ticks:{color:tc(),font:{size:10.5}},border:{color:gc()}}
+      }
+    }
+  });
+}
+function updateOverviewBar(id){
+  if(!charts.ov)return;
+  const data=[...mktRows()].sort((a,b)=>b.sam-a.sam);
+  const idx=data.findIndex(r=>r.id===id);if(idx<0)return;
+  const r=data[idx];
+  charts.ov.data.datasets[0].data[idx]=+(r.ourRev/1e6).toFixed(2);
+  charts.ov.data.datasets[1].data[idx]=+((r.sam-r.ourRev)/1e6).toFixed(2);
+  charts.ov.update('none');
+}
+
+// ── SERVICE LINE DETAIL ───────────────────────────────────────────────────────
+function renderDetail(){
+  updateCards();
+  document.getElementById('sld-grid').innerHTML=mktRows().map(r=>{
+    const cc=capColor(r.pct);
+    return`<div class="slc ${slcCls(r.pct)}" id="slc-${r.id}">
+      <div class="svc-nm slc-name">${r.service}</div>
+      <div class="slc-grid">
+        <div><div class="slc-kpi-lbl">TAM</div><div class="slc-kpi-val">${fmtM(r.tam)}</div></div>
+        <div><div class="slc-kpi-lbl">SAM</div><div class="slc-kpi-val">${fmtM(r.sam)}</div></div>
+        <div><div class="slc-kpi-lbl">SOM (5%)</div><div class="slc-kpi-val">${fmtM(r.som)}</div></div>
+        <div><div class="slc-kpi-lbl">Avg Ticket</div><div class="slc-kpi-val">${fmtD(r.avgTicket)}</div></div>
+        <div><div class="slc-kpi-lbl">Gross Margin</div><div class="slc-kpi-val">${r.grossMargin}%</div></div>
+        <div><div class="slc-kpi-lbl">Est. Jobs/Yr</div><div class="slc-kpi-val" id="sj-${r.id}">${r.ourRev>0?Math.round(r.ourRev/r.avgTicket).toLocaleString():'\u2014'}</div></div>
+      </div>
+      <div class="slc-footer">
+        <div class="slc-pct-row">
+          <div class="sdot" style="background:${dotClr(r.pct)}"></div>
+          <span style="font-size:11px;font-weight:700;color:${dotClr(r.pct)}">${fmtPct(r.pct)}</span>
+          <div class="slc-bar-bg"><div class="slc-bar-fg" style="width:${Math.min(r.pct/20*100,100)}%"></div></div>
+        </div>
+        <div class="slc-cap-row">
+          <span class="slc-cap-lbl">SOM Captured:</span>
+          <span id="scap-${r.id}" style="font-size:11px;font-weight:700;color:${cc}">${fmtCap(r.pct)}</span>
+        </div>
+        <div class="slc-rev-row">
+          <span style="font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:var(--text3)">Est. Revenue</span>
+          <span style="font-size:12px;font-weight:800;color:${r.ourRev>0?'#14b8a6':'var(--text3)'}" id="srev-${r.id}">${r.ourRev>0?fmtM(r.ourRev):'\u2014'}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function updateDetailCard(id){
+  if(curTab!=='detail')return;
+  const r=mktRows().find(x=>x.id===id);if(!r)return;
+  const cc=capColor(r.pct);
+  const card=document.getElementById('slc-'+id);if(!card)return;
+  card.className='slc '+slcCls(r.pct);
+  const dot=card.querySelector('.sdot');if(dot)dot.style.background=dotClr(r.pct);
+  const ps=card.querySelector('.slc-pct-row span');if(ps){ps.textContent=fmtPct(r.pct);ps.style.color=dotClr(r.pct);}
+  const bar=card.querySelector('.slc-bar-fg');if(bar)bar.style.width=Math.min(r.pct/20*100,100)+'%';
+  const scap=document.getElementById('scap-'+id);if(scap){scap.textContent=fmtCap(r.pct);scap.style.color=cc;}
+  const srev=document.getElementById('srev-'+id);if(srev){srev.textContent=r.ourRev>0?fmtM(r.ourRev):'\u2014';srev.style.color=r.ourRev>0?'#14b8a6':'var(--text3)';}
+  const sj=document.getElementById('sj-'+id);if(sj)sj.textContent=r.ourRev>0?Math.round(r.ourRev/r.avgTicket).toLocaleString():'\u2014';
+}
+
+// ── COMPARISON TABLE ──────────────────────────────────────────────────────────
+function renderCompare(){
+  renderCmpTable();
+  renderBubble();
+}
+
+function renderCmpTable(){
+  const atl=MARKETS.atlanta.rows, bos=MARKETS.boston.rows;
+  document.getElementById('cmp-tbody').innerHTML=atl.map((ar,i)=>{
+    const br=bos[i];
+    const gap=ar.sam-br.sam;
+    const gapAbs=Math.abs(gap);
+    const gapTxt=gap>0
+      ?`<span class="gap-pos">ATL +${fmtM(gapAbs)}</span>`
+      :gap<0?`<span class="gap-neg">BOS +${fmtM(gapAbs)}</span>`
+      :`<span style="color:var(--text3)">Equal</span>`;
+    const atlRevCls=ar.ourRev>0?'cmp-rev-set':'cmp-rev-zero';
+    const bosRevCls=br.ourRev>0?'cmp-rev-set':'cmp-rev-zero';
+    return`<tr>
+      <td>${ar.service}</td>
+      <td>${fmtM(ar.sam)}</td>
+      <td>${fmtPct(ar.pct)}</td>
+      <td id="cmp-atl-rv-${i}" class="${atlRevCls}">${ar.ourRev>0?fmtM(ar.ourRev):'\u2014'}</td>
+      <td>${fmtM(br.sam)}</td>
+      <td>${fmtPct(br.pct)}</td>
+      <td id="cmp-bos-rv-${i}" class="${bosRevCls}">${br.ourRev>0?fmtM(br.ourRev):'\u2014'}</td>
+      <td>${gapTxt}</td>
+    </tr>`;
+  }).join('');
+}
+
+function updateCmpTable(){
+  const atl=MARKETS.atlanta.rows, bos=MARKETS.boston.rows;
+  atl.forEach((ar,i)=>{
+    const el=document.getElementById('cmp-atl-rv-'+i);
+    if(el){el.textContent=ar.ourRev>0?fmtM(ar.ourRev):'\u2014';el.className=ar.ourRev>0?'cmp-rev-set':'cmp-rev-zero';}
+  });
+  bos.forEach((br,i)=>{
+    const el=document.getElementById('cmp-bos-rv-'+i);
+    if(el){el.textContent=br.ourRev>0?fmtM(br.ourRev):'\u2014';el.className=br.ourRev>0?'cmp-rev-set':'cmp-rev-zero';}
+  });
+  updateBubble();
+}
+
+function renderBubble(){
+  if(charts.bub){charts.bub.destroy();delete charts.bub;}
+  const atl=MARKETS.atlanta.rows, bos=MARKETS.boston.rows;
+  const maxR=Math.max(...atl.map(r=>r.sam),...bos.map(r=>r.sam));
+  const mkDs=(rows,color,label)=>({label,backgroundColor:color,borderColor:color,
+    data:rows.map(r=>({x:+(r.sam/1e6).toFixed(1),y:r.pct,r:Math.max(5,Math.sqrt(r.sam/maxR)*38),service:r.service,rev:r.ourRev}))
+  });
+  charts.bub=new Chart(document.getElementById('bubble-chart'),{
+    type:'bubble',
+    data:{datasets:[mkDs(atl,'rgba(96,165,250,.65)','Atlanta'),mkDs(bos,'rgba(20,184,166,.65)','Boston')]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{labels:{color:tc(),font:{size:11},boxWidth:10,padding:14}},
+        tooltip:{callbacks:{label:ctx=>[` ${ctx.raw.service}`,` SAM: $${ctx.parsed.x.toFixed(0)}M`,` Penetration: ${ctx.parsed.y.toFixed(1)}%`,` Est. Revenue: ${fmtM(ctx.raw.rev)}`]}}
+      },
+      scales:{
+        x:{grid:{color:gc()},ticks:{color:tc(),font:{size:10},callback:v=>'$'+v+'M'},title:{display:true,text:'SAM ($M)',color:tc(),font:{size:10}},border:{color:gc()}},
+        y:{grid:{color:gc()},ticks:{color:tc(),font:{size:10},callback:v=>v+'%'},title:{display:true,text:'Penetration %',color:tc(),font:{size:10}},border:{color:gc()},min:0}
+      }
+    }
+  });
+}
+function updateBubble(){
+  if(!charts.bub)return;
+  const maxR=Math.max(...MARKETS.atlanta.rows.map(r=>r.sam),...MARKETS.boston.rows.map(r=>r.sam));
+  [MARKETS.atlanta.rows,MARKETS.boston.rows].forEach((rows,di)=>{
+    rows.forEach((r,i)=>{const d=charts.bub.data.datasets[di].data[i];d.y=r.pct;d.r=Math.max(5,Math.sqrt(r.sam/maxR)*38);d.rev=r.ourRev;});
+  });
+  charts.bub.update('none');
+}
+
+// ── NATIONAL VIEW ─────────────────────────────────────────────────────────────
+function renderNational(){
+  const tam=allTotals('tam'), sam=allTotals('sam'), som=allTotals('som');
+  // Active-only revenue
+  const activeRev=MARKET_ORDER.filter(mk=>MARKETS[mk].status==='active').reduce((s,mk)=>s+mktTotals(mk,'ourRev'),0);
+  const modeledRev=MARKET_ORDER.filter(mk=>MARKETS[mk].status==='target').reduce((s,mk)=>s+mktTotals(mk,'ourRev'),0);
+  const hasModeled=modeledRev>0;
+  const displayRev=activeRev+(hasModeled?modeledRev:0);
+
+  document.getElementById('n-tam').textContent=fmtM(tam);
+  document.getElementById('n-sam').textContent=fmtM(sam);
+  document.getElementById('n-som').textContent=fmtM(som);
+  document.getElementById('n-our').textContent=fmtM(displayRev);
+  document.getElementById('n-our-lbl').textContent=hasModeled?'Active + Modeled Revenue':'IHS Total Revenue (Live)';
+  document.getElementById('n-our-sub').textContent=hasModeled
+    ?`Active: ${fmtM(activeRev)} \u00b7 Modeled: ${fmtM(modeledRev)}`
+    :'Active markets only \u00b7 Set target sliders to include modeled revenue';
+
+  const body=document.getElementById('nmt-body');
+  const rows=MARKET_ORDER.map(mk=>{
+    const m=MARKETS[mk];
+    const mtam=mktTotals(mk,'tam'),msam=mktTotals(mk,'sam');
+    const msom=mktTotals(mk,'som'),mour=mktTotals(mk,'ourRev');
+    const avgPct=msam>0?(mour/msam*100):0;
+    const isTarget=m.status==='target'&&mour===0;
+    return`<div class="nmt-row">
+      <div class="nmt-name">${m.name}
+        <span class="sbadge ${m.status}" style="margin-left:7px;font-size:8px">${m.status==='active'?'Active':'Target'}</span>
+        ${m.company?`<span style="font-size:9.5px;color:var(--text3);margin-left:5px">${m.company}</span>`:''}
+      </div>
+      <div class="nmt-val">${fmtM(mtam)}</div>
+      <div class="nmt-val">${fmtM(msam)}</div>
+      <div class="nmt-val">${fmtM(msom)}</div>
+      <div class="nmt-val${isTarget?'':' teal'}">${isTarget?'<em style="color:var(--text3);font-style:italic">No operations</em>':fmtM(mour)}</div>
+      <div class="nmt-val">${avgPct>0?fmtPct(avgPct):'<em style="color:var(--text3)">—</em>'}</div>
+    </div>`;
+  }).join('');
+  const gour=displayRev, gsam=sam;
+  body.innerHTML=rows+`<div class="nmt-row total">
+    <div class="nmt-name">All Markets Total</div>
+    <div class="nmt-val">${fmtM(tam)}</div>
+    <div class="nmt-val">${fmtM(sam)}</div>
+    <div class="nmt-val">${fmtM(som)}</div>
+    <div class="nmt-val teal">${fmtM(gour)}</div>
+    <div class="nmt-val">${gsam>0?fmtPct(gour/gsam*100):'\u2014'}</div>
+  </div>`;
+}
+function updateNational(){if(view==='national')renderNational();}
+
+// ── DARK / LIGHT MODE ─────────────────────────────────────────────────────────
+function toggleMode(){
+  isDark=!isDark;
+  document.documentElement.classList.toggle('light',!isDark);
+  document.getElementById('mode-btn').textContent=isDark?'Light Mode':'Dark Mode';
+  if(curTab==='overview')renderOverviewChart();
+  if(curTab==='compare')renderBubble();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderMarketPanel();
+renderForTab('overview');
+</script>
+</body>
+</html>
