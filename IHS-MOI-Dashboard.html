@@ -258,6 +258,7 @@ html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
 .cmp-tbl th:first-child{text-align:left}
 .cmp-tbl th.atl-hd{color:rgba(96,165,250,.85)}
 .cmp-tbl th.bos-hd{color:rgba(20,184,166,.85)}
+.cmp-tbl th.ind-hd{color:rgba(251,146,60,.85)}
 .cmp-tbl td{padding:9px 11px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;text-align:right;font-size:12px}
 .cmp-tbl td:first-child{text-align:left;font-weight:600}
 .cmp-tbl tr:last-child td{border-bottom:none}
@@ -301,6 +302,7 @@ html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
 .mob-cmp-mkt-hd{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .mob-cmp-mkt.atl .mob-cmp-mkt-hd{color:rgba(96,165,250,.9)}
 .mob-cmp-mkt.bos .mob-cmp-mkt-hd{color:rgba(20,184,166,.9)}
+.mob-cmp-mkt.ind .mob-cmp-mkt-hd{color:rgba(251,146,60,.9)}
 .mob-cmp-stat{margin-bottom:6px}
 .mob-cmp-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:1px}
 .mob-cmp-val{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
@@ -484,8 +486,9 @@ html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
     <div class="cmp-legend-row">
       <div class="cmp-lg"><div class="cmp-lg-sw" style="background:rgba(96,165,250,.6)"></div>Atlanta (Target)</div>
       <div class="cmp-lg"><div class="cmp-lg-sw" style="background:rgba(20,184,166,.6)"></div>Boston (Active &middot; GF Sprague)</div>
+      <div class="cmp-lg"><div class="cmp-lg-sw" style="background:rgba(251,146,60,.6)"></div>Indianapolis (Active &middot; Cochran Exteriors)</div>
     </div>
-    <div class="cmp-note" id="cmp-note">Atlanta revenue reflects modeled entry scenarios. Boston revenue reflects GF Sprague Exteriors active operations.</div>
+    <div class="cmp-note" id="cmp-note">Atlanta revenue reflects modeled entry scenarios. Boston revenue reflects GF Sprague Exteriors active operations. Indianapolis revenue reflects Cochran Exteriors active operations.</div>
     <div class="cmp-tbl-wrap">
       <div class="cmp-tbl-scroll">
         <table class="cmp-tbl">
@@ -497,7 +500,9 @@ html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
             <th class="bos-hd">BOS SAM</th>
             <th class="bos-hd">BOS Penetration</th>
             <th class="bos-hd">BOS Est. Revenue</th>
-            <th>Opportunity Gap</th>
+            <th class="ind-hd">IND SAM</th>
+            <th class="ind-hd">IND Penetration</th>
+            <th class="ind-hd">IND Est. Revenue</th>
           </tr></thead>
           <tbody id="cmp-tbody"></tbody>
         </table>
@@ -935,6 +940,17 @@ function updateDetailCard(id){
   const sj=document.getElementById('sj-'+id);if(sj)sj.textContent=r.ourRev>0?Math.round(r.ourRev/r.avgTicket).toLocaleString():'\u2014';
 }
 
+// ── COMPARISON HELPER ─────────────────────────────────────────────────────────
+// Maps ATL/BOS service names to IND equivalents (IND uses slightly different names)
+const IND_NAME_MAP={
+  'Roofing \u2013 Insurance Replacement':'Roofing \u2013 Insurance/Storm',
+  'Windows':'Windows & Doors'
+};
+function getIndRow(atlService){
+  const ind=MARKETS.indianapolis.rows;
+  return ind.find(x=>x.service===atlService)||ind.find(x=>x.service===IND_NAME_MAP[atlService])||null;
+}
+
 // ── COMPARISON TABLE ──────────────────────────────────────────────────────────
 function renderCompare(){
   renderCmpTable();
@@ -945,14 +961,10 @@ function renderCmpTable(){
   const atl=MARKETS.atlanta.rows, bos=MARKETS.boston.rows;
   document.getElementById('cmp-tbody').innerHTML=atl.map((ar,i)=>{
     const br=bos[i];
-    const gap=ar.sam-br.sam;
-    const gapAbs=Math.abs(gap);
-    const gapTxt=gap>0
-      ?`<span class="gap-pos">ATL +${fmtM(gapAbs)}</span>`
-      :gap<0?`<span class="gap-neg">BOS +${fmtM(gapAbs)}</span>`
-      :`<span style="color:var(--text3)">Equal</span>`;
+    const ir=getIndRow(ar.service);
     const atlRevCls=ar.ourRev>0?'cmp-rev-set':'cmp-rev-zero';
     const bosRevCls=br.ourRev>0?'cmp-rev-set':'cmp-rev-zero';
+    const indRevCls=ir&&ir.ourRev>0?'cmp-rev-set':'cmp-rev-zero';
     return`<tr>
       <td>${ar.service}</td>
       <td>${fmtM(ar.sam)}</td>
@@ -961,7 +973,9 @@ function renderCmpTable(){
       <td>${fmtM(br.sam)}</td>
       <td>${fmtPct(br.pct)}</td>
       <td id="cmp-bos-rv-${i}" class="${bosRevCls}">${br.ourRev>0?fmtM(br.ourRev):'\u2014'}</td>
-      <td>${gapTxt}</td>
+      <td>${ir?fmtM(ir.sam):'\u2014'}</td>
+      <td>${ir?fmtPct(ir.pct):'\u2014'}</td>
+      <td id="cmp-ind-rv-${i}" class="${indRevCls}">${ir&&ir.ourRev>0?fmtM(ir.ourRev):'\u2014'}</td>
     </tr>`;
   }).join('');
   renderMobileCmpCards();
@@ -974,6 +988,11 @@ function updateCmpTable(){
     if(el){el.textContent=ar.ourRev>0?fmtM(ar.ourRev):'\u2014';el.className=ar.ourRev>0?'cmp-rev-set':'cmp-rev-zero';}
     const mel=document.getElementById('mob-cmp-atl-rv-'+i);
     if(mel){mel.textContent=ar.ourRev>0?fmtM(ar.ourRev):'\u2014';mel.style.color=ar.ourRev>0?'#14b8a6':'var(--text3)';}
+    const ir=getIndRow(ar.service);
+    const iel=document.getElementById('cmp-ind-rv-'+i);
+    if(iel&&ir){iel.textContent=ir.ourRev>0?fmtM(ir.ourRev):'\u2014';iel.className=ir.ourRev>0?'cmp-rev-set':'cmp-rev-zero';}
+    const miel=document.getElementById('mob-cmp-ind-rv-'+i);
+    if(miel&&ir){miel.textContent=ir.ourRev>0?fmtM(ir.ourRev):'\u2014';miel.style.color=ir.ourRev>0?'#14b8a6':'var(--text3)';}
   });
   bos.forEach((br,i)=>{
     const el=document.getElementById('cmp-bos-rv-'+i);
@@ -986,14 +1005,14 @@ function updateCmpTable(){
 
 function renderBubble(){
   if(charts.bub){charts.bub.destroy();delete charts.bub;}
-  const atl=MARKETS.atlanta.rows, bos=MARKETS.boston.rows;
-  const maxR=Math.max(...atl.map(r=>r.sam),...bos.map(r=>r.sam));
+  const atl=MARKETS.atlanta.rows, bos=MARKETS.boston.rows, ind=MARKETS.indianapolis.rows;
+  const maxR=Math.max(...atl.map(r=>r.sam),...bos.map(r=>r.sam),...ind.map(r=>r.sam));
   const mkDs=(rows,color,label)=>({label,backgroundColor:color,borderColor:color,
     data:rows.map(r=>({x:+(r.sam/1e6).toFixed(1),y:r.pct,r:Math.max(5,Math.sqrt(r.sam/maxR)*38),service:r.service,rev:r.ourRev}))
   });
   charts.bub=new Chart(document.getElementById('bubble-chart'),{
     type:'bubble',
-    data:{datasets:[mkDs(atl,'rgba(96,165,250,.65)','Atlanta'),mkDs(bos,'rgba(20,184,166,.65)','Boston')]},
+    data:{datasets:[mkDs(atl,'rgba(96,165,250,.65)','Atlanta'),mkDs(bos,'rgba(20,184,166,.65)','Boston'),mkDs(ind,'rgba(251,146,60,.65)','Indianapolis')]},
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{
@@ -1009,8 +1028,8 @@ function renderBubble(){
 }
 function updateBubble(){
   if(!charts.bub)return;
-  const maxR=Math.max(...MARKETS.atlanta.rows.map(r=>r.sam),...MARKETS.boston.rows.map(r=>r.sam));
-  [MARKETS.atlanta.rows,MARKETS.boston.rows].forEach((rows,di)=>{
+  const maxR=Math.max(...MARKETS.atlanta.rows.map(r=>r.sam),...MARKETS.boston.rows.map(r=>r.sam),...MARKETS.indianapolis.rows.map(r=>r.sam));
+  [MARKETS.atlanta.rows,MARKETS.boston.rows,MARKETS.indianapolis.rows].forEach((rows,di)=>{
     rows.forEach((r,i)=>{const d=charts.bub.data.datasets[di].data[i];d.y=r.pct;d.r=Math.max(5,Math.sqrt(r.sam/maxR)*38);d.rev=r.ourRev;});
   });
   charts.bub.update('none');
@@ -1106,9 +1125,10 @@ function renderMobileCmpCards(){
   const atl=MARKETS.atlanta.rows,bos=MARKETS.boston.rows;
   c.innerHTML=atl.map((ar,i)=>{
     const br=bos[i];
+    const ir=getIndRow(ar.service);
     return`<div class="mob-cmp-card">
       <div class="mob-cmp-name">${ar.service}</div>
-      <div class="mob-cmp-cols">
+      <div class="mob-cmp-cols" style="grid-template-columns:1fr 1fr 1fr">
         <div class="mob-cmp-mkt atl">
           <div class="mob-cmp-mkt-hd">Atlanta</div>
           <div class="mob-cmp-stat"><div class="mob-cmp-lbl">SAM</div><div class="mob-cmp-val">${fmtM(ar.sam)}</div></div>
@@ -1120,6 +1140,12 @@ function renderMobileCmpCards(){
           <div class="mob-cmp-stat"><div class="mob-cmp-lbl">SAM</div><div class="mob-cmp-val">${fmtM(br.sam)}</div></div>
           <div class="mob-cmp-stat"><div class="mob-cmp-lbl">Penetration</div><div class="mob-cmp-val">${fmtPct(br.pct)}</div></div>
           <div class="mob-cmp-stat"><div class="mob-cmp-lbl">Est. Revenue</div><div class="mob-cmp-val" id="mob-cmp-bos-rv-${i}" style="color:${br.ourRev>0?'#14b8a6':'var(--text3)'}">${br.ourRev>0?fmtM(br.ourRev):'\u2014'}</div></div>
+        </div>
+        <div class="mob-cmp-mkt ind">
+          <div class="mob-cmp-mkt-hd">Indianapolis</div>
+          <div class="mob-cmp-stat"><div class="mob-cmp-lbl">SAM</div><div class="mob-cmp-val">${ir?fmtM(ir.sam):'\u2014'}</div></div>
+          <div class="mob-cmp-stat"><div class="mob-cmp-lbl">Penetration</div><div class="mob-cmp-val">${ir?fmtPct(ir.pct):'\u2014'}</div></div>
+          <div class="mob-cmp-stat"><div class="mob-cmp-lbl">Est. Revenue</div><div class="mob-cmp-val" id="mob-cmp-ind-rv-${i}" style="color:${ir&&ir.ourRev>0?'#14b8a6':'var(--text3)'}">${ir&&ir.ourRev>0?fmtM(ir.ourRev):'\u2014'}</div></div>
         </div>
       </div>
     </div>`;
