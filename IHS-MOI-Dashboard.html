@@ -276,6 +276,83 @@ html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
 .footer{margin-top:28px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text3);line-height:1.75;box-shadow:var(--shadow-sm);transition:background .2s}
 .footer strong{color:var(--text2)}
 .footer-brand{margin-top:6px;font-size:10px;color:var(--text3);text-align:right;padding-top:6px;border-top:1px solid var(--border)}
+
+/* ── MOBILE-ONLY ELEMENTS (hidden on desktop) ── */
+.mobile-only{display:none}
+
+/* ── MOBILE SERVICE CARD STYLES ── */
+.mob-svc-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow-sm);transition:background .2s}
+.mob-svc-header{display:flex;align-items:center;gap:10px;padding:13px 15px;cursor:pointer;min-height:44px;-webkit-tap-highlight-color:transparent}
+.mob-svc-name{font-size:13px;font-weight:700;flex:1;color:var(--text);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mob-svc-hpct{font-size:13px;font-weight:700;flex-shrink:0}
+.mob-svc-chevron{font-size:9px;color:var(--text3);transition:transform .18s;flex-shrink:0}
+.mob-svc-chevron.open{transform:rotate(90deg);color:#14b8a6}
+.mob-svc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;border-top:1px solid var(--border);background:var(--border)}
+.mob-stat{background:var(--card-bg);padding:10px 14px}
+.mob-stat-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text3);margin-bottom:3px}
+.mob-stat-val{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
+.mob-svc-detail{padding:14px 15px;border-top:1px solid var(--border);background:var(--detail-bg);transition:background .2s}
+
+/* ── MOBILE COMPARISON CARD STYLES ── */
+.mob-cmp-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.mob-cmp-name{font-size:13px;font-weight:700;padding:12px 15px;border-bottom:1px solid var(--border);color:var(--text);background:var(--surface2)}
+.mob-cmp-cols{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.mob-cmp-mkt{background:var(--card-bg);padding:12px 13px}
+.mob-cmp-mkt-hd{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.mob-cmp-mkt.atl .mob-cmp-mkt-hd{color:rgba(96,165,250,.9)}
+.mob-cmp-mkt.bos .mob-cmp-mkt-hd{color:rgba(20,184,166,.9)}
+.mob-cmp-stat{margin-bottom:6px}
+.mob-cmp-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:1px}
+.mob-cmp-val{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
+
+/* ── MOBILE NATIONAL CARD STYLES ── */
+.mob-natl-card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;padding:14px 15px;box-shadow:var(--shadow-sm)}
+.mob-natl-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mob-natl-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px}
+.mob-natl-stat-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:2px}
+.mob-natl-stat-val{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
+
+/* ── MOBILE BREAKPOINT — desktop styles unchanged above ── */
+@media(max-width:767px){
+  html,body{overflow-x:hidden;max-width:100%}
+  body{font-size:13px}
+  .hdr{padding:10px 14px}
+  .brand-co{display:none}
+  .brand-title{font-size:14px}
+  #mode-btn{min-height:44px;padding:8px 14px}
+  .tabs{padding:0}
+  .tabs-inner{overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 8px}
+  .tabs-inner::-webkit-scrollbar{display:none}
+  .tab-btn{min-height:44px;padding:0 16px;font-size:13px;white-space:nowrap;flex-shrink:0}
+  .mkt-panel{padding:12px 14px}
+  .mkt-row{gap:6px}
+  .mkt-dd-wrap{flex-direction:column;align-items:stretch;gap:8px}
+  .dd-with-dot{width:100%}
+  .mkt-dropdown{min-width:0!important;width:100%;box-sizing:border-box}
+  .add-mkt-btn{min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .pill-btn{min-height:44px;display:flex;align-items:center;justify-content:center;padding:8px 16px}
+  .mkt-sel-row{padding-top:8px}
+  .target-banner{padding:10px 14px}
+  .target-banner-inner{font-size:13px;flex-wrap:wrap}
+  .main{padding:14px 12px 48px}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .c-val{font-size:18px}
+  .natl-cards{grid-template-columns:repeat(2,1fr)}
+  .nc-val{font-size:18px}
+  .tbl-wrap{display:none!important}
+  .chart-wrap{display:none!important}
+  .sld-grid{grid-template-columns:1fr}
+  .slc-grid{grid-template-columns:repeat(3,1fr)}
+  input[type=range]{width:100%;touch-action:pan-y}
+  .cmp-tbl-wrap{display:none!important}
+  .bw-canvas{height:unset;aspect-ratio:1/1}
+  .natl-mkt-table{display:none!important}
+  .mobile-only{display:block}
+  .sh{flex-wrap:wrap}
+  .sh-title{font-size:11px}
+  .footer{font-size:12px;padding:12px 14px}
+  .slc{padding:13px 14px}
+}
 </style>
 </head>
 <body>
@@ -340,6 +417,7 @@ html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
       <div class="nmt-head"><div>Market</div><div class="nmt-right">TAM</div><div class="nmt-right">SAM</div><div class="nmt-right">SOM (5%)</div><div class="nmt-right">Our Revenue</div><div class="nmt-right">Avg. Pct</div></div>
       <div id="nmt-body"></div>
     </div>
+    <div id="mobile-natl-cards" class="mobile-only" style="margin-bottom:22px"></div>
   </div>
 
   <!-- ══ MARKET OVERVIEW ══ -->
@@ -382,6 +460,7 @@ html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
         <tbody id="tbody"></tbody>
       </table>
     </div>
+    <div id="mobile-svc-cards" class="mobile-only" style="margin-bottom:20px"></div>
     <div class="sh"><span class="sh-title">SAM by Service Line</span><span class="sh-hint">Teal = our revenue &nbsp;&middot;&nbsp; Gray = remaining SAM</span></div>
     <div class="chart-wrap">
       <div class="ch-wrap"><canvas id="overview-chart"></canvas></div>
@@ -424,6 +503,7 @@ html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
         </table>
       </div>
     </div>
+    <div id="mobile-cmp-cards" class="mobile-only" style="margin-bottom:20px"></div>
     <div class="sh"><span class="sh-title">SAM vs. Penetration Positioning</span><span class="sh-hint">Bubble size = Est. Revenue &nbsp;&middot;&nbsp; X = SAM &nbsp;&middot;&nbsp; Y = Penetration %</span></div>
     <div class="bubble-wrap">
       <div class="bw-canvas"><canvas id="bubble-chart"></canvas></div>
@@ -695,6 +775,7 @@ function renderTable(){
     tbody.appendChild(dr);
   });
   updateSortHeaders();
+  renderMobileSvcCards();
 }
 
 function toggleRow(id){openId=openId===id?null:id;renderTable();}
@@ -737,6 +818,15 @@ function onSlider(id,val){
   updateOverviewBar(id);
   updateDetailCard(id);
   if(curTab==='compare') updateCmpTable();
+  // mobile live element updates
+  upd('mob-dot-'+id,  el=>el.style.background=dotClr(pct));
+  upd('mob-hpct-'+id, el=>{el.textContent=fmtPct(pct);el.style.color=dotClr(pct);});
+  upd('mob-pv-'+id,   el=>{el.textContent=fmtPct(pct);el.style.color=dotClr(pct);});
+  upd('mob-rv-'+id,   el=>{el.textContent=r.ourRev>0?fmtM(r.ourRev):'\u2014';el.style.color=r.ourRev>0?'#14b8a6':'var(--text3)';});
+  upd('mob-sb-'+id,   el=>el.textContent=fmtPct(pct));
+  upd('mob-dv-'+id,   el=>el.textContent=r.ourRev>0?fmtM(r.ourRev):'\u2014');
+  upd('mob-dtb-'+id,  el=>el.style.width=Math.min(pct/5*100,100)+'%');
+  upd('mob-sl-'+id,   el=>el.value=pct);
 }
 
 // ── OVERVIEW CHART ────────────────────────────────────────────────────────────
@@ -851,6 +941,7 @@ function renderCmpTable(){
       <td>${gapTxt}</td>
     </tr>`;
   }).join('');
+  renderMobileCmpCards();
 }
 
 function updateCmpTable(){
@@ -858,10 +949,14 @@ function updateCmpTable(){
   atl.forEach((ar,i)=>{
     const el=document.getElementById('cmp-atl-rv-'+i);
     if(el){el.textContent=ar.ourRev>0?fmtM(ar.ourRev):'\u2014';el.className=ar.ourRev>0?'cmp-rev-set':'cmp-rev-zero';}
+    const mel=document.getElementById('mob-cmp-atl-rv-'+i);
+    if(mel){mel.textContent=ar.ourRev>0?fmtM(ar.ourRev):'\u2014';mel.style.color=ar.ourRev>0?'#14b8a6':'var(--text3)';}
   });
   bos.forEach((br,i)=>{
     const el=document.getElementById('cmp-bos-rv-'+i);
     if(el){el.textContent=br.ourRev>0?fmtM(br.ourRev):'\u2014';el.className=br.ourRev>0?'cmp-rev-set':'cmp-rev-zero';}
+    const mel=document.getElementById('mob-cmp-bos-rv-'+i);
+    if(mel){mel.textContent=br.ourRev>0?fmtM(br.ourRev):'\u2014';mel.style.color=br.ourRev>0?'#14b8a6':'var(--text3)';}
   });
   updateBubble();
 }
@@ -944,8 +1039,95 @@ function renderNational(){
     <div class="nmt-val teal">${fmtM(gour)}</div>
     <div class="nmt-val">${gsam>0?fmtPct(gour/gsam*100):'\u2014'}</div>
   </div>`;
+  renderMobileNatlCards();
 }
 function updateNational(){if(view==='national')renderNational();}
+
+// ── MOBILE SERVICE LINE CARDS ─────────────────────────────────────────────────
+function renderMobileSvcCards(){
+  const c=document.getElementById('mobile-svc-cards');if(!c)return;
+  c.innerHTML=sortedRows().map(r=>{
+    const isOpen=openId===r.id;
+    const det=isOpen?`<div class="mob-svc-detail">
+      <div class="sl-lbl">Penetration &nbsp;&middot;&nbsp; TAM: ${fmtM(r.tam)} &nbsp;&middot;&nbsp; Avg Ticket: ${fmtD(r.avgTicket)}</div>
+      <div class="sl-val-row" style="margin-top:8px;margin-bottom:10px">
+        <span class="sl-big" id="mob-sb-${r.id}">${fmtPct(r.pct)}</span>
+        <span class="sl-sub">of SAM &nbsp;&middot;&nbsp; Est. Revenue: <strong style="color:#14b8a6" id="mob-dv-${r.id}">${r.ourRev>0?fmtM(r.ourRev):'\u2014'}</strong></span>
+      </div>
+      <input type="range" id="mob-sl-${r.id}" min="0" max="20" step="0.1" value="${r.pct}" oninput="onSlider(${r.id},this.value)">
+      <div class="sl-ticks"><span>0%</span><span class="tgt">5% Target</span><span>10%</span><span>15%</span><span>20%</span></div>
+      <div class="dtb-label">Progress to 5% SOM target</div>
+      <div class="dtb-track"><div class="dtb-fill" id="mob-dtb-${r.id}" style="width:${Math.min(r.pct/5*100,100)}%"></div></div>
+    </div>`:'';
+    return`<div class="mob-svc-card">
+      <div class="mob-svc-header" onclick="toggleRow(${r.id})">
+        <div class="sdot" id="mob-dot-${r.id}" style="background:${dotClr(r.pct)}"></div>
+        <span class="mob-svc-name">${r.service}</span>
+        <span class="mob-svc-hpct" id="mob-hpct-${r.id}" style="color:${dotClr(r.pct)}">${fmtPct(r.pct)}</span>
+        <span class="mob-svc-chevron${isOpen?' open':''}">&#9658;</span>
+      </div>
+      <div class="mob-svc-stats">
+        <div class="mob-stat"><div class="mob-stat-lbl">SAM</div><div class="mob-stat-val">${fmtM(r.sam)}</div></div>
+        <div class="mob-stat"><div class="mob-stat-lbl">SOM (5%)</div><div class="mob-stat-val">${fmtM(r.som)}</div></div>
+        <div class="mob-stat"><div class="mob-stat-lbl">Penetration</div><div class="mob-stat-val" id="mob-pv-${r.id}" style="color:${dotClr(r.pct)}">${fmtPct(r.pct)}</div></div>
+        <div class="mob-stat"><div class="mob-stat-lbl">Est. Revenue</div><div class="mob-stat-val" id="mob-rv-${r.id}" style="color:${r.ourRev>0?'#14b8a6':'var(--text3)'}">${r.ourRev>0?fmtM(r.ourRev):'\u2014'}</div></div>
+      </div>
+      ${det}
+    </div>`;
+  }).join('');
+}
+
+// ── MOBILE COMPARISON CARDS ───────────────────────────────────────────────────
+function renderMobileCmpCards(){
+  const c=document.getElementById('mobile-cmp-cards');if(!c)return;
+  const atl=MARKETS.atlanta.rows,bos=MARKETS.boston.rows;
+  c.innerHTML=atl.map((ar,i)=>{
+    const br=bos[i];
+    return`<div class="mob-cmp-card">
+      <div class="mob-cmp-name">${ar.service}</div>
+      <div class="mob-cmp-cols">
+        <div class="mob-cmp-mkt atl">
+          <div class="mob-cmp-mkt-hd">Atlanta</div>
+          <div class="mob-cmp-stat"><div class="mob-cmp-lbl">SAM</div><div class="mob-cmp-val">${fmtM(ar.sam)}</div></div>
+          <div class="mob-cmp-stat"><div class="mob-cmp-lbl">Penetration</div><div class="mob-cmp-val">${fmtPct(ar.pct)}</div></div>
+          <div class="mob-cmp-stat"><div class="mob-cmp-lbl">Est. Revenue</div><div class="mob-cmp-val" id="mob-cmp-atl-rv-${i}" style="color:${ar.ourRev>0?'#14b8a6':'var(--text3)'}">${ar.ourRev>0?fmtM(ar.ourRev):'\u2014'}</div></div>
+        </div>
+        <div class="mob-cmp-mkt bos">
+          <div class="mob-cmp-mkt-hd">Boston</div>
+          <div class="mob-cmp-stat"><div class="mob-cmp-lbl">SAM</div><div class="mob-cmp-val">${fmtM(br.sam)}</div></div>
+          <div class="mob-cmp-stat"><div class="mob-cmp-lbl">Penetration</div><div class="mob-cmp-val">${fmtPct(br.pct)}</div></div>
+          <div class="mob-cmp-stat"><div class="mob-cmp-lbl">Est. Revenue</div><div class="mob-cmp-val" id="mob-cmp-bos-rv-${i}" style="color:${br.ourRev>0?'#14b8a6':'var(--text3)'}">${br.ourRev>0?fmtM(br.ourRev):'\u2014'}</div></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── MOBILE NATIONAL CARDS ─────────────────────────────────────────────────────
+function renderMobileNatlCards(){
+  const c=document.getElementById('mobile-natl-cards');if(!c)return;
+  c.innerHTML=MARKET_ORDER.map(mk=>{
+    const m=MARKETS[mk];
+    const mtam=mktTotals(mk,'tam'),msam=mktTotals(mk,'sam');
+    const msom=mktTotals(mk,'som'),mour=mktTotals(mk,'ourRev');
+    const avgPct=msam>0?(mour/msam*100):0;
+    const isTarget=m.status==='target'&&mour===0;
+    return`<div class="mob-natl-card">
+      <div class="mob-natl-name">
+        ${m.name}
+        <span class="sbadge ${m.status}" style="font-size:8px">${m.status==='active'?'Active':'Target'}</span>
+        ${m.company?`<span style="font-size:10px;color:var(--text3)">${m.company}</span>`:''}
+      </div>
+      <div class="mob-natl-stats">
+        <div><div class="mob-natl-stat-lbl">TAM</div><div class="mob-natl-stat-val">${fmtM(mtam)}</div></div>
+        <div><div class="mob-natl-stat-lbl">SAM</div><div class="mob-natl-stat-val">${fmtM(msam)}</div></div>
+        <div><div class="mob-natl-stat-lbl">SOM (5%)</div><div class="mob-natl-stat-val">${fmtM(msom)}</div></div>
+        <div><div class="mob-natl-stat-lbl">Our Revenue</div><div class="mob-natl-stat-val" style="color:${isTarget?'var(--text3)':'#14b8a6'}">${isTarget?'\u2014':fmtM(mour)}</div></div>
+        <div style="grid-column:span 2"><div class="mob-natl-stat-lbl">Avg Penetration</div><div class="mob-natl-stat-val">${avgPct>0?fmtPct(avgPct):'\u2014'}</div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
 
 // ── DARK / LIGHT MODE ─────────────────────────────────────────────────────────
 function toggleMode(){
