@@ -519,6 +519,15 @@ html.light .natl-card{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
     <strong>SOM Captured</strong> = (Penetration &divide; 5%) as a percentage &mdash; green border &ge;40%, yellow 20&ndash;39%, red &lt;20%.
     National View IHS Revenue counts Active markets only by default; modeled revenue from Target market sliders is added separately.
     Boston defaults reflect GF Sprague's ~$10M revenue profile (roofing-first). Atlanta defaults to 0% (no current operations).
+    Indianapolis defaults reflect Cochran Exteriors' ~$16M revenue profile (roofing-first; Carmel, Fishers, Noblesville, Westfield, Zionsville, Greenwood, Brownsburg, Plainfield, Anderson suburban ring).
+    <br><br>
+    <strong>Indianapolis market sizing methodology:</strong>
+    TAM derived from 870,000 MSA housing units (ACS 2023), 64% owner-occupied (556,800 units), 22% annual exterior remodeling participation rate, $3,936 average exterior spend per active household (national benchmark of $4,800 indexed to 0.82&times; for Indianapolis cost-of-living).
+    SAM represents IHS-addressable service lines (roofing, siding, windows, doors, gutters, insulation) = 70% of TAM.
+    SOM = 5% of SAM, consistent with platform methodology.
+    Service line allocations based on JCHS/HIRI exterior spend distribution, validated against Cochran Exteriors 2024 CRM actuals.
+    Cochran residential revenue ($16M) implies 4.7% SAM penetration.
+    <em>Sources: US Census ACS 2023, Joint Center for Housing Studies Harvard University, Home Improvement Research Institute, Cochran Exteriors 2024 Triad Workbook.</em>
     <div class="footer-brand">Built for IHS &nbsp;&middot;&nbsp; Market Opportunity Intelligence Platform</div>
   </div>
 </div>
@@ -556,12 +565,25 @@ const MARKETS = {
       {id:7,service:'Gutters',                               tam:55e6, sam:38e6, avgTicket:2200, grossMargin:48,pct:0.3},
       {id:8,service:'Attic Insulation',                      tam:70e6, sam:49e6, avgTicket:3500, grossMargin:45,pct:0.1},
     ]
+  },
+  indianapolis: {
+    name:'Greater Indianapolis Metro', shortName:'Indianapolis', country:'usa',
+    status:'active', company:'Cochran Exteriors', pop:'2.1M pop \u00b7 870K housing units',
+    rows:[
+      {id:0,service:'Roofing \u2013 Residential Replacement',tam:135e6,sam:95e6, avgTicket:14500,grossMargin:42,pct:4.5},
+      {id:1,service:'Roofing \u2013 Insurance/Storm',         tam:82e6, sam:57e6, avgTicket:18000,grossMargin:40,pct:4.0},
+      {id:2,service:'Siding',                                tam:106e6,sam:74e6, avgTicket:15500,grossMargin:38,pct:3.8},
+      {id:3,service:'Windows & Doors',                       tam:72e6, sam:51e6, avgTicket:9800, grossMargin:37,pct:1.2},
+      {id:4,service:'Gutters',                               tam:34e6, sam:24e6, avgTicket:2200, grossMargin:48,pct:1.5},
+      {id:5,service:'Attic Insulation',                      tam:29e6, sam:20e6, avgTicket:3500, grossMargin:45,pct:0.0},
+      {id:6,service:'Exterior Doors',                        tam:24e6, sam:17e6, avgTicket:2500, grossMargin:37,pct:0.0},
+    ]
   }
 };
 Object.values(MARKETS).forEach(m=>m.rows.forEach(r=>{
   r.som=r.sam*.05; r.impliedRev=r.som; r.ourRev=r.sam*(r.pct/100); r.somCap=(r.pct/5)*100;
 }));
-const MARKET_ORDER=['atlanta','boston'];
+const MARKET_ORDER=['atlanta','boston','indianapolis'];
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let view='market', curCountry='usa', curMkt='atlanta', curTab='overview';
@@ -725,8 +747,9 @@ function sortedRows(){
 
 function renderTable(){
   const hint=document.getElementById('tbl-hint');
+  const hintMap={boston:'Defaults from GF Sprague ~$10M split (roofing-first)',indianapolis:'Defaults from Cochran Exteriors ~$16M revenue mix (roofing-first)'};
   if(hint) hint.textContent = MARKETS[curMkt].status==='active'
-    ? 'Defaults from GF Sprague ~$10M split (roofing-first)'
+    ? (hintMap[curMkt]||'Defaults reflect active operations')
     : 'All penetration at 0% \u2014 drag sliders to model market entry';
 
   const tbody=document.getElementById('tbody');
