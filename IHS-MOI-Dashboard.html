@@ -72,6 +72,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .tab-btn:hover{color:var(--text)}
 .tab-btn.active{color:#14b8a6;border-bottom-color:#14b8a6;background:var(--tab-act)}
 
+/* ── SEGMENT TOGGLE ── */
+.seg-bar{background:#08090f;border-bottom:1px solid #141a28;padding:8px 28px}
+.seg-bar-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:8px}
+.seg-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3a4d68;margin-right:4px}
+.seg-btn{padding:5px 16px;border-radius:20px;border:1px solid #1f2940;background:#141a28;color:#6b7fa0;font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;letter-spacing:.2px}
+.seg-btn.active{border-color:#14b8a6;color:#14b8a6;background:rgba(20,184,166,.11)}
+.seg-btn:hover:not(.active){border-color:#3a4d68;color:#e8edf5}
+
 /* ── MARKET SELECTOR PANEL ── */
 .mkt-panel{background:var(--panel-bg);border-bottom:1px solid var(--border);padding:14px 28px;transition:background .2s}
 .mkt-panel-inner{max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:11px}
@@ -276,6 +284,45 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
 .ntb-val{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--text)}
 .ntb-val.teal{color:#14b8a6}
 
+/* ── PORTFOLIO TABLE ── */
+.ptbl-filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.ptbl-filter-group{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.ptbl-filter-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-right:2px}
+.ptbl-pill{padding:4px 11px;border-radius:20px;border:1px solid var(--border);background:var(--chip-bg);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.ptbl-pill.active{border-color:#14b8a6;color:#14b8a6;background:var(--chip-act)}
+.ptbl-pill:hover:not(.active){border-color:var(--text3);color:var(--text)}
+.ptbl-search{background:var(--chip-bg);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:8px;font-size:12px;font-family:inherit;outline:none;transition:border-color .15s;min-width:180px}
+.ptbl-search:focus{border-color:#14b8a6}
+.ptbl-search::placeholder{color:var(--text3)}
+.ptbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:10px;box-shadow:var(--shadow-sm);transition:background .2s}
+.ptbl-head,.ptbl-row{display:grid;grid-template-columns:2.2fr 80px 1.2fr 0.9fr 0.9fr 0.8fr 1fr 100px 1fr;padding:9px 14px;gap:8px;align-items:center}
+.ptbl-head{background:var(--surface2);border-bottom:1px solid var(--border)}
+.ptbl-row{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+.ptbl-row:last-child{border-bottom:none}
+.ptbl-row:hover{background:var(--row-hover)}
+.ptbl-th{font-size:10px;font-weight:600;color:var(--text3);cursor:pointer;user-select:none;white-space:nowrap;transition:color .12s}
+.ptbl-th:hover{color:var(--text)}.ptbl-th.srt{color:#14b8a6}
+.ptbl-th.num{text-align:right}.ptbl-th:not([data-psort]){cursor:default}
+.ptbl-td{font-size:12px;color:var(--text);font-variant-numeric:tabular-nums}
+.ptbl-td.num{text-align:right}.ptbl-td.teal{color:#14b8a6;font-weight:700}
+.ptbl-td.dim{color:var(--text3);font-style:italic;font-weight:400}
+.ptbl-mkt-name{font-weight:600;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ptbl-mkt-geo{font-size:10px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ptbl-pct-cell{display:flex;align-items:center;gap:5px;justify-content:flex-end}
+.ptbl-pagination{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text3);flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.ptbl-pg-btns{display:flex;gap:4px}
+.ptbl-pg-btn{padding:4px 10px;border-radius:5px;border:1px solid var(--border);background:var(--chip-bg);color:var(--text2);font-size:11px;cursor:pointer;font-family:inherit;transition:all .15s}
+.ptbl-pg-btn:hover:not(:disabled){border-color:#14b8a6;color:#14b8a6}
+.ptbl-pg-btn.active{border-color:#14b8a6;color:#14b8a6;background:var(--chip-act);font-weight:700}
+.ptbl-pg-btn:disabled{opacity:.35;cursor:default}
+.ptbl-empty{padding:32px 20px;text-align:center;color:var(--text3);font-size:12px}
+@media(max-width:767px){
+  .ptbl-head,.ptbl-row{grid-template-columns:1fr 80px 1fr 90px}
+  .mob-hide{display:none!important}
+  .ptbl-filters{gap:8px}
+  .ptbl-search{min-width:0;flex:1}
+}
+
 /* ── COMPARISON TABLE ── */
 .cmp-note{font-size:11px;color:var(--text3);margin-bottom:12px;line-height:1.6;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;border-left:3px solid rgba(20,184,166,.3)}
 .cmp-tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:22px;box-shadow:var(--shadow-sm)}
@@ -354,6 +401,7 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
   .tabs-inner{overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 8px}
   .tabs-inner::-webkit-scrollbar{display:none}
   .tab-btn{min-height:44px;padding:0 16px;font-size:13px;white-space:nowrap;flex-shrink:0}
+  .seg-bar{padding:8px 14px}
   .mkt-panel{padding:12px 14px}
   .mkt-row{gap:6px}
   .mkt-dd-wrap{flex-direction:column;align-items:stretch;gap:8px}
@@ -409,6 +457,15 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
   </div>
 </div>
 
+<!-- ── SEGMENT TOGGLE ── -->
+<div class="seg-bar">
+  <div class="seg-bar-inner">
+    <span class="seg-lbl">Segment</span>
+    <button class="seg-btn active" id="seg-res" onclick="setSegment('residential')">Residential</button>
+    <button class="seg-btn" id="seg-com" onclick="setSegment('commercial')">Commercial</button>
+  </div>
+</div>
+
 <!-- ── MARKET SELECTOR PANEL ── -->
 <div class="mkt-panel">
   <div class="mkt-panel-inner">
@@ -442,9 +499,36 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
       <div class="natl-card"><div class="nc-lbl">Total SOM (5%)</div><div class="nc-val" id="n-som">—</div><div class="nc-sub">Revenue potential at baseline</div></div>
       <div class="natl-card"><div class="nc-lbl" id="n-our-lbl">IHS Total Revenue (Live)</div><div class="nc-val" id="n-our">—</div><div class="nc-sub" id="n-our-sub">Active markets only &middot; Set target sliders to model entry</div></div>
     </div>
-    <div class="sh"><span class="sh-title">Market Summary</span><span class="sh-hint">Active and target markets</span></div>
-    <div class="nmg" id="natl-mkt-grid"></div>
-    <div class="natl-total-bar" id="natl-total-bar"></div>
+    <div class="ptbl-filters" id="ptbl-filters">
+      <div class="ptbl-filter-group">
+        <span class="ptbl-filter-lbl">Country</span>
+        <button class="ptbl-pill active" data-cfilter="all" onclick="setPtblFilter('country','all')">All</button>
+        <button class="ptbl-pill" data-cfilter="usa" onclick="setPtblFilter('country','usa')">United States</button>
+        <button class="ptbl-pill" data-cfilter="canada" onclick="setPtblFilter('country','canada')">Canada</button>
+      </div>
+      <div class="ptbl-filter-group">
+        <span class="ptbl-filter-lbl">Status</span>
+        <button class="ptbl-pill active" data-sfilter="all" onclick="setPtblFilter('status','all')">All</button>
+        <button class="ptbl-pill" data-sfilter="active" onclick="setPtblFilter('status','active')">Active</button>
+        <button class="ptbl-pill" data-sfilter="target" onclick="setPtblFilter('status','target')">Target</button>
+      </div>
+      <input class="ptbl-search" id="ptbl-search" type="text" placeholder="Search market or brand…" oninput="setPtblSearch(this.value)">
+    </div>
+    <div class="ptbl-wrap">
+      <div class="ptbl-head">
+        <div class="ptbl-th" data-psort="name" onclick="sortPtbl('name')">Market <span class="si">⇅</span></div>
+        <div class="ptbl-th" data-psort="status" onclick="sortPtbl('status')">Status <span class="si">⇅</span></div>
+        <div class="ptbl-th mob-hide">Brand</div>
+        <div class="ptbl-th num mob-hide" data-psort="tam" onclick="sortPtbl('tam')">TAM <span class="si">⇅</span></div>
+        <div class="ptbl-th num mob-hide" data-psort="sam" onclick="sortPtbl('sam')">SAM <span class="si">⇅</span></div>
+        <div class="ptbl-th num mob-hide" data-psort="som" onclick="sortPtbl('som')">SOM 5% <span class="si">⇅</span></div>
+        <div class="ptbl-th num" data-psort="rev" onclick="sortPtbl('rev')">Our Revenue <span class="si">⇅</span></div>
+        <div class="ptbl-th num" data-psort="pct" onclick="sortPtbl('pct')">Penetration <span class="si">⇅</span></div>
+        <div class="ptbl-th num mob-hide" data-psort="ws" onclick="sortPtbl('ws')">Whitespace <span class="si">⇅</span></div>
+      </div>
+      <div id="ptbl-body"></div>
+    </div>
+    <div class="ptbl-pagination" id="ptbl-pagination"></div>
   </div>
 
   <!-- ══ MARKET OVERVIEW ══ -->
@@ -545,12 +629,13 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
     <strong>Methodology:</strong>
     TAM is derived from MSA housing stock (US Census ACS 2023), owner-occupancy rates, annual exterior remodeling participation benchmarks, and cost-of-living indexed average spend per household (national benchmarks from IBISWorld, NAHB, JCHS/HIRI, indexed to local market conditions).
     SAM represents IHS-addressable service lines &mdash; roofing, siding, windows, doors, gutters, and insulation &mdash; approximately 70% of residential TAM.
+    Commercial TAM is derived from multifamily unit stock (Yardi Matrix, CoStar), small multifamily estimates (ACS 2023), and light commercial building counts, with IHS-addressable service lines representing approximately 80% of commercial exterior spend.
     SOM = 5% of SAM, used as a consistent baseline penetration assumption across all markets.
     <strong>Est. Revenue</strong> = SAM &times; Penetration %.
     <strong>SOM Captured</strong> = Penetration &divide; 5%.
     Service line allocations based on JCHS/HIRI exterior spend distribution, validated where possible against IHS brand CRM actuals.
     This methodology is applied consistently across all markets.
-    <em>Sources: US Census Bureau ACS 2023, Joint Center for Housing Studies Harvard University, Home Improvement Research Institute, IBISWorld, NAHB.</em>
+    <em>Sources: US Census Bureau ACS 2023, Joint Center for Housing Studies Harvard University, Home Improvement Research Institute, IBISWorld, NAHB, Yardi Matrix, CoStar.</em>
     <div class="footer-brand">Built for IHS &nbsp;&middot;&nbsp; Market Opportunity Intelligence Platform</div>
   </div>
 </div>
@@ -563,7 +648,9 @@ const MARKETS = {
     name:'Greater Atlanta Metro', shortName:'Atlanta', country:'usa',
     status:'target', company:null, pop:'6.3M pop \u00b7 2.4M housing units',
     geo:'Buckhead, Alpharetta, Marietta, Roswell, Sandy Springs, Decatur, Dunwoody',
-    rows:[
+    residentialRevenue: 0,
+    commercialRevenue: 0,
+    residentialRows:[
       {id:0,service:'Windows',                               tam:299e6,sam:209e6,avgTicket:9500, grossMargin:38,pct:0.0},
       {id:1,service:'Exterior Doors',                        tam:92e6, sam:64e6, avgTicket:2500, grossMargin:37,pct:0.0},
       {id:2,service:'Roofing \u2013 Residential Replacement',tam:485e6,sam:340e6,avgTicket:14500,grossMargin:42,pct:0.0},
@@ -573,13 +660,16 @@ const MARKETS = {
       {id:6,service:'Solar Panels',                          tam:445e6,sam:312e6,avgTicket:30000,grossMargin:20,pct:0.0},
       {id:7,service:'Gutters',                               tam:62e6, sam:43e6, avgTicket:2200, grossMargin:48,pct:0.0},
       {id:8,service:'Attic Insulation',                      tam:78e6, sam:55e6, avgTicket:3500, grossMargin:45,pct:0.0},
-    ]
+    ],
+    commercialRows: []
   },
   boston: {
     name:'Greater Boston / Needham', shortName:'Boston', country:'usa',
     status:'active', company:'GF Sprague Exteriors', pop:'4.9M pop \u00b7 1.9M housing units',
     geo:'Needham, Newton, Brookline, Wellesley, Quincy, Cambridge, Waltham',
-    rows:[
+    residentialRevenue: 10400000,
+    commercialRevenue: 0,
+    residentialRows:[
       {id:0,service:'Windows',                               tam:236e6,sam:165e6,avgTicket:9500, grossMargin:38,pct:0.2},
       {id:1,service:'Exterior Doors',                        tam:83e6, sam:58e6, avgTicket:2500, grossMargin:37,pct:0.1},
       {id:2,service:'Roofing \u2013 Residential Replacement',tam:347e6,sam:243e6,avgTicket:14500,grossMargin:42,pct:2.8},
@@ -589,13 +679,16 @@ const MARKETS = {
       {id:6,service:'Solar Panels',                          tam:278e6,sam:194e6,avgTicket:28000,grossMargin:20,pct:0.0},
       {id:7,service:'Gutters',                               tam:55e6, sam:38e6, avgTicket:2200, grossMargin:48,pct:0.3},
       {id:8,service:'Attic Insulation',                      tam:70e6, sam:49e6, avgTicket:3500, grossMargin:45,pct:0.1},
-    ]
+    ],
+    commercialRows: []
   },
   indianapolis: {
     name:'Greater Indianapolis Metro', shortName:'Indianapolis', country:'usa',
     status:'active', company:'Cochran Exteriors', pop:'2.1M pop \u00b7 870K housing units',
     geo:'Carmel, Fishers, Noblesville, Westfield, Zionsville, Greenwood, Brownsburg',
-    rows:[
+    residentialRevenue: 16000000,
+    commercialRevenue: 9400000,
+    residentialRows:[
       {id:0,service:'Roofing \u2013 Residential Replacement',tam:135e6,sam:95e6, avgTicket:14500,grossMargin:42,pct:4.5},
       {id:1,service:'Roofing \u2013 Insurance/Storm',         tam:82e6, sam:57e6, avgTicket:18000,grossMargin:40,pct:4.0},
       {id:2,service:'Siding',                                tam:106e6,sam:74e6, avgTicket:15500,grossMargin:38,pct:3.8},
@@ -603,18 +696,28 @@ const MARKETS = {
       {id:4,service:'Gutters',                               tam:34e6, sam:24e6, avgTicket:2200, grossMargin:48,pct:1.5},
       {id:5,service:'Attic Insulation',                      tam:29e6, sam:20e6, avgTicket:3500, grossMargin:45,pct:0.0},
       {id:6,service:'Exterior Doors',                        tam:24e6, sam:17e6, avgTicket:2500, grossMargin:37,pct:0.0},
+    ],
+    commercialRows: [
+      {id:0,service:'Roofing \u2013 Commercial Flat/Low-slope',tam:26.2e6,sam:21.0e6,avgTicket:85000,grossMargin:35,pct:18.0},
+      {id:1,service:'Roofing \u2013 MF Pitched',               tam:16.4e6,sam:13.1e6,avgTicket:45000,grossMargin:38,pct:17.0},
+      {id:2,service:'Siding (MF/Light Commercial)',             tam:13.1e6,sam:10.5e6,avgTicket:35000,grossMargin:36,pct:15.0},
+      {id:3,service:'Gutters (Commercial)',                     tam:6.6e6, sam:5.2e6, avgTicket:8500, grossMargin:44,pct:6.0},
+      {id:4,service:'Windows & Doors (Commercial)',             tam:3.3e6, sam:2.6e6, avgTicket:25000,grossMargin:34,pct:0.0},
     ]
   }
 };
-Object.values(MARKETS).forEach(m=>m.rows.forEach(r=>{
-  r.som=r.sam*.05; r.impliedRev=r.som; r.ourRev=r.sam*(r.pct/100); r.somCap=(r.pct/5)*100;
-}));
+Object.values(MARKETS).forEach(m=>{
+  [...m.residentialRows,...m.commercialRows].forEach(r=>{
+    r.som=r.sam*.05; r.impliedRev=r.som; r.ourRev=r.sam*(r.pct/100); r.somCap=(r.pct/5)*100;
+  });
+});
 const MARKET_ORDER=['atlanta','boston','indianapolis'];
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let view='market', curCountry='usa', curMkt='atlanta', curTab='overview';
+let view='market', curCountry='usa', curMkt='atlanta', curTab='overview', curSegment='residential';
 let sortCol=null, sortDir=-1, openId=null, isDark=true;
 const charts={};
+let ptblSortCol='rev', ptblSortDir=-1, ptblPage=0, ptblCountry='all', ptblStatus='all', ptblSearch='';
 
 // ── FORMAT ────────────────────────────────────────────────────────────────────
 function fmtM(v){
@@ -640,8 +743,9 @@ function capColor(p){
   return '#ef4444';
 }
 function fmtCap(p){return p===0?'\u2014':((p/5)*100).toFixed(0)+'%';}
-function mktRows(){return MARKETS[curMkt].rows;}
-function mktTotals(mk,key){return MARKETS[mk].rows.reduce((s,r)=>s+r[key],0);}
+function mktRows(){return MARKETS[curMkt][curSegment==='residential'?'residentialRows':'commercialRows'];}
+function mktTotals(mk,key){return MARKETS[mk][curSegment==='residential'?'residentialRows':'commercialRows'].reduce((s,r)=>s+r[key],0);}
+function mktRevenue(mk){const m=MARKETS[mk];return curSegment==='residential'?m.residentialRevenue:m.commercialRevenue;}
 function allTotals(key){return MARKET_ORDER.reduce((s,mk)=>s+mktTotals(mk,key),0);}
 function gc(){return getComputedStyle(document.documentElement).getPropertyValue('--border').trim();}
 function tc(){return getComputedStyle(document.documentElement).getPropertyValue('--text2').trim();}
@@ -729,6 +833,14 @@ function switchTab(tab){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
   if(view!=='national'){showPanel(tab);renderForTab(tab);}
 }
+function setSegment(seg){
+  curSegment=seg;
+  document.getElementById('seg-res').classList.toggle('active',seg==='residential');
+  document.getElementById('seg-com').classList.toggle('active',seg==='commercial');
+  openId=null; sortCol=null;
+  if(view==='national')renderNational();
+  else renderForTab(curTab);
+}
 function showPanel(id){
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+id));
 }
@@ -743,19 +855,21 @@ function renderForTab(tab){
 function updateCards(){
   const r=mktRows();
   const tam=r.reduce((s,x)=>s+x.tam,0), sam=r.reduce((s,x)=>s+x.sam,0);
-  const som=r.reduce((s,x)=>s+x.som,0), our=r.reduce((s,x)=>s+x.ourRev,0);
+  const som=r.reduce((s,x)=>s+x.som,0);
+  const our=mktRevenue(curMkt);
   ['c-','d-'].forEach(p=>{
-    [['tam',tam],['sam',sam],['som',som],['our',our]].forEach(([k,v])=>{
+    [['tam',tam],['sam',sam],['som',som]].forEach(([k,v])=>{
       const el=document.getElementById(p+k); if(el) el.textContent=fmtM(v);
     });
+    const el=document.getElementById(p+'our'); if(el) el.textContent=our>0?fmtM(our):'$0';
   });
-  // update card sub-text for target markets
   const ourSub=document.getElementById('c-our-sub');
   if(ourSub){
-    if(MARKETS[curMkt].status==='target'&&our===0){
-      ourSub.textContent='Move sliders to model entry scenarios';
+    if(MARKETS[curMkt].status==='target'){
+      ourSub.textContent='No operations \u2014 move sliders to model entry';
     } else {
-      ourSub.textContent='From penetration sliders';
+      const co=MARKETS[curMkt].company||'Brand';
+      ourSub.textContent=`${co} actual \u00b7 2024 \u00b7 ${curSegment}`;
     }
   }
   updateNational();
@@ -773,13 +887,23 @@ function sortedRows(){
 
 function renderTable(){
   const hint=document.getElementById('tbl-hint');
-  const hintMap={boston:'Defaults from GF Sprague ~$10M split (roofing-first)',indianapolis:'Defaults from Cochran Exteriors ~$16M revenue mix (roofing-first)'};
-  if(hint) hint.textContent = MARKETS[curMkt].status==='active'
-    ? (hintMap[curMkt]||'Defaults reflect active operations')
-    : 'All penetration at 0% \u2014 drag sliders to model market entry';
+  if(hint){
+    if(MARKETS[curMkt].status!=='active'){
+      hint.textContent='All penetration at 0% \u2014 drag sliders to model market entry';
+    } else if(curSegment==='commercial'){
+      hint.textContent=`${MARKETS[curMkt].company||'Brand'} commercial defaults \u00b7 adjust sliders to model scenarios`;
+    } else {
+      const hintMap={boston:'Defaults from GF Sprague ~$10M split (roofing-first)',indianapolis:'Defaults from Cochran Exteriors ~$16M revenue mix (roofing-first)'};
+      hint.textContent=hintMap[curMkt]||'Defaults reflect active operations';
+    }
+  }
 
   const tbody=document.getElementById('tbody');
   tbody.innerHTML='';
+  if(!mktRows().length){
+    tbody.innerHTML=`<tr><td colspan="8" style="padding:28px;text-align:center;color:var(--text3);font-style:italic">No ${curSegment} service lines configured for this market.</td></tr>`;
+    renderMobileSvcCards(); return;
+  }
   sortedRows().forEach(r=>{
     const isOpen=openId===r.id, rc=rowCls(r.pct);
     const cc=capColor(r.pct);
@@ -968,7 +1092,7 @@ const IND_NAME_MAP={
   'Windows':'Windows & Doors'
 };
 function getIndRow(atlService){
-  const ind=MARKETS.indianapolis.rows;
+  const ind=MARKETS.indianapolis.residentialRows;
   return ind.find(x=>x.service===atlService)||ind.find(x=>x.service===IND_NAME_MAP[atlService])||null;
 }
 
@@ -979,7 +1103,7 @@ function renderCompare(){
 }
 
 function renderCmpTable(){
-  const atl=MARKETS.atlanta.rows, bos=MARKETS.boston.rows;
+  const atl=MARKETS.atlanta.residentialRows, bos=MARKETS.boston.residentialRows;
   document.getElementById('cmp-tbody').innerHTML=atl.map((ar,i)=>{
     const br=bos[i];
     const ir=getIndRow(ar.service);
@@ -1003,7 +1127,7 @@ function renderCmpTable(){
 }
 
 function updateCmpTable(){
-  const atl=MARKETS.atlanta.rows, bos=MARKETS.boston.rows;
+  const atl=MARKETS.atlanta.residentialRows, bos=MARKETS.boston.residentialRows;
   atl.forEach((ar,i)=>{
     const el=document.getElementById('cmp-atl-rv-'+i);
     if(el){el.textContent=ar.ourRev>0?fmtM(ar.ourRev):'\u2014';el.className=ar.ourRev>0?'cmp-rev-set':'cmp-rev-zero';}
@@ -1026,7 +1150,7 @@ function updateCmpTable(){
 
 function renderBubble(){
   if(charts.bub){charts.bub.destroy();delete charts.bub;}
-  const atl=MARKETS.atlanta.rows, bos=MARKETS.boston.rows, ind=MARKETS.indianapolis.rows;
+  const atl=MARKETS.atlanta.residentialRows, bos=MARKETS.boston.residentialRows, ind=MARKETS.indianapolis.residentialRows;
   const maxR=Math.max(...atl.map(r=>r.sam),...bos.map(r=>r.sam),...ind.map(r=>r.sam));
   const mkDs=(rows,color,label)=>({label,backgroundColor:color,borderColor:color,
     data:rows.map(r=>({x:+(r.sam/1e6).toFixed(1),y:r.pct,r:Math.max(5,Math.sqrt(r.sam/maxR)*38),service:r.service,rev:r.ourRev}))
@@ -1049,22 +1173,66 @@ function renderBubble(){
 }
 function updateBubble(){
   if(!charts.bub)return;
-  const maxR=Math.max(...MARKETS.atlanta.rows.map(r=>r.sam),...MARKETS.boston.rows.map(r=>r.sam),...MARKETS.indianapolis.rows.map(r=>r.sam));
-  [MARKETS.atlanta.rows,MARKETS.boston.rows,MARKETS.indianapolis.rows].forEach((rows,di)=>{
+  const maxR=Math.max(...MARKETS.atlanta.residentialRows.map(r=>r.sam),...MARKETS.boston.residentialRows.map(r=>r.sam),...MARKETS.indianapolis.residentialRows.map(r=>r.sam));
+  [MARKETS.atlanta.residentialRows,MARKETS.boston.residentialRows,MARKETS.indianapolis.residentialRows].forEach((rows,di)=>{
     rows.forEach((r,i)=>{const d=charts.bub.data.datasets[di].data[i];d.y=r.pct;d.r=Math.max(5,Math.sqrt(r.sam/maxR)*38);d.rev=r.ourRev;});
   });
   charts.bub.update('none');
 }
 
+// ── PORTFOLIO TABLE HELPERS ────────────────────────────────────────────────────
+function setPtblFilter(type,val){
+  if(type==='country'){ptblCountry=val;document.querySelectorAll('[data-cfilter]').forEach(b=>b.classList.toggle('active',b.dataset.cfilter===val));}
+  else{ptblStatus=val;document.querySelectorAll('[data-sfilter]').forEach(b=>b.classList.toggle('active',b.dataset.sfilter===val));}
+  ptblPage=0;renderNational();
+}
+function setPtblSearch(v){ptblSearch=v.toLowerCase();ptblPage=0;renderNational();}
+function sortPtbl(col){ptblSortCol===col?ptblSortDir*=-1:(ptblSortCol=col,ptblSortDir=col==='name'||col==='status'?1:-1);ptblPage=0;renderNational();}
+function ptblMktData(){
+  return MARKET_ORDER.map(mk=>{
+    const m=MARKETS[mk];
+    const rows=m[curSegment==='residential'?'residentialRows':'commercialRows'];
+    const tam=rows.reduce((s,r)=>s+r.tam,0);
+    const sam=rows.reduce((s,r)=>s+r.sam,0);
+    const som=sam*.05;
+    const rev=mktRevenue(mk);
+    const pct=sam>0?(rev/sam*100):0;
+    const ws=sam-rev;
+    return{mk,m,tam,sam,som,rev,pct,ws};
+  });
+}
+function ptblFiltered(){
+  let data=ptblMktData();
+  if(ptblCountry!=='all') data=data.filter(d=>d.m.country===ptblCountry);
+  if(ptblStatus!=='all') data=data.filter(d=>d.m.status===ptblStatus);
+  if(ptblSearch) data=data.filter(d=>d.m.name.toLowerCase().includes(ptblSearch)||(d.m.company||'').toLowerCase().includes(ptblSearch)||(d.m.shortName||'').toLowerCase().includes(ptblSearch));
+  data.sort((a,b)=>{
+    let av,bv;
+    if(ptblSortCol==='name'){av=a.m.name;bv=b.m.name;return av.localeCompare(bv)*ptblSortDir;}
+    if(ptblSortCol==='status'){av=a.m.status;bv=b.m.status;return av.localeCompare(bv)*ptblSortDir;}
+    const map={tam:'tam',sam:'sam',som:'som',rev:'rev',pct:'pct',ws:'ws'};
+    av=a[map[ptblSortCol]]??0;bv=b[map[ptblSortCol]]??0;
+    return(av-bv)*ptblSortDir;
+  });
+  return data;
+}
+function renderPtblSortHeaders(){
+  document.querySelectorAll('.ptbl-th[data-psort]').forEach(th=>{
+    const col=th.dataset.psort;
+    th.classList.toggle('srt',col===ptblSortCol);
+    const si=th.querySelector('.si');
+    if(si) si.textContent=col===ptblSortCol?(ptblSortDir===1?'↑':'↓'):'⇅';
+  });
+}
+
 // ── NATIONAL VIEW ─────────────────────────────────────────────────────────────
 function renderNational(){
   const tam=allTotals('tam'), sam=allTotals('sam'), som=allTotals('som');
-  const activeRev=MARKET_ORDER.filter(mk=>MARKETS[mk].status==='active').reduce((s,mk)=>s+mktTotals(mk,'ourRev'),0);
+  const activeRev=MARKET_ORDER.filter(mk=>MARKETS[mk].status==='active').reduce((s,mk)=>s+mktRevenue(mk),0);
   const modeledRev=MARKET_ORDER.filter(mk=>MARKETS[mk].status==='target').reduce((s,mk)=>s+mktTotals(mk,'ourRev'),0);
   const hasModeled=modeledRev>0;
   const displayRev=activeRev+(hasModeled?modeledRev:0);
 
-  // Top 4 summary cards
   document.getElementById('n-tam').textContent=fmtM(tam);
   document.getElementById('n-sam').textContent=fmtM(sam);
   document.getElementById('n-som').textContent=fmtM(som);
@@ -1074,51 +1242,52 @@ function renderNational(){
     ?`Active: ${fmtM(activeRev)} \u00b7 Modeled: ${fmtM(modeledRev)}`
     :'Active markets only \u00b7 Set target sliders to include modeled revenue';
 
-  // Market grid cards
-  const grid=document.getElementById('natl-mkt-grid');
-  grid.innerHTML=MARKET_ORDER.map(mk=>{
-    const m=MARKETS[mk];
-    const mtam=mktTotals(mk,'tam'),msam=mktTotals(mk,'sam');
-    const msom=mktTotals(mk,'som'),mour=mktTotals(mk,'ourRev');
-    const avgPct=msam>0?(mour/msam*100):0;
-    const isTarget=m.status==='target';
-    const barColor=isTarget?'#3a4d68':avgPct>=5?'#22c55e':avgPct>=2?'#f59e0b':avgPct>0?'#ef4444':'#3a4d68';
-    const barW=isTarget?0:Math.min(avgPct/10*100,100);
-    const revDisplay=isTarget&&mour===0
-      ?'<em style="color:var(--text3);font-style:italic">No operations</em>'
-      :`<span class="nmgc-stat-val teal">${fmtM(mour)}</span>`;
-    return`<div class="nmgc ${m.status}">
-      <div class="nmgc-name">${m.name}</div>
-      <div class="nmgc-badges">
-        <span class="sbadge ${m.status}">${m.status==='active'?'Active':'Target'}</span>
-        ${m.company?`<span class="nmgc-company">${m.company}</span>`:''}
-      </div>
-      <div class="nmgc-stats">
-        <div class="nmgc-stat"><span class="nmgc-stat-lbl">TAM</span><span class="nmgc-stat-val">${fmtM(mtam)}</span></div>
-        <div class="nmgc-stat"><span class="nmgc-stat-lbl">SAM</span><span class="nmgc-stat-val">${fmtM(msam)}</span></div>
-        <div class="nmgc-stat"><span class="nmgc-stat-lbl">SOM (5%)</span><span class="nmgc-stat-val">${fmtM(msom)}</span></div>
-        <div class="nmgc-stat"><span class="nmgc-stat-lbl">Our Revenue</span>${revDisplay}</div>
-      </div>
-      <div class="nmgc-pct-bar">
-        <div class="nmgc-pct-lbl">
-          <span>Avg Penetration</span>
-          <span style="color:${barColor};font-weight:700">${isTarget?'&mdash;':fmtPct(avgPct)}</span>
-        </div>
-        <div class="nmgc-pct-track"><div class="nmgc-pct-fill" style="width:${barW}%;background:${barColor}"></div></div>
-      </div>
-      <div class="nmgc-geo">${m.pop}${m.geo?' \u00b7 '+m.geo:''}</div>
-    </div>`;
-  }).join('');
+  const PAGE_SIZE=25;
+  const filtered=ptblFiltered();
+  const totalPages=Math.max(1,Math.ceil(filtered.length/PAGE_SIZE));
+  if(ptblPage>=totalPages)ptblPage=totalPages-1;
+  const pageData=filtered.slice(ptblPage*PAGE_SIZE,(ptblPage+1)*PAGE_SIZE);
 
-  // All Markets Total bar
-  const totalBar=document.getElementById('natl-total-bar');
-  const avgPctAll=sam>0?(displayRev/sam*100):0;
-  totalBar.innerHTML=`
-    <div class="ntb-label">All Markets Total</div>
-    <div class="ntb-item"><div class="ntb-lbl">TAM</div><div class="ntb-val">${fmtM(tam)}</div></div>
-    <div class="ntb-item"><div class="ntb-lbl">SAM</div><div class="ntb-val">${fmtM(sam)}</div></div>
-    <div class="ntb-item"><div class="ntb-lbl">SOM (5%)</div><div class="ntb-val">${fmtM(som)}</div></div>
-    <div class="ntb-item"><div class="ntb-lbl">IHS Revenue</div><div class="ntb-val teal">${fmtM(displayRev)}</div></div>`;
+  const body=document.getElementById('ptbl-body');
+  if(!body)return;
+  if(!pageData.length){
+    body.innerHTML=`<div class="ptbl-empty">No markets match the current filters.</div>`;
+  } else {
+    body.innerHTML=pageData.map(({mk,m,tam,sam,som,rev,pct,ws})=>{
+      const isActive=m.status==='active';
+      const dotClrPtbl=isActive?(pct>=5?'#22c55e':pct>=2?'#f59e0b':pct>0?'#ef4444':'#3a4d68'):'#3a4d68';
+      const revTd=isActive&&rev>0?`<span class="ptbl-td teal">${fmtM(rev)}</span>`:`<span class="ptbl-td dim">\u2014</span>`;
+      const wsTd=isActive&&rev>0?`<span class="ptbl-td">${fmtM(ws)}</span>`:`<span class="ptbl-td dim">\u2014</span>`;
+      return`<div class="ptbl-row" onclick="selectMarket('${mk}')">
+        <div><div class="ptbl-mkt-name">${m.name}</div>${m.geo?`<div class="ptbl-mkt-geo">${m.shortName} \u00b7 ${m.geo.split(',').slice(0,3).join(', ')}\u2026</div>`:''}</div>
+        <div><span class="sbadge ${m.status}" style="font-size:8.5px">${isActive?'Active':'Target'}</span></div>
+        <div class="ptbl-td mob-hide">${m.company||'<span style="color:var(--text3)">\u2014</span>'}</div>
+        <div class="ptbl-td num mob-hide">${tam?fmtM(tam):'<span style="color:var(--text3)">\u2014</span>'}</div>
+        <div class="ptbl-td num mob-hide">${sam?fmtM(sam):'<span style="color:var(--text3)">\u2014</span>'}</div>
+        <div class="ptbl-td num mob-hide">${som?fmtM(som):'<span style="color:var(--text3)">\u2014</span>'}</div>
+        <div class="num">${revTd}</div>
+        <div class="ptbl-pct-cell"><div class="sdot" style="background:${dotClrPtbl}"></div><span class="ptbl-td">${isActive&&pct>0?fmtPct(pct):'<span style="color:var(--text3)">\u2014</span>'}</span></div>
+        <div class="num mob-hide">${wsTd}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Pagination
+  const pg=document.getElementById('ptbl-pagination');
+  if(pg){
+    const start=filtered.length?ptblPage*PAGE_SIZE+1:0;
+    const end=Math.min((ptblPage+1)*PAGE_SIZE,filtered.length);
+    const pgBtns=Array.from({length:totalPages},(_,i)=>
+      `<button class="ptbl-pg-btn${i===ptblPage?' active':''}" onclick="ptblPage=${i};renderNational()">${i+1}</button>`
+    ).join('');
+    pg.innerHTML=`<span>${filtered.length?`Showing ${start}\u2013${end} of ${filtered.length} markets`:'No results'}</span>
+      <div class="ptbl-pg-btns">
+        <button class="ptbl-pg-btn" onclick="if(ptblPage>0){ptblPage--;renderNational();}" ${ptblPage===0?'disabled':''}>&#8592;</button>
+        ${totalPages<=7?pgBtns:''}
+        <button class="ptbl-pg-btn" onclick="if(ptblPage<${totalPages-1}){ptblPage++;renderNational();}" ${ptblPage>=totalPages-1?'disabled':''}>&#8594;</button>
+      </div>`;
+  }
+  renderPtblSortHeaders();
 }
 function updateNational(){if(view==='national')renderNational();}
 
@@ -1159,7 +1328,7 @@ function renderMobileSvcCards(){
 // ── MOBILE COMPARISON CARDS ───────────────────────────────────────────────────
 function renderMobileCmpCards(){
   const c=document.getElementById('mobile-cmp-cards');if(!c)return;
-  const atl=MARKETS.atlanta.rows,bos=MARKETS.boston.rows;
+  const atl=MARKETS.atlanta.residentialRows,bos=MARKETS.boston.residentialRows;
   c.innerHTML=atl.map((ar,i)=>{
     const br=bos[i];
     const ir=getIndRow(ar.service);
