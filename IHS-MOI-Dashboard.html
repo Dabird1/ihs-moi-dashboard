@@ -70,17 +70,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 /* ── TABS ── */
 .tabs{background:#08090f;border-bottom:1px solid #141a28;padding:0 28px;position:relative;z-index:20}
 .tabs-inner{max-width:1440px;margin:0 auto;display:flex;gap:2px}
-.tab-btn{padding:9px 18px;font-size:12px;font-weight:600;color:var(--text2);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;font-family:inherit;white-space:nowrap}
-.tab-btn:hover{color:var(--text)}
-.tab-btn.active{color:#14b8a6;border-bottom-color:#14b8a6;background:var(--tab-act)}
+.tab-btn{padding:9px 18px;font-size:12px;font-weight:600;color:#E5E7EB;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;font-family:inherit;white-space:nowrap}
+.tab-btn:hover{color:#FFFFFF}
+.tab-btn.active{color:#FFFFFF;border-bottom-color:#14b8a6;background:var(--tab-act)}
+html.light .tab-btn{color:#374151}
+html.light .tab-btn:hover{color:#111827}
+html.light .tab-btn.active{color:#111827;border-bottom-color:#14b8a6}
 
 /* ── SEGMENT TOGGLE ── */
 .seg-bar{background:#08090f;border-bottom:1px solid #141a28;padding:8px 28px;position:relative;z-index:1}
 .seg-bar-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:8px}
-.seg-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3a4d68;margin-right:4px}
-.seg-btn{padding:5px 16px;border-radius:20px;border:1px solid #1f2940;background:#141a28;color:#6b7fa0;font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;letter-spacing:.2px}
-.seg-btn.active{border-color:#14b8a6;color:#14b8a6;background:rgba(20,184,166,.11)}
-.seg-btn:hover:not(.active){border-color:#3a4d68;color:#e8edf5}
+.seg-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#9CA3AF;margin-right:4px}
+.seg-btn{padding:5px 16px;border-radius:20px;border:1px solid #3a4d68;background:#141a28;color:#F9FAFB;font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;letter-spacing:.2px}
+.seg-btn.active{border-color:#00BFA5;color:#FFFFFF;background:#00BFA5}
+.seg-btn:hover:not(.active){border-color:#6B7280;color:#FFFFFF}
+html.light .seg-lbl{color:#6B7280}
+html.light .seg-btn{border-color:#D1D5DB;background:#F3F4F6;color:#374151}
+html.light .seg-btn.active{border-color:#00BFA5;color:#FFFFFF;background:#00BFA5}
+html.light .seg-btn:hover:not(.active){border-color:#9CA3AF;color:#111827;background:#E5E7EB}
 
 /* ── SOM CONTROL ── */
 .som-bar{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 18px;margin-bottom:16px;box-shadow:var(--shadow-sm);transition:background .2s}
@@ -422,6 +429,42 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
 .bubble-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px 20px;box-shadow:var(--shadow-sm);transition:background .2s}
 .bw-canvas{position:relative;height:340px}
 
+/* ── FOOTNOTE SUPERSCRIPTS ── */
+.fn-sup{color:#14b8a6;font-size:8px;vertical-align:super;font-weight:700;margin-left:1px;line-height:0}
+
+/* ── PENETRATION PERFORMANCE PANEL ── */
+.pentrack{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:20px 22px 18px;margin-bottom:18px;box-shadow:var(--shadow-sm);transition:background .2s}
+.pentrack-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:18px}
+.pentrack-bar-wrap{position:relative;margin:30px 0 36px}
+.pentrack-track{height:12px;background:var(--bar-track);border-radius:6px;position:relative;overflow:visible}
+.pentrack-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#00BFA5,#0d9488);transition:width .4s}
+.pentrack-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#00BFA5;border:3px solid #fff;box-shadow:0 0 0 5px rgba(0,191,165,.3),0 2px 12px rgba(0,0,0,.4);z-index:5;transition:left .4s}
+html.light .pentrack-dot{border-color:#f0f4f8}
+.pentrack-dot-label{position:absolute;top:-28px;left:50%;transform:translateX(-50%);font-size:15px;font-weight:900;color:#00BFA5;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1}
+.pentrack-milestone{position:absolute;top:50%;transform:translate(-50%,-50%);z-index:3;cursor:default}
+.pentrack-diamond{width:10px;height:10px;background:var(--card-bg);border:2px solid var(--text3);transform:rotate(45deg)}
+.pentrack-ml-above{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);font-size:8.5px;font-weight:700;color:var(--text2);white-space:nowrap}
+.pentrack-ml-below{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);font-size:8px;color:var(--text3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.pentrack-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px}
+@media(max-width:600px){.pentrack-stats{grid-template-columns:1fr}.pentrack{padding:14px 14px 14px}}
+.pentrack-stat{border:1px solid var(--border);border-radius:8px;padding:13px 15px;background:var(--surface2);transition:border-color .2s,background .2s}
+.pentrack-stat.ps-teal{border-color:#00BFA5;background:rgba(0,191,165,.05)}
+.pentrack-stat.ps-amber{border-color:#f59e0b;background:rgba(245,158,11,.05)}
+.pentrack-stat.ps-red{border-color:#ef4444;background:rgba(239,68,68,.05)}
+.ps-badge{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:5px}
+.ps-rev{font-size:19px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--text);line-height:1.1;margin-bottom:2px}
+.ps-pct{font-size:11px;color:var(--text3);margin-bottom:4px}
+.ps-delta{font-size:10px;color:var(--text3);font-style:italic}
+.pentrack-no-ops{padding:28px 20px;text-align:center;font-size:12px;color:var(--text3);font-style:italic;line-height:1.65}
+
+/* ── MINI PROGRESS BAR (penetration column) ── */
+.pct-col-inner{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.pct-row-top{display:flex;align-items:center;gap:5px}
+.pct-mini-row{display:flex;align-items:center;gap:4px}
+.pct-mini-bar{width:72px;height:5px;background:var(--bar-track);border-radius:3px;overflow:hidden;flex-shrink:0}
+.pct-mini-fill{height:100%;background:#14b8a6;border-radius:3px;transition:width .3s}
+.pct-mini-chk{color:#14b8a6;font-size:9px;font-weight:800;line-height:1}
+
 /* ── FOOTER ── */
 .footer{margin-top:28px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text3);line-height:1.75;box-shadow:var(--shadow-sm);transition:background .2s}
 .footer strong{color:var(--text2)}
@@ -620,7 +663,7 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
           <div class="ptbl-th num mob-hide" id="ptbl-som-th" data-psort="som" onclick="sortPtbl('som')">SOM 5% <span class="si">⇅</span></div>
           <div class="ptbl-th num" data-psort="rev" onclick="sortPtbl('rev')">Our Revenue <span class="si">⇅</span></div>
           <div class="ptbl-th num" data-psort="pct" onclick="sortPtbl('pct')">Penetration <span class="si">⇅</span></div>
-          <div class="ptbl-th num mob-hide" data-psort="ws" onclick="sortPtbl('ws')">Whitespace <span class="si">⇅</span></div>
+          <div class="ptbl-th num mob-hide" data-psort="ws" onclick="sortPtbl('ws')">Whitespace<sup class="fn-sup">⁶</sup> <span class="si">⇅</span></div>
         </div>
         <div id="ptbl-body"></div>
       </div>
@@ -660,11 +703,12 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
   <!-- ══ MARKET OVERVIEW ══ -->
   <div class="panel active" id="panel-overview">
     <div class="cards">
-      <div class="card"><div class="c-lbl">Total TAM</div><div class="c-val" id="c-tam">—</div><div class="c-sub">All 9 service lines</div></div>
-      <div class="card"><div class="c-lbl">Total SAM</div><div class="c-val" id="c-sam">—</div><div class="c-sub">Serviceable in metro</div></div>
+      <div class="card"><div class="c-lbl">Total TAM<sup class="fn-sup">¹</sup></div><div class="c-val" id="c-tam">—</div><div class="c-sub">All 9 service lines</div></div>
+      <div class="card"><div class="c-lbl">Total SAM<sup class="fn-sup">²</sup></div><div class="c-val" id="c-sam">—</div><div class="c-sub">Serviceable in metro</div></div>
       <div class="card"><div class="c-lbl" id="c-som-lbl">SOM at 5%</div><div class="c-val" id="c-som">—</div><div class="c-sub">Revenue at baseline</div></div>
-      <div class="card"><div class="c-lbl">Our Revenue (Live)</div><div class="c-val" id="c-our">$0</div><div class="c-sub" id="c-our-sub">From penetration sliders</div></div>
+      <div class="card"><div class="c-lbl">Our Revenue (Live)<sup class="fn-sup">⁴</sup></div><div class="c-val" id="c-our">$0</div><div class="c-sub" id="c-our-sub">From penetration sliders</div></div>
     </div>
+    <div id="pentrack-panel"></div>
     <div class="sh">
       <span class="sh-title">Service Lines &mdash; click any row to adjust penetration</span>
       <div class="legend">
@@ -690,7 +734,7 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
           <th data-col="som"         data-t="n" class="num">SOM (5%) <span class="si">&#8645;</span></th>
           <th data-col="avgTicket"   data-t="n" class="num">Avg Ticket <span class="si">&#8645;</span></th>
           <th data-col="grossMargin" data-t="n" class="num">Margin <span class="si">&#8645;</span></th>
-          <th data-col="pct"         data-t="n" class="num">Penetration <span class="si">&#8645;</span></th>
+          <th data-col="pct"         data-t="n" class="num">Penetration<sup class="fn-sup">⁵</sup> <span class="si">&#8645;</span></th>
           <th data-col="somCap"      data-t="n" class="num">SOM Captured <span class="si">&#8645;</span></th>
           <th data-col="ourRev"      data-t="n" class="num">Est. Revenue <span class="si">&#8645;</span></th>
         </tr></thead>
@@ -707,10 +751,10 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
   <!-- ══ SERVICE LINE DETAIL ══ -->
   <div class="panel" id="panel-detail">
     <div class="cards" style="margin-bottom:18px">
-      <div class="card"><div class="c-lbl">Total TAM</div><div class="c-val" id="d-tam">—</div><div class="c-sub">All 9 lines</div></div>
-      <div class="card"><div class="c-lbl">Total SAM</div><div class="c-val" id="d-sam">—</div><div class="c-sub">Serviceable</div></div>
+      <div class="card"><div class="c-lbl">Total TAM<sup class="fn-sup">¹</sup></div><div class="c-val" id="d-tam">—</div><div class="c-sub">All 9 lines</div></div>
+      <div class="card"><div class="c-lbl">Total SAM<sup class="fn-sup">²</sup></div><div class="c-val" id="d-sam">—</div><div class="c-sub">Serviceable</div></div>
       <div class="card"><div class="c-lbl" id="d-som-lbl">SOM at 5%</div><div class="c-val" id="d-som">—</div><div class="c-sub">Baseline</div></div>
-      <div class="card"><div class="c-lbl">Our Revenue</div><div class="c-val" id="d-our">$0</div><div class="c-sub">Live total</div></div>
+      <div class="card"><div class="c-lbl">Our Revenue<sup class="fn-sup">⁴</sup></div><div class="c-val" id="d-our">$0</div><div class="c-sub">Live total</div></div>
     </div>
     <div class="sh"><span class="sh-title">Service Line Cards &mdash; color-coded by penetration status</span></div>
     <div class="sld-grid" id="sld-grid"></div>
@@ -771,16 +815,17 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
 
   <!-- FOOTER -->
   <div class="footer">
-    <strong>Methodology:</strong>
-    TAM is derived from MSA housing stock (US Census ACS 2023), owner-occupancy rates, annual exterior remodeling participation benchmarks, and cost-of-living indexed average spend per household (national benchmarks from IBISWorld, NAHB, JCHS/HIRI, indexed to local market conditions).
-    SAM represents IHS-addressable service lines &mdash; roofing, siding, windows, doors, gutters, and insulation &mdash; approximately 70% of residential TAM.
-    Commercial TAM is derived from multifamily unit stock (Yardi Matrix, CoStar), small multifamily estimates (ACS 2023), and light commercial building counts, with IHS-addressable service lines representing approximately 80% of commercial exterior spend.
-    SOM = 5% of SAM, used as a consistent baseline penetration assumption across all markets.
-    <strong>Est. Revenue</strong> = SAM &times; Penetration %.
-    <strong>SOM Captured</strong> = Penetration &divide; 5%.
-    Service line allocations based on JCHS/HIRI exterior spend distribution, validated where possible against IHS brand CRM actuals.
-    This methodology is applied consistently across all markets.
-    <em>Sources: US Census Bureau ACS 2023, Joint Center for Housing Studies Harvard University, Home Improvement Research Institute, IBISWorld, NAHB, Yardi Matrix, CoStar.</em>
+    <hr style="border:none;border-top:1px solid var(--border);margin-bottom:12px">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:10px">Methodology &amp; Definitions</div>
+    <div style="font-size:11px;color:var(--text3);line-height:1.8">
+      <div style="margin-bottom:6px"><strong style="color:var(--text2)">¹ TAM (Total Addressable Market):</strong> The total annual exterior remodeling spend across all housing units in the metro area. Derived from MSA housing stock (US Census ACS 2023), owner-occupancy rates (residential) or multifamily/commercial building counts (commercial), multiplied by annual exterior remodeling participation rate and average spend per active household. National benchmarks sourced from IBISWorld, NAHB, and the Joint Center for Housing Studies (JCHS) Leading Indicators of Remodeling Activity (LIRA), indexed to local cost-of-living conditions.</div>
+      <div style="margin-bottom:6px"><strong style="color:var(--text2)">² SAM (Serviceable Addressable Market):</strong> The portion of TAM addressable by IHS service lines — roofing, siding, windows, doors, gutters, and insulation. Represents approximately 70% of residential TAM and 80% of commercial TAM. Excludes interior remodeling, HVAC, plumbing, landscaping, and other non-exterior categories.</div>
+      <div style="margin-bottom:6px"><strong style="color:var(--text2)">³ SOM (Serviceable Obtainable Market):</strong> The revenue IHS could realistically capture at a given penetration assumption. Default baseline is 5% of SAM, representing a competent, established operator in a metro market. A 10% target reflects a market-leading position. Users may enter any custom percentage. SOM is not a forecast — it is a scenario modeling tool.</div>
+      <div style="margin-bottom:6px"><strong style="color:var(--text2)">⁴ Our Revenue:</strong> Actual brand revenue reported from IHS brand CRM actuals for active markets. For target markets (no current operations), revenue reflects modeled estimates from penetration slider inputs only. Residential and commercial revenue are tracked separately and never blended.</div>
+      <div style="margin-bottom:6px"><strong style="color:var(--text2)">⁵ Penetration %:</strong> Our Revenue as a percentage of SAM. Calculated as (Our Revenue ÷ SAM) × 100. Color coded: green = at or above SOM baseline (≥5%), yellow = approaching baseline (2–4.9%), red = below threshold (&lt;2%), gray = target market with no operations.</div>
+      <div style="margin-bottom:6px"><strong style="color:var(--text2)">⁶ Whitespace:</strong> The revenue opportunity remaining within the SAM after subtracting actual brand revenue. Calculated as SAM minus Our Revenue. Represents the total addressable opportunity IHS has not yet captured in this market and segment.</div>
+      <div style="margin-top:8px;font-style:italic"><em>Sources: US Census Bureau ACS 2023, Joint Center for Housing Studies Harvard University, Home Improvement Research Institute, IBISWorld, NAHB, Yardi Matrix, CoStar.</em></div>
+    </div>
     <div class="footer-brand">Built for IHS &nbsp;&middot;&nbsp; Market Opportunity Intelligence Platform</div>
   </div>
 </div>
@@ -992,7 +1037,7 @@ function showPanel(id){
 }
 function renderForTab(tab){
   updateCards();
-  if(tab==='overview'){renderTable();renderOverviewChart();}
+  if(tab==='overview'){renderPenetrationPanel();renderTable();renderOverviewChart();}
   if(tab==='detail')  renderDetail();
   if(tab==='compare') renderCompare();
 }
@@ -1006,8 +1051,8 @@ function applySomPct(pct){
 }
 function updateSomLabels(){
   const p=Number.isInteger(curSomPct)?curSomPct+'%':curSomPct.toFixed(1)+'%';
-  [['c-som-lbl',`SOM at ${p}`],['d-som-lbl',`SOM at ${p}`],['n-som-lbl',`Total SOM (${p})`]].forEach(([id,txt])=>{
-    const el=document.getElementById(id);if(el)el.textContent=txt;
+  [['c-som-lbl',`SOM at ${p}<sup class="fn-sup">\u00b3</sup>`],['d-som-lbl',`SOM at ${p}<sup class="fn-sup">\u00b3</sup>`],['n-som-lbl',`Total SOM (${p})`]].forEach(([id,html])=>{
+    const el=document.getElementById(id);if(el)el.innerHTML=html;
   });
   const somTh=document.querySelector('#tbl thead th[data-col="som"]');
   if(somTh)somTh.innerHTML=`SOM (${p}) <span class="si">&#8645;</span>`;
@@ -1020,7 +1065,7 @@ function setSom(pct){
   document.getElementById('som-10').classList.toggle('active',pct===10);
   const ci=document.getElementById('som-custom');if(ci)ci.value='';
   updateSomLabels();updateCards();
-  if(curTab==='overview'){renderTable();renderOverviewChart();}
+  if(curTab==='overview'){renderPenetrationPanel();renderTable();renderOverviewChart();}
   if(curTab==='detail')renderDetail();
   if(view==='national')renderNational();
 }
@@ -1031,7 +1076,7 @@ function setSomCustom(val){
   document.getElementById('som-5').classList.remove('active');
   document.getElementById('som-10').classList.remove('active');
   updateSomLabels();updateCards();
-  if(curTab==='overview'){renderTable();renderOverviewChart();}
+  if(curTab==='overview'){renderPenetrationPanel();renderTable();renderOverviewChart();}
   if(curTab==='detail')renderDetail();
   if(view==='national')renderNational();
 }
@@ -1067,6 +1112,100 @@ function updateCards(){
     }
   }
   updateNational();
+}
+
+// ── PENETRATION PERFORMANCE PANEL ─────────────────────────────────────────────
+function renderPenetrationPanel(){
+  const el=document.getElementById('pentrack-panel');if(!el)return;
+  const m=MARKETS[curMkt];
+  const rows=mktRows();
+  const sam=rows.reduce((s,r)=>s+r.sam,0);
+  const rev=mktRevenue(curMkt);
+  const curPct=sam>0?(rev/sam*100):0;
+  const somPct=curSomPct;
+  const isTarget=m.status==='target';
+  const p=Number.isInteger(somPct)?somPct:+somPct.toFixed(1);
+
+  if(!sam){el.innerHTML='';return;}
+
+  // Visual track: 0–20% range (capped at 20 for display)
+  const trackMax=20;
+  const fillW=Math.min(curPct,trackMax)/trackMax*100;
+  const dotLeft=Math.min(curPct,trackMax)/trackMax*100;
+  const m5left=5/trackMax*100;
+  const m10left=10/trackMax*100;
+  const m20left=100;
+
+  // Revenue amounts
+  const revBaseline=sam*somPct/100;
+  const revTarget=sam*(somPct*2)/100;
+  const revMax=sam*0.20;
+
+  // Delta from today to baseline
+  let deltaHtml='';
+  if(isTarget){
+    deltaHtml='<span class="ps-delta">No current operations</span>';
+  } else if(rev<revBaseline){
+    const gap=revBaseline-rev;
+    deltaHtml=`<span class="ps-delta">+${fmtM(gap)} to reach ${p}% baseline</span>`;
+  } else {
+    const gap=rev-revBaseline;
+    deltaHtml=`<span class="ps-delta">${fmtM(gap)} above ${p}% baseline</span>`;
+  }
+
+  // Today box border class
+  const todayClass=isTarget?'ps-red':curPct>=somPct?'ps-teal':curPct>=2?'ps-amber':'ps-red';
+
+  const trackHtml=isTarget
+    ?`<div class="pentrack-no-ops">No current operations in ${m.shortName} — use penetration sliders to model market entry scenarios.</div>`
+    :`<div class="pentrack-bar-wrap">
+      <div class="pentrack-track">
+        <div class="pentrack-fill" style="width:${fillW}%"></div>
+        <div class="pentrack-dot" style="left:${dotLeft}%">
+          <div class="pentrack-dot-label">${fmtPct(curPct)}</div>
+        </div>
+        <div class="pentrack-milestone" style="left:${m5left}%">
+          <div class="pentrack-diamond"></div>
+          <div class="pentrack-ml-above">5%</div>
+          <div class="pentrack-ml-below">${fmtM(revBaseline)}</div>
+        </div>
+        <div class="pentrack-milestone" style="left:${m10left}%">
+          <div class="pentrack-diamond"></div>
+          <div class="pentrack-ml-above">10%</div>
+          <div class="pentrack-ml-below">${fmtM(revTarget)}</div>
+        </div>
+        <div class="pentrack-milestone" style="left:${m20left}%">
+          <div class="pentrack-diamond"></div>
+          <div class="pentrack-ml-above">20%</div>
+          <div class="pentrack-ml-below">${fmtM(revMax)}</div>
+        </div>
+      </div>
+    </div>`;
+
+  el.innerHTML=`<div class="pentrack">
+    <div class="pentrack-title">Market Penetration &mdash; ${m.name}</div>
+    ${trackHtml}
+    <div class="pentrack-stats">
+      <div class="pentrack-stat ${todayClass}">
+        <div class="ps-badge">Today</div>
+        <div class="ps-rev">${isTarget?'\u2014':fmtM(rev)}</div>
+        <div class="ps-pct">${isTarget?'0.0% of SAM':fmtPct(curPct)+' of SAM'}</div>
+        ${deltaHtml}
+      </div>
+      <div class="pentrack-stat">
+        <div class="ps-badge">${p}% Baseline</div>
+        <div class="ps-rev">${fmtM(revBaseline)}</div>
+        <div class="ps-pct">${p}% of SAM</div>
+        <div class="ps-delta">SOM at current assumption</div>
+      </div>
+      <div class="pentrack-stat">
+        <div class="ps-badge">${p*2}% Target</div>
+        <div class="ps-rev">${fmtM(revTarget)}</div>
+        <div class="ps-pct">${p*2}% of SAM</div>
+        <div class="ps-delta">2× baseline scenario</div>
+      </div>
+    </div>
+  </div>`;
 }
 
 // ── TABLE ─────────────────────────────────────────────────────────────────────
@@ -1109,7 +1248,7 @@ function renderTable(){
       <td class="nc">${fmtM(r.som)}</td>
       <td class="nc">${fmtD(r.avgTicket)}</td>
       <td><div class="gm-w"><span style="min-width:26px;text-align:right">${r.grossMargin}%</span><div class="gm-trk"><div class="gm-fil" style="width:${r.grossMargin}%"></div></div></div></td>
-      <td><div class="pct-w"><div class="sdot" id="dot-${r.id}" style="background:${dotClr(r.pct)}"></div><span class="pct-n" id="pv-${r.id}">${fmtPct(r.pct)}</span></div></td>
+      <td><div class="pct-col-inner"><div class="pct-row-top"><div class="sdot" id="dot-${r.id}" style="background:${dotClr(r.pct)}"></div><span class="pct-n" id="pv-${r.id}">${fmtPct(r.pct)}</span></div><div class="pct-mini-row"><div class="pct-mini-bar"><div class="pct-mini-fill" id="pmf-${r.id}" style="width:${Math.min(r.pct/curSomPct*100,100)}%"></div></div>${r.pct>=curSomPct?'<span class="pct-mini-chk" id="pmchk-'+r.id+'">✓</span>':'<span class="pct-mini-chk" id="pmchk-'+r.id+'" style="display:none">✓</span>'}</div></div></td>
       <td class="nc cap-td" id="cap-td-${r.id}" style="border-left:3px solid ${cc}"><span class="cap-txt" id="cap-${r.id}" style="color:${cc}">${fmtCap(r.pct)}</span></td>
       <td class="rv-c${r.ourRev===0?' z':''}" id="rv-${r.id}">${r.ourRev>0?fmtM(r.ourRev):'\u2014'}</td>`;
     tr.addEventListener('click',()=>toggleRow(r.id));
@@ -1175,6 +1314,8 @@ function onSlider(id,val){
   upd('dtb-'+id,   el=>el.style.width=Math.min(pct/5*100,100)+'%');
   upd('dot-'+id,   el=>el.style.background=dotClr(pct));
   upd('pv-'+id,    el=>el.textContent=fmtPct(pct));
+  upd('pmf-'+id,   el=>el.style.width=Math.min(pct/curSomPct*100,100)+'%');
+  upd('pmchk-'+id, el=>el.style.display=pct>=curSomPct?'':'none');
   upd('rv-'+id,    el=>{el.textContent=r.ourRev>0?fmtM(r.ourRev):'\u2014';el.className='rv-c'+(r.ourRev===0?' z':'');});
   upd('cap-'+id,   el=>{el.textContent=fmtCap(pct);el.style.color=cc;});
   upd('cap-td-'+id,el=>el.style.borderLeftColor=cc);
@@ -1182,6 +1323,7 @@ function onSlider(id,val){
   const dr=document.querySelector(`.dr[data-id="${id}"]`);
   if(dr){const rc=rowCls(pct);dr.className='dr'+(rc?' '+rc:'');}
   updateCards();
+  if(curTab==='overview')renderPenetrationPanel();
   updateOverviewBar(id);
   updateDetailCard(id);
   if(curTab==='compare') updateCmpTable();
