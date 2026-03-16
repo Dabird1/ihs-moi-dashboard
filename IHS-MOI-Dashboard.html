@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -560,7 +560,7 @@ html.light .pentrack-dot{border-color:#f0f4f8}
       <span class="brand-title">Market Opportunity <em>Intelligence</em></span>
     </div>
     <div class="hdr-right">
-      <button id="mode-btn" onclick="toggleMode()">Light Mode</button>
+      <button id="mode-btn" onclick="toggleMode()">Dark Mode</button>
     </div>
   </div>
 </div>
@@ -905,8 +905,8 @@ const MARKET_ORDER=['atlanta','boston','indianapolis'];
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let view='market', curCountry='usa', curMkt='atlanta', curTab='overview', curSegment='residential';
-let sortCol=null, sortDir=-1, openId=null, isDark=true;
-let curSomPct=5, natlView='table';
+let sortCol=null, sortDir=-1, openId=null, isDark=false;
+let curSomPct=5, natlView='map';
 const charts={};
 let ptblSortCol='rev', ptblSortDir=-1, ptblPage=0, ptblCountry='all', ptblStatus='all', ptblSearch='';
 
