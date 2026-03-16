@@ -473,6 +473,70 @@ html.light .pentrack-dot{border-color:#f0f4f8}
 .pct-mini-fill{height:100%;background:#14b8a6;border-radius:3px;transition:width .3s}
 .pct-mini-chk{color:#14b8a6;font-size:9px;font-weight:800;line-height:1}
 
+/* ── GROWTH MODEL ── */
+.fpo-banner{display:flex;align-items:flex-start;justify-content:space-between;background:#FEF3C7;color:#92400E;padding:13px 18px;border-radius:8px;margin-bottom:20px;font-size:12px;line-height:1.6;gap:12px;border:1px solid #FCD34D}
+.fpo-dismiss{background:none;border:none;color:#92400E;font-size:18px;cursor:pointer;padding:0;opacity:.6;line-height:1;flex-shrink:0;margin-top:1px}
+.fpo-dismiss:hover{opacity:1}
+.gm-section-divider{height:1px;background:var(--border);margin:26px 0}
+.gm-funnel{display:flex;align-items:stretch;gap:0;margin-bottom:14px;overflow-x:auto;padding-bottom:6px}
+.gm-stage{background:var(--card-bg);border:1px solid var(--border);border-radius:8px;padding:14px 10px 12px;min-width:118px;flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:var(--shadow-sm);transition:background .2s;position:relative}
+.gm-stage-1{border-top:3px solid rgba(0,191,165,.25)}
+.gm-stage-2{border-top:3px solid rgba(0,191,165,.42)}
+.gm-stage-3{border-top:3px solid rgba(0,191,165,.58)}
+.gm-stage-4{border-top:3px solid rgba(0,191,165,.74)}
+.gm-stage-5{border-top:3px solid rgba(0,191,165,.9)}
+.gm-stage-rev{border:2px solid #00BFA5!important;min-width:152px;flex:1.4}
+.gm-stage-name{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:8px}
+.gm-stage-vol{font-size:26px;font-weight:900;color:var(--text);font-variant-numeric:tabular-nums;line-height:1;margin-bottom:5px}
+.gm-stage-vol-wrev{font-size:20px;font-weight:900;color:#00BFA5;font-variant-numeric:tabular-nums;line-height:1;margin-bottom:2px}
+.gm-stage-vol-arev{font-size:28px;font-weight:900;color:#00BFA5;font-variant-numeric:tabular-nums;line-height:1;margin-bottom:2px}
+.gm-stage-input-wrap{display:flex;align-items:center;gap:3px;margin-bottom:5px}
+.gm-stage-input{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:3px 5px;border-radius:5px;font-size:12px;font-family:inherit;width:56px;text-align:center;outline:none;font-variant-numeric:tabular-nums;transition:border-color .15s}
+.gm-stage-input:focus{border-color:#00BFA5}
+.gm-stage-unit{font-size:9.5px;color:var(--text3);white-space:nowrap}
+.gm-stage-desc{font-size:9px;color:var(--text3);line-height:1.45;margin-top:2px}
+.gm-arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 3px;flex-shrink:0;min-width:40px;gap:3px}
+.gm-arrow-loss{font-size:8.5px;color:var(--text3);white-space:nowrap;font-weight:600;text-align:center}
+.gm-arrow-icon{font-size:18px;color:var(--text3);line-height:1}
+.gm-arrow-rev .gm-arrow-icon{color:#00BFA5}
+.gm-funnel-summary{font-size:12px;color:var(--text2);padding:10px 16px;background:var(--surface2);border-radius:7px;text-align:center;border:1px solid var(--border)}
+.gm-gap-layout{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:start}
+@media(max-width:860px){.gm-gap-layout{grid-template-columns:1fr}}
+.gm-gap-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--text3);margin-bottom:10px}
+.gm-tgt-row{display:flex;flex-direction:column;gap:6px}
+.gm-tgt-btn{padding:9px 14px;border-radius:7px;border:1px solid var(--border);background:var(--chip-bg);color:var(--text2);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;text-align:left}
+.gm-tgt-btn.active{border-color:#00BFA5;color:#00BFA5;background:rgba(0,191,165,.07)}
+.gm-tgt-btn:hover:not(.active){border-color:var(--text3);color:var(--text)}
+.gm-custom-rev-wrap{display:flex;align-items:center;gap:6px;margin-top:8px}
+.gm-lever-table{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px}
+.gm-lever-head{display:grid;grid-template-columns:150px 1fr 1fr 1fr 1fr;padding:8px 12px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;gap:4px}
+.gm-lever-row{display:grid;grid-template-columns:150px 1fr 1fr 1fr 1fr;padding:9px 12px;border-bottom:1px solid var(--border);align-items:center;gap:4px}
+.gm-lever-row:last-child{border-bottom:none}
+.gm-lever-name{font-weight:600;color:var(--text);font-size:11.5px}
+.gm-gap-cell{font-size:11.5px;font-variant-numeric:tabular-nums;text-align:right;color:var(--text2)}
+.gm-gap-feas{display:flex;align-items:center;justify-content:flex-end;gap:4px;font-size:11px}
+.gm-insight{padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-left:3px solid #f59e0b;border-radius:6px;font-size:11.5px;color:var(--text2);line-height:1.65}
+.gm-sim-layout{display:grid;grid-template-columns:1fr 270px;gap:20px;align-items:start}
+@media(max-width:860px){.gm-sim-layout{grid-template-columns:1fr}}
+.gm-sliders-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;box-shadow:var(--shadow-sm)}
+.gm-sl-row{display:grid;grid-template-columns:148px 1fr 76px;align-items:center;gap:10px;margin-bottom:16px}
+.gm-sl-row:last-child{margin-bottom:0}
+.gm-sl-lbl{font-size:11.5px;font-weight:600;color:var(--text2)}
+.gm-sl-val{font-size:12px;font-weight:700;color:var(--text);text-align:right;font-variant-numeric:tabular-nums}
+.gm-sim-btns{display:flex;gap:7px}
+.gm-sim-btn{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--chip-bg);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.gm-sim-btn:hover{border-color:#00BFA5;color:#00BFA5}
+.gm-output{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:20px 22px;box-shadow:var(--shadow-sm);position:sticky;top:16px}
+.gm-out-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:7px}
+.gm-out-rev{font-size:34px;font-weight:900;color:#00BFA5;font-variant-numeric:tabular-nums;line-height:1;margin-bottom:4px}
+.gm-out-pct{font-size:12px;color:var(--text2);margin-bottom:14px}
+.gm-out-divider{height:1px;background:var(--border);margin:10px 0}
+.gm-out-vs{font-size:12px;font-weight:600;margin-bottom:5px;font-variant-numeric:tabular-nums}
+.gm-out-detail{font-size:11.5px;color:var(--text2);margin-bottom:3px;font-variant-numeric:tabular-nums}
+.gm-target-msg{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 20px;text-align:center;margin-bottom:20px}
+.gm-toast{position:fixed;bottom:24px;right:24px;background:#111827;color:#fff;padding:10px 18px;border-radius:8px;font-size:12px;font-weight:600;z-index:2000;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+html.light .gm-toast{background:#374151}
+
 /* ── FOOTER ── */
 .footer{margin-top:28px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text3);line-height:1.75;box-shadow:var(--shadow-sm);transition:background .2s}
 .footer strong{color:var(--text2)}
@@ -579,6 +643,7 @@ html.light .pentrack-dot{border-color:#f0f4f8}
     <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview')">Market Overview</button>
     <button class="tab-btn" data-tab="detail"  onclick="switchTab('detail')">Service Line Detail</button>
     <button class="tab-btn" data-tab="compare" onclick="switchTab('compare')">Market Comparison</button>
+    <button class="tab-btn" data-tab="growth" id="growth-tab-btn" onclick="switchTab('growth')">Growth Model</button>
   </div>
 </div>
 
@@ -802,6 +867,204 @@ html.light .pentrack-dot{border-color:#f0f4f8}
     </div>
   </div>
 
+  <!-- ══ GROWTH MODEL ══ -->
+  <div class="panel" id="panel-growth">
+    <div class="fpo-banner" id="fpo-banner">
+      <span>⚠️ <strong>FOR PLACEMENT ONLY</strong> — Data shown is illustrative. Connect your CRM via Golden Record feed to populate with live brand metrics.</span>
+      <button class="fpo-dismiss" onclick="dismissFpoBanner()" title="Dismiss">✕</button>
+    </div>
+
+    <!-- Target market message -->
+    <div class="gm-target-msg" id="gm-target-msg" style="display:none">
+      <div style="font-size:28px;margin-bottom:12px;opacity:.4">📊</div>
+      <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px">No active operations in this market.</div>
+      <div style="font-size:12.5px;color:var(--text2);max-width:460px;margin:0 auto;line-height:1.65">Select penetration targets above to model what a new market entry would require. Use the simulator below to design your entry scenario.</div>
+    </div>
+
+    <div id="gm-main-content">
+
+      <!-- ── SECTION 1: FUNNEL ── -->
+      <div class="sh" style="margin-bottom:10px">
+        <span class="sh-title" id="gm-funnel-title">SALES FUNNEL — FPO</span>
+      </div>
+      <div class="gm-funnel">
+        <div class="gm-stage gm-stage-1">
+          <div class="gm-stage-name">Leads Generated</div>
+          <div class="gm-stage-vol" id="gm-vol-leads">285</div>
+          <div class="gm-stage-input-wrap">
+            <input class="gm-stage-input" id="gm-in-leads" type="number" value="285" min="1" max="5000" step="1" oninput="gmOnFunnelInput()">
+            <span class="gm-stage-unit">/wk</span>
+          </div>
+          <div class="gm-stage-desc">Raw inquiries per week</div>
+        </div>
+        <div class="gm-arrow">
+          <div class="gm-arrow-loss" id="gm-loss-1">−177 lost</div>
+          <div class="gm-arrow-icon">▶</div>
+        </div>
+        <div class="gm-stage gm-stage-2">
+          <div class="gm-stage-name">Appt Set</div>
+          <div class="gm-stage-vol" id="gm-vol-appt">108</div>
+          <div class="gm-stage-input-wrap">
+            <input class="gm-stage-input" id="gm-in-l2a" type="number" value="38" min="1" max="100" step="0.5" oninput="gmOnFunnelInput()">
+            <span class="gm-stage-unit">%</span>
+          </div>
+          <div class="gm-stage-desc">% of leads that book</div>
+        </div>
+        <div class="gm-arrow">
+          <div class="gm-arrow-loss" id="gm-loss-2">−28 lost</div>
+          <div class="gm-arrow-icon">▶</div>
+        </div>
+        <div class="gm-stage gm-stage-3">
+          <div class="gm-stage-name">Appts Run</div>
+          <div class="gm-stage-vol" id="gm-vol-sits">80</div>
+          <div class="gm-stage-input-wrap">
+            <input class="gm-stage-input" id="gm-in-a2s" type="number" value="74" min="1" max="100" step="0.5" oninput="gmOnFunnelInput()">
+            <span class="gm-stage-unit">%</span>
+          </div>
+          <div class="gm-stage-desc">% of appointments kept</div>
+        </div>
+        <div class="gm-arrow">
+          <div class="gm-arrow-loss" id="gm-loss-3">−10 lost</div>
+          <div class="gm-arrow-icon">▶</div>
+        </div>
+        <div class="gm-stage gm-stage-4">
+          <div class="gm-stage-name">Full Demo</div>
+          <div class="gm-stage-vol" id="gm-vol-demos">70</div>
+          <div class="gm-stage-input-wrap">
+            <input class="gm-stage-input" id="gm-in-s2d" type="number" value="88" min="1" max="100" step="0.5" oninput="gmOnFunnelInput()">
+            <span class="gm-stage-unit">%</span>
+          </div>
+          <div class="gm-stage-desc">% of sits with full demo</div>
+        </div>
+        <div class="gm-arrow">
+          <div class="gm-arrow-loss" id="gm-loss-4">−48 lost</div>
+          <div class="gm-arrow-icon">▶</div>
+        </div>
+        <div class="gm-stage gm-stage-5">
+          <div class="gm-stage-name">Closed / Sold</div>
+          <div class="gm-stage-vol" id="gm-vol-sold">22</div>
+          <div class="gm-stage-input-wrap">
+            <input class="gm-stage-input" id="gm-in-d2c" type="number" value="31" min="1" max="100" step="0.5" oninput="gmOnFunnelInput()">
+            <span class="gm-stage-unit">%</span>
+          </div>
+          <div class="gm-stage-desc">% of demos that close</div>
+        </div>
+        <div class="gm-arrow gm-arrow-rev">
+          <div class="gm-arrow-icon">▶</div>
+        </div>
+        <div class="gm-stage gm-stage-rev">
+          <div class="gm-stage-name">Revenue</div>
+          <div class="gm-stage-vol-wrev" id="gm-vol-wrev">$319K</div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:6px">weekly</div>
+          <div class="gm-stage-vol-arev" id="gm-vol-arev">$16.6M</div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:8px">annual run rate</div>
+          <div class="gm-stage-input-wrap">
+            <span class="gm-stage-unit">$</span>
+            <input class="gm-stage-input" id="gm-in-ticket" type="number" value="14500" min="1000" max="200000" step="100" oninput="gmOnFunnelInput()" style="width:70px">
+          </div>
+          <div class="gm-stage-desc">avg ticket per sold job</div>
+        </div>
+      </div>
+      <div class="gm-funnel-summary" id="gm-funnel-summary">
+        At this run rate: <strong>$16.6M</strong> annual &nbsp;·&nbsp; <strong>4.9% SAM penetration</strong>
+      </div>
+
+      <!-- ── SECTION 2: GAP ANALYSIS ── -->
+      <div class="gm-section-divider"></div>
+      <div class="sh" style="margin-bottom:12px">
+        <span class="sh-title">WHAT IT TAKES TO HIT YOUR TARGETS</span>
+      </div>
+      <div class="gm-gap-layout">
+        <div>
+          <div class="gm-gap-lbl">Your Target</div>
+          <div class="gm-tgt-row">
+            <button class="gm-tgt-btn active" id="gm-tgt-5" onclick="gmSetGapTarget(5)">5% SOM = $16.9M</button>
+            <button class="gm-tgt-btn" id="gm-tgt-10" onclick="gmSetGapTarget(10)">10% SOM = $33.8M</button>
+            <button class="gm-tgt-btn" id="gm-tgt-custom" onclick="gmSetGapTarget('custom')">Custom $___M</button>
+          </div>
+          <div class="gm-custom-rev-wrap" id="gm-custom-rev-wrap" style="display:none">
+            <span style="font-size:12px;color:var(--text2)">$</span>
+            <input type="number" class="som-custom-input" id="gm-custom-rev-input" placeholder="e.g. 25" style="width:80px" oninput="gmOnCustomTarget(this.value)">
+            <span style="font-size:12px;color:var(--text2)">M target</span>
+          </div>
+        </div>
+        <div>
+          <div class="gm-gap-lbl">How To Get There — move just ONE lever</div>
+          <div class="gm-lever-table">
+            <div class="gm-lever-head">
+              <span>Lever</span><span style="text-align:right">Current</span><span style="text-align:right">Needed</span><span style="text-align:right">Change</span><span style="text-align:right">Feasibility</span>
+            </div>
+            <div class="gm-lever-row"><span class="gm-lever-name">Leads / Week</span><span class="gm-gap-cell" id="gm-gap-leads-curr">285</span><span class="gm-gap-cell" id="gm-gap-leads-need">—</span><span class="gm-gap-cell" id="gm-gap-leads-chg">—</span><span class="gm-gap-feas" id="gm-gap-leads-feas">—</span></div>
+            <div class="gm-lever-row"><span class="gm-lever-name">Lead → Appt %</span><span class="gm-gap-cell" id="gm-gap-l2a-curr">38%</span><span class="gm-gap-cell" id="gm-gap-l2a-need">—</span><span class="gm-gap-cell" id="gm-gap-l2a-chg">—</span><span class="gm-gap-feas" id="gm-gap-l2a-feas">—</span></div>
+            <div class="gm-lever-row"><span class="gm-lever-name">Appt → Sit %</span><span class="gm-gap-cell" id="gm-gap-a2s-curr">74%</span><span class="gm-gap-cell" id="gm-gap-a2s-need">—</span><span class="gm-gap-cell" id="gm-gap-a2s-chg">—</span><span class="gm-gap-feas" id="gm-gap-a2s-feas">—</span></div>
+            <div class="gm-lever-row"><span class="gm-lever-name">Sit → Demo %</span><span class="gm-gap-cell" id="gm-gap-s2d-curr">88%</span><span class="gm-gap-cell" id="gm-gap-s2d-need">—</span><span class="gm-gap-cell" id="gm-gap-s2d-chg">—</span><span class="gm-gap-feas" id="gm-gap-s2d-feas">—</span></div>
+            <div class="gm-lever-row"><span class="gm-lever-name">Demo → Close %</span><span class="gm-gap-cell" id="gm-gap-d2c-curr">31%</span><span class="gm-gap-cell" id="gm-gap-d2c-need">—</span><span class="gm-gap-cell" id="gm-gap-d2c-chg">—</span><span class="gm-gap-feas" id="gm-gap-d2c-feas">—</span></div>
+            <div class="gm-lever-row"><span class="gm-lever-name">Avg Ticket</span><span class="gm-gap-cell" id="gm-gap-ticket-curr">$14,500</span><span class="gm-gap-cell" id="gm-gap-ticket-need">—</span><span class="gm-gap-cell" id="gm-gap-ticket-chg">—</span><span class="gm-gap-feas" id="gm-gap-ticket-feas">—</span></div>
+          </div>
+          <div class="gm-insight"><span id="gm-insight-text">Calculating…</span></div>
+        </div>
+      </div>
+
+      <!-- ── SECTION 3: LEVER SIMULATOR ── -->
+      <div class="gm-section-divider"></div>
+      <div class="sh" style="margin-bottom:14px">
+        <span class="sh-title">LEVER SIMULATOR — adjust any combination to see revenue impact</span>
+        <div class="gm-sim-btns">
+          <button class="gm-sim-btn" onclick="gmResetSliders()">↺ Reset to Current</button>
+          <button class="gm-sim-btn" onclick="gmCopyScenario()">⧉ Copy Scenario</button>
+        </div>
+      </div>
+      <div class="gm-sim-layout">
+        <div class="gm-sliders-card">
+          <div class="gm-sl-row">
+            <span class="gm-sl-lbl">Leads / Week</span>
+            <input type="range" id="gm-sl-leads" min="50" max="800" step="1" value="285" oninput="gmOnSimSlider('gm-sl-leads')">
+            <span class="gm-sl-val" id="gm-sl-leads-disp">285</span>
+          </div>
+          <div class="gm-sl-row">
+            <span class="gm-sl-lbl">Lead → Appt %</span>
+            <input type="range" id="gm-sl-l2a" min="10" max="80" step="0.5" value="38" oninput="gmOnSimSlider('gm-sl-l2a')">
+            <span class="gm-sl-val" id="gm-sl-l2a-disp">38%</span>
+          </div>
+          <div class="gm-sl-row">
+            <span class="gm-sl-lbl">Appt → Sit %</span>
+            <input type="range" id="gm-sl-a2s" min="40" max="95" step="0.5" value="74" oninput="gmOnSimSlider('gm-sl-a2s')">
+            <span class="gm-sl-val" id="gm-sl-a2s-disp">74%</span>
+          </div>
+          <div class="gm-sl-row">
+            <span class="gm-sl-lbl">Sit → Demo %</span>
+            <input type="range" id="gm-sl-s2d" min="50" max="100" step="0.5" value="88" oninput="gmOnSimSlider('gm-sl-s2d')">
+            <span class="gm-sl-val" id="gm-sl-s2d-disp">88%</span>
+          </div>
+          <div class="gm-sl-row">
+            <span class="gm-sl-lbl">Demo → Close %</span>
+            <input type="range" id="gm-sl-d2c" min="10" max="60" step="0.5" value="31" oninput="gmOnSimSlider('gm-sl-d2c')">
+            <span class="gm-sl-val" id="gm-sl-d2c-disp">31%</span>
+          </div>
+          <div class="gm-sl-row">
+            <span class="gm-sl-lbl">Avg Ticket ($)</span>
+            <input type="range" id="gm-sl-ticket" min="5000" max="50000" step="100" value="14500" oninput="gmOnSimSlider('gm-sl-ticket')">
+            <span class="gm-sl-val" id="gm-sl-ticket-disp">$14,500</span>
+          </div>
+        </div>
+        <div class="gm-output">
+          <div class="gm-out-lbl">Projected Annual Revenue</div>
+          <div class="gm-out-rev" id="gm-out-rev">$16.6M</div>
+          <div class="gm-out-pct" id="gm-out-pct">4.9% SAM penetration</div>
+          <div class="gm-out-divider"></div>
+          <div class="gm-out-vs" id="gm-out-vs5" style="color:#ef4444">vs 5% Baseline: −$0.3M</div>
+          <div class="gm-out-vs" id="gm-out-vs10" style="color:#ef4444">vs 10% Target: −$17.2M</div>
+          <div class="gm-out-divider"></div>
+          <div class="gm-out-detail">Weekly sold jobs: <strong id="gm-out-sold">22</strong></div>
+          <div class="gm-out-detail">Weekly revenue: <strong id="gm-out-wrev">$319K</strong></div>
+        </div>
+      </div>
+
+    </div><!-- /gm-main-content -->
+
+    <div class="gm-toast" id="gm-toast" style="display:none">✓ Scenario copied to clipboard</div>
+  </div><!-- /panel-growth -->
+
   <!-- ── WHITESPACE MODAL ── -->
   <div class="ws-modal-overlay" id="ws-modal-overlay" onclick="closeWsModal(event)">
     <div class="ws-modal" id="ws-modal">
@@ -1010,6 +1273,7 @@ function setView(v){
   const tb=document.getElementById('tabs-bar');
   tb.style.opacity=v==='national'?.4:1;
   tb.style.pointerEvents=v==='national'?'none':'auto';
+  updateGrowthTab();
   showPanel(v==='national'?'national':curTab);
   v==='national'?renderNational():renderForTab(curTab);
 }
@@ -1025,6 +1289,7 @@ function selectMarket(mk){
   const tb=document.getElementById('tabs-bar');
   tb.style.opacity=1; tb.style.pointerEvents='auto';
   renderMarketPanel();
+  updateGrowthTab();
   showPanel(curTab); renderForTab(curTab);
 }
 function switchTab(tab){
@@ -1048,6 +1313,7 @@ function renderForTab(tab){
   if(tab==='overview'){renderPenetrationPanel();renderTable();renderOverviewChart();}
   if(tab==='detail')  renderDetail();
   if(tab==='compare') renderCompare();
+  if(tab==='growth')  renderGrowthModel();
 }
 
 // ── SOM CONTROLS ──────────────────────────────────────────────────────────────
@@ -1726,6 +1992,265 @@ function renderMobileNatlCards(){
       </div>
     </div>`;
   }).join('');
+}
+
+// ── GROWTH MODEL ──────────────────────────────────────────────────────────────
+const GM_DATA = {
+  indianapolis:{
+    residential:{leads:285,l2a:38,a2s:74,s2d:88,d2c:31,ticket:14500},
+    commercial: {leads:42, l2a:55,a2s:80,s2d:92,d2c:38,ticket:45000}
+  },
+  boston:{
+    residential:{leads:142,l2a:42,a2s:71,s2d:85,d2c:28,ticket:14800},
+    commercial: {leads:22, l2a:58,a2s:83,s2d:90,d2c:35,ticket:52000}
+  },
+  atlanta:null
+};
+let gmFpoBannerDismissed=false;
+let gmGapTarget=5;
+let gmCustomRevM=null;
+
+function gmGetDefaults(){
+  const d=GM_DATA[curMkt];
+  if(!d)return{leads:100,l2a:40,a2s:70,s2d:85,d2c:30,ticket:14500};
+  return d[curSegment]||d.residential||{leads:100,l2a:40,a2s:70,s2d:85,d2c:30,ticket:14500};
+}
+
+function gmCalc(leads,l2a,a2s,s2d,d2c,ticket){
+  const appt=Math.round(leads*l2a/100);
+  const sits=Math.round(appt*a2s/100);
+  const demos=Math.round(sits*s2d/100);
+  const sold=Math.round(demos*d2c/100);
+  const weeklyRev=sold*ticket;
+  const annualRev=weeklyRev*52;
+  return{leads,appt,sits,demos,sold,weeklyRev,annualRev};
+}
+
+function gmReadSimInputs(){
+  const g=(id,fb)=>{const el=document.getElementById(id);return el?parseFloat(el.value)||fb:fb;};
+  return{
+    leads: g('gm-sl-leads',285),
+    l2a:   g('gm-sl-l2a',38),
+    a2s:   g('gm-sl-a2s',74),
+    s2d:   g('gm-sl-s2d',88),
+    d2c:   g('gm-sl-d2c',31),
+    ticket:g('gm-sl-ticket',14500)
+  };
+}
+
+function gmReadFunnelInputs(){
+  const g=(id,fb)=>{const el=document.getElementById(id);return el?parseFloat(el.value)||fb:fb;};
+  return{
+    leads: g('gm-in-leads',285),
+    l2a:   g('gm-in-l2a',38),
+    a2s:   g('gm-in-a2s',74),
+    s2d:   g('gm-in-s2d',88),
+    d2c:   g('gm-in-d2c',31),
+    ticket:g('gm-in-ticket',14500)
+  };
+}
+
+function gmSetInputs(d){
+  const keys=['leads','l2a','a2s','s2d','d2c','ticket'];
+  keys.forEach(k=>{
+    const fi=document.getElementById('gm-in-'+k);
+    const si=document.getElementById('gm-sl-'+k);
+    if(fi)fi.value=d[k];
+    if(si)si.value=d[k];
+    const disp=document.getElementById('gm-sl-'+k+'-disp');
+    if(disp){
+      if(k==='ticket')disp.textContent='$'+Math.round(d[k]).toLocaleString();
+      else if(k==='leads')disp.textContent=Math.round(d[k]);
+      else disp.textContent=d[k]+'%';
+    }
+  });
+}
+
+function gmUpdateFunnelDisplay(c,def){
+  const upd=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  upd('gm-vol-leads',Math.round(c.leads).toLocaleString());
+  upd('gm-vol-appt',c.appt.toLocaleString());
+  upd('gm-vol-sits',c.sits.toLocaleString());
+  upd('gm-vol-demos',c.demos.toLocaleString());
+  upd('gm-vol-sold',c.sold.toLocaleString());
+  upd('gm-vol-wrev','$'+Math.round(c.weeklyRev/1000)+'K');
+  upd('gm-vol-arev',fmtM(c.annualRev));
+  const losses=[
+    ['gm-loss-1',c.leads-c.appt],
+    ['gm-loss-2',c.appt-c.sits],
+    ['gm-loss-3',c.sits-c.demos],
+    ['gm-loss-4',c.demos-c.sold]
+  ];
+  losses.forEach(([id,v])=>upd(id,'\u2212'+Math.max(0,Math.round(v))+' lost'));
+  const sam=mktTotals(curMkt,'sam');
+  const pct=sam>0?(c.annualRev/sam*100).toFixed(1):'0.0';
+  const sumEl=document.getElementById('gm-funnel-summary');
+  if(sumEl)sumEl.innerHTML='At this run rate: <strong>'+fmtM(c.annualRev)+'</strong> annual &nbsp;&middot;&nbsp; <strong>'+pct+'% SAM penetration</strong>';
+}
+
+function gmUpdateOutput(c){
+  const sam=mktTotals(curMkt,'sam');
+  const pct=sam>0?(c.annualRev/sam*100).toFixed(1):'0.0';
+  const baseline=sam*curSomPct/100;
+  const target=sam*curSomPct*2/100;
+  const diff5=c.annualRev-baseline;
+  const diff10=c.annualRev-target;
+  const upd=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  upd('gm-out-rev',fmtM(c.annualRev));
+  upd('gm-out-pct',pct+'% SAM penetration');
+  upd('gm-out-sold',c.sold.toLocaleString());
+  upd('gm-out-wrev','$'+Math.round(c.weeklyRev/1000)+'K');
+  const vs5=document.getElementById('gm-out-vs5');
+  if(vs5){const s=diff5>=0?'+':'';vs5.textContent='vs '+curSomPct+'% Baseline: '+s+fmtM(diff5);vs5.style.color=diff5>=0?'#22c55e':'#ef4444';}
+  const vs10=document.getElementById('gm-out-vs10');
+  if(vs10){const s=diff10>=0?'+':'';vs10.textContent='vs '+(curSomPct*2)+'% Target: '+s+fmtM(diff10);vs10.style.color=diff10>=0?'#22c55e':'#ef4444';}
+}
+
+function gmUpdateGapTable(c){
+  const sam=mktTotals(curMkt,'sam');
+  const targetRev=gmGapTarget==='custom'&&gmCustomRevM?gmCustomRevM*1e6:sam*(gmGapTarget===10?curSomPct*2:curSomPct)/100;
+  const {leads,l2a,a2s,s2d,d2c,ticket}=c;
+  const W=52;
+  const neededLeads=(l2a/100*a2s/100*s2d/100*d2c/100*ticket*W)>0?targetRev/(l2a/100*a2s/100*s2d/100*d2c/100*ticket*W):leads;
+  const neededL2a=(leads*a2s/100*s2d/100*d2c/100*ticket*W)>0?targetRev/(leads*a2s/100*s2d/100*d2c/100*ticket*W)*100:l2a;
+  const neededA2s=(leads*l2a/100*s2d/100*d2c/100*ticket*W)>0?targetRev/(leads*l2a/100*s2d/100*d2c/100*ticket*W)*100:a2s;
+  const neededS2d=(leads*l2a/100*a2s/100*d2c/100*ticket*W)>0?targetRev/(leads*l2a/100*a2s/100*d2c/100*ticket*W)*100:s2d;
+  const neededD2c=(leads*l2a/100*a2s/100*s2d/100*ticket*W)>0?targetRev/(leads*l2a/100*a2s/100*s2d/100*ticket*W)*100:d2c;
+  const neededTicket=(leads*l2a/100*a2s/100*s2d/100*d2c/100*W)>0?targetRev/(leads*l2a/100*a2s/100*s2d/100*d2c/100*W):ticket;
+  const levers=[
+    {k:'leads',curr:leads,needed:neededLeads,max:800,fmt:v=>Math.round(v)+'/wk',isTicket:false},
+    {k:'l2a',  curr:l2a,  needed:neededL2a,  max:100,fmt:v=>v.toFixed(1)+'%',isTicket:false},
+    {k:'a2s',  curr:a2s,  needed:neededA2s,  max:100,fmt:v=>v.toFixed(1)+'%',isTicket:false},
+    {k:'s2d',  curr:s2d,  needed:neededS2d,  max:100,fmt:v=>v.toFixed(1)+'%',isTicket:false},
+    {k:'d2c',  curr:d2c,  needed:neededD2c,  max:60, fmt:v=>v.toFixed(1)+'%',isTicket:false},
+    {k:'ticket',curr:ticket,needed:neededTicket,max:50000,fmt:v=>'$'+Math.round(v).toLocaleString(),isTicket:true}
+  ];
+  levers.forEach(r=>{
+    const needed=Math.min(r.needed,r.max);
+    const change=needed-r.curr;
+    const pctChg=r.curr>0?Math.abs(change/r.curr*100):0;
+    const feas=pctChg<=5?{lbl:'Easy',clr:'#22c55e'}:pctChg<=15?{lbl:'Moderate',clr:'#f59e0b'}:{lbl:'Stretch',clr:'#ef4444'};
+    const chgClr=change<=0?'#22c55e':pctChg<=10?'#f59e0b':'#ef4444';
+    const chgFmt=r.isTicket
+      ?(change>=0?'+':'')+'\u0024'+Math.round(Math.abs(change)).toLocaleString()
+      :(change>=0?'+':'')+r.fmt(Math.abs(change)).replace(/[^\d.%\/wk]/g,'')+r.fmt(0).replace(/[\d.]/g,'');
+    const chgStr=(change>=0?'+':'\u2212')+r.fmt(Math.abs(change));
+    const upd=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+    const clr=(id,v)=>{const el=document.getElementById(id);if(el)el.style.color=v;};
+    upd('gm-gap-'+r.k+'-curr',r.fmt(r.curr));
+    upd('gm-gap-'+r.k+'-need',needed>=r.max&&r.needed>r.max?'> '+r.fmt(r.max):r.fmt(needed));
+    upd('gm-gap-'+r.k+'-chg',chgStr);
+    clr('gm-gap-'+r.k+'-chg',chgClr);
+    const feasEl=document.getElementById('gm-gap-'+r.k+'-feas');
+    if(feasEl)feasEl.innerHTML='<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:'+feas.clr+';margin-right:4px;flex-shrink:0"></span>'+feas.lbl;
+  });
+  const gap=targetRev-c.annualRev;
+  const insEl=document.getElementById('gm-insight-text');
+  if(insEl){
+    if(gap<=0){
+      insEl.textContent='\uD83C\uDFAF You are '+fmtM(-gap)+' above the '+(gmGapTarget==='custom'?'custom':gmGapTarget+'%')+' target. Maintain current operations or set a higher target.';
+    } else {
+      insEl.textContent='\uD83D\uDCA1 You are '+fmtM(gap)+' below the '+(gmGapTarget==='custom'?'custom':gmGapTarget+'%')+' target. The easiest path is improving your Lead\u2192Appointment rate \u2014 a training and follow-up discipline issue, not a lead generation problem.';
+    }
+  }
+  // Update gap target button labels
+  if(sam>0){
+    const b5=document.getElementById('gm-tgt-5');
+    const b10=document.getElementById('gm-tgt-10');
+    if(b5)b5.textContent=curSomPct+'% SOM = '+fmtM(sam*curSomPct/100);
+    if(b10)b10.textContent=(curSomPct*2)+'% SOM = '+fmtM(sam*curSomPct*2/100);
+  }
+}
+
+function gmOnFunnelInput(){
+  const inp=gmReadFunnelInputs();
+  const c=gmCalc(inp.leads,inp.l2a,inp.a2s,inp.s2d,inp.d2c,inp.ticket);
+  gmUpdateFunnelDisplay(c,inp);
+  gmSetInputs(inp); // sync sliders
+  gmUpdateOutput(c);
+  gmUpdateGapTable(c);
+}
+
+function gmOnSimSlider(id){
+  const val=parseFloat(document.getElementById(id)?.value)||0;
+  const disp=document.getElementById(id+'-disp');
+  if(disp){
+    if(id==='gm-sl-ticket')disp.textContent='$'+Math.round(val).toLocaleString();
+    else if(id==='gm-sl-leads')disp.textContent=Math.round(val);
+    else disp.textContent=val.toFixed(0)+'%';
+  }
+  const inp=gmReadSimInputs();
+  const c=gmCalc(inp.leads,inp.l2a,inp.a2s,inp.s2d,inp.d2c,inp.ticket);
+  gmUpdateOutput(c);
+  gmUpdateGapTable(c);
+}
+
+function gmSetGapTarget(t){
+  gmGapTarget=t;
+  document.getElementById('gm-tgt-5').classList.toggle('active',t===5);
+  document.getElementById('gm-tgt-10').classList.toggle('active',t===10);
+  document.getElementById('gm-tgt-custom').classList.toggle('active',t==='custom');
+  const cw=document.getElementById('gm-custom-rev-wrap');
+  if(cw)cw.style.display=t==='custom'?'flex':'none';
+  const inp=gmReadSimInputs();
+  const c=gmCalc(inp.leads,inp.l2a,inp.a2s,inp.s2d,inp.d2c,inp.ticket);
+  gmUpdateGapTable(c);
+}
+
+function gmOnCustomTarget(v){
+  const val=parseFloat(v);
+  if(val&&val>0){gmCustomRevM=val;gmSetGapTarget('custom');}
+}
+
+function gmResetSliders(){
+  const def=gmGetDefaults();
+  gmSetInputs(def);
+  const c=gmCalc(def.leads,def.l2a,def.a2s,def.s2d,def.d2c,def.ticket);
+  gmUpdateFunnelDisplay(c,def);
+  gmUpdateOutput(c);
+  gmUpdateGapTable(c);
+}
+
+function gmCopyScenario(){
+  const t=document.getElementById('gm-toast');
+  if(!t)return;
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none',2500);
+}
+
+function dismissFpoBanner(){
+  gmFpoBannerDismissed=true;
+  const b=document.getElementById('fpo-banner');
+  if(b)b.style.display='none';
+}
+
+function updateGrowthTab(){
+  const btn=document.getElementById('growth-tab-btn');
+  if(!btn)return;
+  const disabled=view==='national';
+  btn.style.opacity=disabled?'0.4':'1';
+  btn.style.pointerEvents=disabled?'none':'auto';
+  btn.title=disabled?'Select an active market to view Growth Model':'';
+}
+
+function renderGrowthModel(){
+  const m=MARKETS[curMkt];
+  const isTarget=m.status==='target';
+  const banner=document.getElementById('fpo-banner');
+  if(banner)banner.style.display=gmFpoBannerDismissed?'none':'';
+  const titleEl=document.getElementById('gm-funnel-title');
+  if(titleEl)titleEl.textContent='SALES FUNNEL \u2014 '+m.name+' \u00b7 '+(curSegment==='residential'?'Residential':'Commercial')+' \u00b7 FPO';
+  const tgt=document.getElementById('gm-target-msg');
+  const main=document.getElementById('gm-main-content');
+  if(isTarget){if(tgt)tgt.style.display='';if(main)main.style.display='none';return;}
+  if(tgt)tgt.style.display='none';
+  if(main)main.style.display='';
+  const def=gmGetDefaults();
+  gmSetInputs(def);
+  const c=gmCalc(def.leads,def.l2a,def.a2s,def.s2d,def.d2c,def.ticket);
+  gmUpdateFunnelDisplay(c,def);
+  gmUpdateOutput(c);
+  gmUpdateGapTable(c);
 }
 
 // ── CHOROPLETH MAP ────────────────────────────────────────────────────────────
