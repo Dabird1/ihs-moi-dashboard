@@ -80,6 +80,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .seg-btn.active{border-color:#14b8a6;color:#14b8a6;background:rgba(20,184,166,.11)}
 .seg-btn:hover:not(.active){border-color:#3a4d68;color:#e8edf5}
 
+/* ── SOM CONTROL ── */
+.som-bar{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 18px;margin-bottom:16px;box-shadow:var(--shadow-sm);transition:background .2s}
+.som-bar-inner{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.som-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-right:4px;flex-shrink:0}
+.som-btn{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--chip-bg);color:var(--text2);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.som-btn.active{border-color:#14b8a6;color:#14b8a6;background:var(--chip-act)}
+.som-btn:hover:not(.active){border-color:var(--text3);color:var(--text)}
+.som-custom-wrap{display:flex;align-items:center;gap:6px;margin-left:4px}
+.som-custom-lbl{font-size:11px;color:var(--text3)}
+.som-custom-input{background:var(--chip-bg);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:6px;font-size:12px;font-family:inherit;width:64px;outline:none;transition:border-color .15s;text-align:right}
+.som-custom-input:focus{border-color:#14b8a6}
+html.light .som-custom-input{background:#fff}
+.som-custom-pct{font-size:11px;color:var(--text3)}
+/* ── MAP / TABLE VIEW TOGGLE ── */
+.nv-toggle{display:flex;align-items:center;gap:4px}
+.nvtog-btn{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--chip-bg);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.nvtog-btn.active{border-color:#14b8a6;color:#14b8a6;background:var(--chip-act)}
+.nvtog-btn:hover:not(.active){border-color:var(--text3);color:var(--text)}
+/* ── MAP PLACEHOLDER ── */
+.map-placeholder{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:72px 20px;text-align:center;box-shadow:var(--shadow-sm);transition:background .2s;margin-bottom:20px}
+.map-ph-icon{font-size:52px;margin-bottom:18px;opacity:.35;line-height:1}
+.map-ph-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:10px;letter-spacing:-.3px}
+.map-ph-desc{font-size:12.5px;color:var(--text3);line-height:1.75;max-width:420px;margin:0 auto 22px}
+.map-ph-btn{padding:8px 18px;border-radius:8px;border:1px solid rgba(20,184,166,.45);background:transparent;color:#14b8a6;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;letter-spacing:.2px}
+.map-ph-btn:hover{background:rgba(20,184,166,.07);border-color:#14b8a6}
+
 /* ── MARKET SELECTOR PANEL ── */
 .mkt-panel{background:var(--panel-bg);border-bottom:1px solid var(--border);padding:14px 28px;transition:background .2s}
 .mkt-panel-inner{max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:11px}
@@ -491,44 +517,75 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
 <!-- ── MAIN ── -->
 <div class="main">
 
+  <!-- ── SOM CONTROL ── -->
+  <div class="som-bar">
+    <div class="som-bar-inner">
+      <span class="som-lbl">SOM Assumption</span>
+      <button class="som-btn active" id="som-5" onclick="setSom(5)">5% Baseline</button>
+      <button class="som-btn" id="som-10" onclick="setSom(10)">10% Target</button>
+      <div class="som-custom-wrap">
+        <span class="som-custom-lbl">Custom:</span>
+        <input class="som-custom-input" id="som-custom" type="number" min="0.1" max="50" step="0.1" placeholder="e.g. 7.5" oninput="setSomCustom(this.value)">
+        <span class="som-custom-pct">%</span>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ NATIONAL VIEW ══ -->
   <div class="panel" id="panel-national">
     <div class="natl-cards">
       <div class="natl-card"><div class="nc-lbl">Total TAM &mdash; All Markets</div><div class="nc-val" id="n-tam">—</div><div class="nc-sub">United States &middot; Active + Target</div></div>
       <div class="natl-card"><div class="nc-lbl">Total SAM</div><div class="nc-val" id="n-sam">—</div><div class="nc-sub">Serviceable across all markets</div></div>
-      <div class="natl-card"><div class="nc-lbl">Total SOM (5%)</div><div class="nc-val" id="n-som">—</div><div class="nc-sub">Revenue potential at baseline</div></div>
+      <div class="natl-card"><div class="nc-lbl" id="n-som-lbl">Total SOM (5%)</div><div class="nc-val" id="n-som">—</div><div class="nc-sub">Revenue potential at baseline</div></div>
       <div class="natl-card"><div class="nc-lbl" id="n-our-lbl">IHS Total Revenue (Live)</div><div class="nc-val" id="n-our">—</div><div class="nc-sub" id="n-our-sub">Active markets only &middot; Set target sliders to model entry</div></div>
     </div>
-    <div class="ptbl-filters" id="ptbl-filters">
-      <div class="ptbl-filter-group">
-        <span class="ptbl-filter-lbl">Country</span>
-        <button class="ptbl-pill active" data-cfilter="all" onclick="setPtblFilter('country','all')">All</button>
-        <button class="ptbl-pill" data-cfilter="usa" onclick="setPtblFilter('country','usa')">United States</button>
-        <button class="ptbl-pill" data-cfilter="canada" onclick="setPtblFilter('country','canada')">Canada</button>
+    <div class="sh" style="margin-bottom:12px">
+      <span class="sh-title">Market Summary</span>
+      <div class="nv-toggle">
+        <button class="nvtog-btn active" id="nvtog-table" onclick="setNatlView('table')">&#9776; Table</button>
+        <button class="nvtog-btn" id="nvtog-map" onclick="setNatlView('map')">&#9737; Map</button>
       </div>
-      <div class="ptbl-filter-group">
-        <span class="ptbl-filter-lbl">Status</span>
-        <button class="ptbl-pill active" data-sfilter="all" onclick="setPtblFilter('status','all')">All</button>
-        <button class="ptbl-pill" data-sfilter="active" onclick="setPtblFilter('status','active')">Active</button>
-        <button class="ptbl-pill" data-sfilter="target" onclick="setPtblFilter('status','target')">Target</button>
-      </div>
-      <input class="ptbl-search" id="ptbl-search" type="text" placeholder="Search market or brand…" oninput="setPtblSearch(this.value)">
     </div>
-    <div class="ptbl-wrap">
-      <div class="ptbl-head">
-        <div class="ptbl-th" data-psort="name" onclick="sortPtbl('name')">Market <span class="si">⇅</span></div>
-        <div class="ptbl-th" data-psort="status" onclick="sortPtbl('status')">Status <span class="si">⇅</span></div>
-        <div class="ptbl-th mob-hide">Brand</div>
-        <div class="ptbl-th num mob-hide" data-psort="tam" onclick="sortPtbl('tam')">TAM <span class="si">⇅</span></div>
-        <div class="ptbl-th num mob-hide" data-psort="sam" onclick="sortPtbl('sam')">SAM <span class="si">⇅</span></div>
-        <div class="ptbl-th num mob-hide" data-psort="som" onclick="sortPtbl('som')">SOM 5% <span class="si">⇅</span></div>
-        <div class="ptbl-th num" data-psort="rev" onclick="sortPtbl('rev')">Our Revenue <span class="si">⇅</span></div>
-        <div class="ptbl-th num" data-psort="pct" onclick="sortPtbl('pct')">Penetration <span class="si">⇅</span></div>
-        <div class="ptbl-th num mob-hide" data-psort="ws" onclick="sortPtbl('ws')">Whitespace <span class="si">⇅</span></div>
+    <div id="natl-table-view">
+      <div class="ptbl-filters" id="ptbl-filters">
+        <div class="ptbl-filter-group">
+          <span class="ptbl-filter-lbl">Country</span>
+          <button class="ptbl-pill active" data-cfilter="all" onclick="setPtblFilter('country','all')">All</button>
+          <button class="ptbl-pill" data-cfilter="usa" onclick="setPtblFilter('country','usa')">United States</button>
+          <button class="ptbl-pill" data-cfilter="canada" onclick="setPtblFilter('country','canada')">Canada</button>
+        </div>
+        <div class="ptbl-filter-group">
+          <span class="ptbl-filter-lbl">Status</span>
+          <button class="ptbl-pill active" data-sfilter="all" onclick="setPtblFilter('status','all')">All</button>
+          <button class="ptbl-pill" data-sfilter="active" onclick="setPtblFilter('status','active')">Active</button>
+          <button class="ptbl-pill" data-sfilter="target" onclick="setPtblFilter('status','target')">Target</button>
+        </div>
+        <input class="ptbl-search" id="ptbl-search" type="text" placeholder="Search market or brand…" oninput="setPtblSearch(this.value)">
       </div>
-      <div id="ptbl-body"></div>
+      <div class="ptbl-wrap">
+        <div class="ptbl-head">
+          <div class="ptbl-th" data-psort="name" onclick="sortPtbl('name')">Market <span class="si">⇅</span></div>
+          <div class="ptbl-th" data-psort="status" onclick="sortPtbl('status')">Status <span class="si">⇅</span></div>
+          <div class="ptbl-th mob-hide">Brand</div>
+          <div class="ptbl-th num mob-hide" data-psort="tam" onclick="sortPtbl('tam')">TAM <span class="si">⇅</span></div>
+          <div class="ptbl-th num mob-hide" data-psort="sam" onclick="sortPtbl('sam')">SAM <span class="si">⇅</span></div>
+          <div class="ptbl-th num mob-hide" id="ptbl-som-th" data-psort="som" onclick="sortPtbl('som')">SOM 5% <span class="si">⇅</span></div>
+          <div class="ptbl-th num" data-psort="rev" onclick="sortPtbl('rev')">Our Revenue <span class="si">⇅</span></div>
+          <div class="ptbl-th num" data-psort="pct" onclick="sortPtbl('pct')">Penetration <span class="si">⇅</span></div>
+          <div class="ptbl-th num mob-hide" data-psort="ws" onclick="sortPtbl('ws')">Whitespace <span class="si">⇅</span></div>
+        </div>
+        <div id="ptbl-body"></div>
+      </div>
+      <div class="ptbl-pagination" id="ptbl-pagination"></div>
     </div>
-    <div class="ptbl-pagination" id="ptbl-pagination"></div>
+    <div id="natl-map-view" style="display:none">
+      <div class="map-placeholder">
+        <div class="map-ph-icon">&#128506;</div>
+        <div class="map-ph-title">Map View &mdash; Coming Soon</div>
+        <div class="map-ph-desc">An interactive choropleth map of the US and Canada will display here, showing IHS active markets and addressable whitespace by DMA.</div>
+        <button class="map-ph-btn" onclick="setNatlView('table')">&#8592; Table View</button>
+      </div>
+    </div>
   </div>
 
   <!-- ══ MARKET OVERVIEW ══ -->
@@ -536,7 +593,7 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
     <div class="cards">
       <div class="card"><div class="c-lbl">Total TAM</div><div class="c-val" id="c-tam">—</div><div class="c-sub">All 9 service lines</div></div>
       <div class="card"><div class="c-lbl">Total SAM</div><div class="c-val" id="c-sam">—</div><div class="c-sub">Serviceable in metro</div></div>
-      <div class="card"><div class="c-lbl">SOM at 5%</div><div class="c-val" id="c-som">—</div><div class="c-sub">Revenue at baseline</div></div>
+      <div class="card"><div class="c-lbl" id="c-som-lbl">SOM at 5%</div><div class="c-val" id="c-som">—</div><div class="c-sub">Revenue at baseline</div></div>
       <div class="card"><div class="c-lbl">Our Revenue (Live)</div><div class="c-val" id="c-our">$0</div><div class="c-sub" id="c-our-sub">From penetration sliders</div></div>
     </div>
     <div class="sh">
@@ -583,7 +640,7 @@ html.light .nmgc{box-shadow:0 2px 10px rgba(0,0,0,.07),0 0 0 1px #e2e8f0}
     <div class="cards" style="margin-bottom:18px">
       <div class="card"><div class="c-lbl">Total TAM</div><div class="c-val" id="d-tam">—</div><div class="c-sub">All 9 lines</div></div>
       <div class="card"><div class="c-lbl">Total SAM</div><div class="c-val" id="d-sam">—</div><div class="c-sub">Serviceable</div></div>
-      <div class="card"><div class="c-lbl">SOM at 5%</div><div class="c-val" id="d-som">—</div><div class="c-sub">Baseline</div></div>
+      <div class="card"><div class="c-lbl" id="d-som-lbl">SOM at 5%</div><div class="c-val" id="d-som">—</div><div class="c-sub">Baseline</div></div>
       <div class="card"><div class="c-lbl">Our Revenue</div><div class="c-val" id="d-our">$0</div><div class="c-sub">Live total</div></div>
     </div>
     <div class="sh"><span class="sh-title">Service Line Cards &mdash; color-coded by penetration status</span></div>
@@ -716,6 +773,7 @@ const MARKET_ORDER=['atlanta','boston','indianapolis'];
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let view='market', curCountry='usa', curMkt='atlanta', curTab='overview', curSegment='residential';
 let sortCol=null, sortDir=-1, openId=null, isDark=true;
+let curSomPct=5, natlView='table';
 const charts={};
 let ptblSortCol='rev', ptblSortDir=-1, ptblPage=0, ptblCountry='all', ptblStatus='all', ptblSearch='';
 
@@ -849,6 +907,53 @@ function renderForTab(tab){
   if(tab==='overview'){renderTable();renderOverviewChart();}
   if(tab==='detail')  renderDetail();
   if(tab==='compare') renderCompare();
+}
+
+// ── SOM CONTROLS ──────────────────────────────────────────────────────────────
+function applySomPct(pct){
+  curSomPct=pct;
+  Object.values(MARKETS).forEach(m=>{
+    [...m.residentialRows,...m.commercialRows].forEach(r=>{r.som=r.sam*pct/100;});
+  });
+}
+function updateSomLabels(){
+  const p=Number.isInteger(curSomPct)?curSomPct+'%':curSomPct.toFixed(1)+'%';
+  [['c-som-lbl',`SOM at ${p}`],['d-som-lbl',`SOM at ${p}`],['n-som-lbl',`Total SOM (${p})`]].forEach(([id,txt])=>{
+    const el=document.getElementById(id);if(el)el.textContent=txt;
+  });
+  const somTh=document.querySelector('#tbl thead th[data-col="som"]');
+  if(somTh)somTh.innerHTML=`SOM (${p}) <span class="si">&#8645;</span>`;
+  const ptblTh=document.getElementById('ptbl-som-th');
+  if(ptblTh)ptblTh.innerHTML=`SOM ${p} <span class="si">\u21c5</span>`;
+}
+function setSom(pct){
+  applySomPct(pct);
+  document.getElementById('som-5').classList.toggle('active',pct===5);
+  document.getElementById('som-10').classList.toggle('active',pct===10);
+  const ci=document.getElementById('som-custom');if(ci)ci.value='';
+  updateSomLabels();updateCards();
+  if(curTab==='overview'){renderTable();renderOverviewChart();}
+  if(curTab==='detail')renderDetail();
+  if(view==='national')renderNational();
+}
+function setSomCustom(val){
+  const pct=parseFloat(val);
+  if(!val||isNaN(pct)||pct<=0)return;
+  applySomPct(Math.min(Math.max(pct,0.1),50));
+  document.getElementById('som-5').classList.remove('active');
+  document.getElementById('som-10').classList.remove('active');
+  updateSomLabels();updateCards();
+  if(curTab==='overview'){renderTable();renderOverviewChart();}
+  if(curTab==='detail')renderDetail();
+  if(view==='national')renderNational();
+}
+function setNatlView(v){
+  natlView=v;
+  const tv=document.getElementById('natl-table-view'),mv=document.getElementById('natl-map-view');
+  if(tv)tv.style.display=v==='table'?'':'none';
+  if(mv)mv.style.display=v==='map'?'':'none';
+  document.getElementById('nvtog-table').classList.toggle('active',v==='table');
+  document.getElementById('nvtog-map').classList.toggle('active',v==='map');
 }
 
 // ── CARDS ─────────────────────────────────────────────────────────────────────
@@ -1048,7 +1153,7 @@ function renderDetail(){
       <div class="slc-grid">
         <div><div class="slc-kpi-lbl">TAM</div><div class="slc-kpi-val">${fmtM(r.tam)}</div></div>
         <div><div class="slc-kpi-lbl">SAM</div><div class="slc-kpi-val">${fmtM(r.sam)}</div></div>
-        <div><div class="slc-kpi-lbl">SOM (5%)</div><div class="slc-kpi-val">${fmtM(r.som)}</div></div>
+        <div><div class="slc-kpi-lbl">SOM (${Number.isInteger(curSomPct)?curSomPct:curSomPct.toFixed(1)}%)</div><div class="slc-kpi-val">${fmtM(r.som)}</div></div>
         <div><div class="slc-kpi-lbl">Avg Ticket</div><div class="slc-kpi-val">${fmtD(r.avgTicket)}</div></div>
         <div><div class="slc-kpi-lbl">Gross Margin</div><div class="slc-kpi-val">${r.grossMargin}%</div></div>
         <div><div class="slc-kpi-lbl">Est. Jobs/Yr</div><div class="slc-kpi-val" id="sj-${r.id}">${r.ourRev>0?Math.round(r.ourRev/r.avgTicket).toLocaleString():'\u2014'}</div></div>
@@ -1194,7 +1299,7 @@ function ptblMktData(){
     const rows=m[curSegment==='residential'?'residentialRows':'commercialRows'];
     const tam=rows.reduce((s,r)=>s+r.tam,0);
     const sam=rows.reduce((s,r)=>s+r.sam,0);
-    const som=sam*.05;
+    const som=rows.reduce((s,r)=>s+r.som,0);
     const rev=mktRevenue(mk);
     const pct=sam>0?(rev/sam*100):0;
     const ws=sam-rev;
