@@ -633,11 +633,11 @@ html.light .pentrack-dot{border-color:#f0f4f8}
     <div class="sh" style="margin-bottom:12px">
       <span class="sh-title">Market Summary</span>
       <div class="nv-toggle">
-        <button class="nvtog-btn active" id="nvtog-table" onclick="setNatlView('table')">&#9776; Table</button>
-        <button class="nvtog-btn" id="nvtog-map" onclick="setNatlView('map')">&#9737; Map</button>
+        <button class="nvtog-btn" id="nvtog-table" onclick="setNatlView('table')">&#9776; Table</button>
+        <button class="nvtog-btn active" id="nvtog-map" onclick="setNatlView('map')">&#9737; Map</button>
       </div>
     </div>
-    <div id="natl-table-view">
+    <div id="natl-table-view" style="display:none">
       <div class="ptbl-filters" id="ptbl-filters">
         <div class="ptbl-filter-group">
           <span class="ptbl-filter-lbl">Country</span>
@@ -669,7 +669,7 @@ html.light .pentrack-dot{border-color:#f0f4f8}
       </div>
       <div class="ptbl-pagination" id="ptbl-pagination"></div>
     </div>
-    <div id="natl-map-view" style="display:none">
+    <div id="natl-map-view">
       <div id="ihs-map-container">
         <div class="map-loading" id="map-loading">
           <div class="map-spinner"></div>
